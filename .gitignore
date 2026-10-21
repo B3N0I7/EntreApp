@@ -23,3 +23,8 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 # Playwright
 test-results
+
+# Fichiers txt
+fichierstxt/*
+!fichierstxt/le tourisme et les voyages.txt
+!fichierstxt/les relations familiales et l amour.txt

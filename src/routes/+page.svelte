@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { resolve } from '$app/paths';
 	import { drawPerson, PEOPLE } from '../lib/draw';
 
 	let available = $state<string[]>([...PEOPLE]);
@@ -25,22 +24,17 @@
 </svelte:head>
 
 <div class="app-shell">
-	<header class="topbar">
-		<a class="brand" href={resolve('/')} aria-label="Accueil, Tirage au sort">
-			<span class="brand-mark" aria-hidden="true">14</span>
-			<span>TIRAGE</span>
-		</a>
-		<div class="cycle-indicator" aria-live="polite">
-			<span class="cycle-dot" aria-hidden="true"></span>
-			Cycle {String(cycleNumber).padStart(2, '0')}
-		</div>
-	</header>
-
 	<main>
 		<section class="draw-stage" aria-labelledby="page-title">
-			<div class="stage-copy">
-				<p class="eyebrow">Le groupe · 14 personnes</p>
-				<h1 id="page-title">À qui<br />le tour<span class="title-mark">?</span></h1>
+			<div class="stage-heading">
+				<div class="stage-copy">
+					<p class="eyebrow">Le groupe · 14 personnes</p>
+					<h1 id="page-title">À qui<br />le tour<span class="title-mark">?</span></h1>
+				</div>
+				<div class="cycle-indicator" aria-live="polite">
+					<span class="cycle-dot" aria-hidden="true"></span>
+					Cycle {String(cycleNumber).padStart(2, '0')}
+				</div>
 			</div>
 
 			<div class="result-panel">
@@ -96,54 +90,10 @@
 </div>
 
 <style>
-	:global(*) {
-		box-sizing: border-box;
-	}
-
-	:global(body) {
-		margin: 0;
-		background: #edf2ec;
-		color: #182c25;
-		font-family: 'Avenir Next', 'Trebuchet MS', sans-serif;
-	}
-
-	:global(button) {
-		font: inherit;
-	}
-
 	.app-shell {
 		min-height: 100vh;
 		padding: 0 clamp(1.25rem, 6vw, 6.5rem);
 		background-image: linear-gradient(115deg, rgb(255 255 255 / 0.28), transparent 45%);
-	}
-
-	.topbar {
-		height: 5.25rem;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		border-bottom: 1px solid #ccd7ce;
-	}
-
-	.brand {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.75rem;
-		color: inherit;
-		font-size: 0.78rem;
-		font-weight: 800;
-		text-decoration: none;
-		letter-spacing: 0;
-	}
-
-	.brand-mark {
-		display: grid;
-		width: 2rem;
-		aspect-ratio: 1;
-		place-items: center;
-		background: #f15d43;
-		color: #fffaf0;
-		font-size: 0.76rem;
 	}
 
 	.cycle-indicator {
@@ -176,6 +126,18 @@
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
+	}
+
+	.stage-heading {
+		width: 100%;
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 1rem;
+	}
+
+	.stage-copy {
+		min-width: 0;
 	}
 
 	.eyebrow {
@@ -405,6 +367,11 @@
 
 		.result-panel {
 			min-height: 11rem;
+		}
+
+		.cycle-indicator {
+			gap: 0.4rem;
+			font-size: 0.72rem;
 		}
 
 		h1 {
