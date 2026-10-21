@@ -28,3 +28,5 @@ test-results
 fichierstxt/*
 !fichierstxt/le tourisme et les voyages.txt
 !fichierstxt/les relations familiales et l amour.txt
+!fichierstxt/liste de 30 verbes.txt
+!fichierstxt/conjugaison de 30 verbes.txt

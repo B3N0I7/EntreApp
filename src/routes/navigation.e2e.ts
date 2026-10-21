@@ -15,6 +15,13 @@ test('desktop navigation opens each section', async ({ page }) => {
 	await expect(page.getByText('Carte 1 / 116')).toBeVisible();
 	await navigation.getByRole('link', { name: 'Donne la définition' }).click();
 	await expect(page.getByRole('heading', { name: 'Retrouve le mot' })).toBeVisible();
+	await navigation.getByRole('link', { name: 'Conjugaison' }).click();
+	await expect(page.getByRole('heading', { name: 'Conjugaison' })).toBeVisible();
+	await page.getByRole('combobox', { name: 'Verbe' }).selectOption('être');
+	await page.getByRole('combobox', { name: 'Temps' }).selectOption('Plus-que-parfait');
+	await page.getByRole('button', { name: 'Commencer' }).click();
+	await expect(page.getByRole('heading', { name: 'être' })).toBeVisible();
+	await expect(page.getByRole('region').getByText('Plus-que-parfait')).toBeVisible();
 	await navigation.getByRole('link', { name: 'Tirage au sort' }).click();
 	await expect(page.getByRole('heading', { name: 'À qui le tour?' })).toBeVisible();
 });
@@ -37,7 +44,7 @@ test('mobile navigation opens, closes with Escape, and closes after navigation',
 	await expect(navigation).toBeHidden();
 
 	await page.getByRole('button', { name: 'Ouvrir le menu' }).click();
-	await navigation.getByRole('link', { name: 'Trouve la définition' }).click();
-	await expect(page.getByRole('heading', { name: 'Trouve la définition' })).toBeVisible();
+	await navigation.getByRole('link', { name: 'Conjugaison' }).click();
+	await expect(page.getByRole('heading', { name: 'Conjugaison' })).toBeVisible();
 	await expect(navigation).toBeHidden();
 });

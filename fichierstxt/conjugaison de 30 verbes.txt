@@ -1,0 +1,182 @@
+1. Être
+Présent : je suis, tu es, il/elle est, nous sommes, vous êtes, ils/elles sont
+Passé composé : j'ai été, tu as été, il/elle a été, nous avons été, vous avez été, ils/elles ont été
+Imparfait : j'étais, tu étais, il/elle était, nous étions, vous étiez, ils/elles étaient
+Plus-que-parfait : j'avais été, tu avais été, il/elle avait été, nous avions été, vous aviez été, ils/elles avaient été
+Futur simple : je serai, tu seras, il/elle sera, nous serons, vous serez, ils/elles seront
+2. Avoir
+Présent : j'ai, tu as, il/elle a, nous avons, vous avez, ils/elles ont
+Passé composé : j'ai eu, tu as eu, il/elle a eu, nous avons eu, vous avez eu, ils/elles ont eu
+Imparfait : j'avais, tu avais, il/elle avait, nous avions, vous aviez, ils/elles avaient
+Plus-que-parfait : j'avais eu, tu avais eu, il/elle avait eu, nous avions eu, vous aviez eu, ils/elles avaient eu
+Futur simple : j'aurai, tu auras, il/elle aura, nous aurons, vous aurez, ils/elles auront
+3. Faire
+Présent : je fais, tu fais, il/elle fait, nous faisons, vous faites, ils/elles font
+Passé composé : j'ai fait, tu as fait, il/elle a fait, nous avons fait, vous avez fait, ils/elles ont fait
+Imparfait : je faisais, tu faisais, il/elle faisait, nous faisions, vous faisiez, ils/elles faisaient
+Plus-que-parfait : j'avais fait, tu avais fait, il/elle avait fait, nous avions fait, vous aviez fait, ils/elles avaient fait
+Futur simple : je ferai, tu feras, il/elle fera, nous ferons, vous ferez, ils/elles feront
+4. Dire
+Présent : je dis, tu dis, il/elle dit, nous disons, vous dites, ils/elles disent
+Passé composé : j'ai dit, tu as dit, il/elle a dit, nous avons dit, vous avez dit, ils/elles ont dit
+Imparfait : je disais, tu disais, il/elle disait, nous disions, vous disiez, ils/elles disaient
+Plus-que-parfait : j'avais dit, tu avais dit, il/elle avait dit, nous avions dit, vous aviez dit, ils/elles avaient dit
+Futur simple : je dirai, tu diras, il/elle dira, nous dirons, vous direz, ils/elles diront
+5. Aller (se conjugue avec l'auxiliaire être)
+Présent : je vais, tu vas, il/elle va, nous allons, vous allez, ils/elles vont
+Passé composé : je suis allé(e), tu es allé(e), il/elle est allé(e), nous sommes allé(e)s, vous êtes allé(e)(s), ils/elles sont allé(e)s
+Imparfait : j'allais, tu allais, il/elle allait, nous allions, vous alliez, ils/elles allaient
+Plus-que-parfait : j'étais allé(e), tu étais allé(e), il/elle était allé(e), nous étions allé(e)s, vous étiez allé(e)(s), ils/elles étaient allé(e)s
+Futur simple : j'irai, tu iras, il/elle ira, nous irons, vous irez, ils/elles iront
+6. Voir
+Présent : je vois, tu vois, il/elle voit, nous voyons, vous voyez, ils/elles voient
+Passé composé : j'ai vu, tu as vu, il/elle a vu, nous avons vu, vous avez vu, ils/elles ont vu
+Imparfait : je voyais, tu voyais, il/elle voyait, nous voyions, vous voyiez, ils/elles voyaient
+Plus-que-parfait : j'avais vu, tu avais vu, il/elle avait vu, nous avions vu, vous aviez vu, ils/elles avaient vu
+Futur simple : je verrai, tu verras, il/elle verra, nous verrons, vous verrez, ils/elles verront
+7. Savoir
+Présent : je sais, tu sais, il/elle sait, nous savons, vous savez, ils/elles savent
+Passé composé : j'ai su, tu as su, il/elle a su, nous avons su, vous avez su, ils/elles ont su
+Imparfait : je savais, tu savais, il/elle savait, nous savions, vous saviez, ils/elles savaient
+Plus-que-parfait : j'avais su, tu avais su, il/elle avait su, nous avions su, vous aviez su, ils/elles avaient su
+Futur simple : je saurai, tu sauras, il/elle saura, nous saurons, vous saurez, ils/elles sauront
+8. Pouvoir
+Présent : je peux (ou je puis), tu peux, il/elle peut, nous pouvons, vous pouvez, ils/elles peuvent
+Passé composé : j'ai pu, tu as pu, il/elle a pu, nous avons pu, vous avez pu, ils/elles ont pu
+Imparfait : je pouvais, tu pouvais, il/elle pouvait, nous pouvions, vous pouviez, ils/elles pouvaient
+Plus-que-parfait : j'avais pu, tu avais pu, il/elle avait pu, nous avions pu, vous aviez pu, ils/elles avaient pu
+Futur simple : je pourrai, tu pourras, il/elle pourra, nous pourrons, vous pourrez, ils/elles pourront
+9. Falloir (verbe impersonnel)
+Présent : il faut
+Passé composé : il a fallu
+Imparfait : il fallait
+Plus-que-parfait : il avait fallu
+Futur simple : il faudra
+10. Vouloir
+Présent : je veux, tu veux, il/elle veut, nous voulons, vous voulez, ils/elles veulent
+Passé composé : j'ai voulu, tu as voulu, il/elle a voulu, nous avons voulu, vous avez voulu, ils/elles ont voulu
+Imparfait : je voulais, tu voulais, il/elle voulait, nous voulions, vous vouliez, ils/elles voulaient
+Plus-que-parfait : j'avais voulu, tu avais voulu, il/elle avait voulu, nous avions voulu, vous aviez voulu, ils/elles avaient voulu
+Futur simple : je voudrai, tu voudras, il/elle voudra, nous voudrons, vous voudrez, ils/elles voudront
+11. Venir (se conjugue avec l'auxiliaire être)
+Présent : je viens, tu viens, il/elle vient, nous venons, vous venez, ils/elles viennent
+Passé composé : je suis venu(e), tu es venu(e), il/elle est venu(e), nous sommes venu(e)s, vous êtes venu(e)(s), ils/elles sont venu(e)s
+Imparfait : je venais, tu venais, il/elle venait, nous venions, vous veniez, ils/elles venaient
+Plus-que-parfait : j'étais venu(e), tu étais venu(e), il/elle était venu(e), nous étions venu(e)s, vous étiez venu(e)(s), ils/elles étaient venu(e)s
+Futur simple : je viendrai, tu viendras, il/elle viendra, nous viendrons, vous viendrez, ils/elles viendront
+12. Prendre
+Présent : je prends, tu prends, il/elle prend, nous prenons, vous prenez, ils/elles prennent
+Passé composé : j'ai pris, tu as pris, il/elle a pris, nous avons pris, vous avez pris, ils/elles ont pris
+Imparfait : je prenais, tu prenais, il/elle prenait, nous prenions, vous preniez, ils/elles prenaient
+Plus-que-parfait : j'avais pris, tu avais pris, il/elle avait pris, nous avions pris, vous aviez pris, ils/elles avaient pris
+Futur simple : je prendrai, tu prendras, il/elle prendra, nous prendrons, vous prendrez, ils/elles prendront
+13. Arriver (se conjugue avec l'auxiliaire être)
+Présent : j'arrive, tu arrives, il/elle arrive, nous arrivons, vous arrivez, ils/elles arrivent
+Passé composé : je suis arrivé(e), tu es arrivé(e), il/elle est arrivé(e), nous sommes arrivé(e)s, vous êtes arrivé(e)(s), ils/elles sont arrivé(e)s
+Imparfait : j'arrivais, tu arrivais, il/elle arrivait, nous arrivions, vous arriviez, ils/elles arrivaient
+Plus-que-parfait : j'étais arrivé(e), tu étais arrivé(e), il/elle était arrivé(e), nous étions arrivé(e)s, vous étiez arrivé(e)(s), ils/elles étaient arrivé(e)s
+Futur simple : j'arriverai, tu arriveras, il/elle arrivera, nous arriverons, vous arriverez, ils/elles arriveront
+14. Croire
+Présent : je crois, tu crois, il/elle croit, nous croyons, vous croyez, ils/elles croient
+Passé composé : j'ai cru, tu as cru, il/elle a cru, nous avons cru, vous avez cru, ils/elles ont cru
+Imparfait : je croyais, tu croyais, il/elle croyait, nous croyions, vous croyiez, ils/elles croyaient
+Plus-que-parfait : j'avais cru, tu avais cru, il/elle avait cru, nous avions cru, vous aviez cru, ils/elles avaient cru
+Futur simple : je croirai, tu croiras, il/elle croira, nous croirons, vous croirez, ils/elles croiront
+15. Mettre
+Présent : je mets, tu mets, il/elle met, nous mettons, vous mettez, ils/elles mettent
+Passé composé : j'ai mis, tu as mis, il/elle a mis, nous avons mis, vous avez mis, ils/elles ont mis
+Imparfait : je mettais, tu mettais, il/elle mettait, nous mettions, vous mettiez, ils/elles mettaient
+Plus-que-parfait : j'avais mis, tu avais mis, il/elle avait mis, nous avions mis, vous aviez mis, ils/elles avaient mis
+Futur simple : je mettrai, tu mettras, il/elle mettra, nous mettrons, vous mettrez, ils/elles mettront
+16. Passer
+(Se conjugue le plus souvent avec avoir, ou avec être dans le sens intransitif de déplacement)
+
+Présent : je passe, tu passes, il/elle passe, nous passons, vous passez, ils/elles passent
+Passé composé : j'ai passé (ou je suis passé(e)), tu as passé, il/elle a passé, nous avons passé, vous avez passé, ils/elles ont passé
+Imparfait : je passais, tu passais, il/elle passait, nous passions, vous passiez, ils/elles passaient
+Plus-que-parfait : j'avais passé (ou j'étais passé(e)), tu avais passé, il/elle avait passé, nous avions passé, vous aviez passé, ils/elles avaient passé
+Futur simple : je passerai, tu passeras, il/elle passera, nous passerons, vous passerez, ils/elles passeront
+17. Devoir
+Présent : je dois, tu dois, il/elle doit, nous devons, vous devez, ils/elles doivent
+Passé composé : j'ai dû, tu as dû, il/elle a dû, nous avons dû, vous avez dû, ils/elles ont dû
+Imparfait : je devais, tu devais, il/elle devait, nous devions, vous deviez, ils/elles devaient
+Plus-que-parfait : j'avais dû, tu avais dû, il/elle avait dû, nous avions dû, vous aviez dû, ils/elles avaient dû
+Futur simple : je devrai, tu devras, il/elle devra, nous devrons, vous devrez, ils/elles devront
+18. Parler
+Présent : je parle, tu parles, il/elle parle, nous parlons, vous parlez, ils/elles parlent
+Passé composé : j'ai parlé, tu as parlé, il/elle a parlé, nous avons parlé, vous avez parlé, ils/elles ont parlé
+Imparfait : je parlais, tu parlais, il/elle parlait, nous parlions, vous parliez, ils/elles parlaient
+Plus-que-parfait : j'avais parlé, tu avais parlé, il/elle avait parlé, nous avions parlé, vous aviez parlé, ils/elles avaient parlé
+Futur simple : je parlerai, tu parleras, il/elle parlera, nous parlerons, vous parlerez, ils/elles parleront
+19. Trouver
+Présent : je trouve, tu trouves, il/elle trouve, nous trouvons, vous trouvez, ils/elles trouvent
+Passé composé : j'ai trouvé, tu as trouvé, il/elle a trouvé, nous avons trouvé, vous avez trouvé, ils/elles ont trouvé
+Imparfait : je trouvais, tu trouvais, il/elle trouvait, nous trouvions, vous trouviez, ils/elles trouvaient
+Plus-que-parfait : j'avais trouvé, tu avais trouvé, il/elle avait trouvé, nous avions trouvé, vous aviez trouvé, ils/elles avaient trouvé
+Futur simple : je trouverai, tu trouveras, il/elle trouvera, nous trouverons, vous trouverez, ils/elles trouveront
+20. Donner
+Présent : je donne, tu donnes, il/elle donne, nous donnons, vous donnez, ils/elles donnent
+Passé composé : j'ai donné, tu as donné, il/elle a donné, nous avons donné, vous avez donné, ils/elles ont donné
+Imparfait : je donnais, tu donnais, il/elle donnait, nous donnions, vous donniez, ils/elles donnaient
+Plus-que-parfait : j'avais donné, tu avais donné, il/elle avait donné, nous avions donné, vous aviez donné, ils/elles avaient donné
+Futur simple : je donnerai, tu donneras, il/elle donnera, nous donnerons, vous donnerez, ils/elles donneront
+21. Comprendre
+Présent : je comprends, tu comprends, il/elle comprend, nous comprenons, vous comprenez, ils/elles comprennent
+Passé composé : j'ai compris, tu as compris, il/elle a compris, nous avons compris, vous avez compris, ils/elles ont compris
+Imparfait : je comprenais, tu comprenais, il/elle comprenait, nous comprenions, vous compreniez, ils/elles comprenaient
+Plus-que-parfait : j'avais compris, tu avais compris, il/elle avait compris, nous avions compris, vous aviez compris, ils/elles avaient compris
+**Futur simple :**je comprendrai, tu comprendras, il/elle comprendra, nous comprendrons, vous comprendrez, ils/elles comprendront
+22. Connaître
+Présent : je connais, tu connais, il/elle connaît, nous connaissons, vous connaissez, ils/elles connaissent
+Passé composé : j'ai connu, tu as connu, il/elle a connu, nous avons connu, vous avez connu, ils/elles ont connu
+Imparfait : je connaissais, tu connaissais, il/elle connaissait, nous connaissions, vous connaissiez, ils/elles connaissaient
+Plus-que-parfait : j'avais connu, tu avais connu, il/elle avait connu, nous avions connu, vous aviez connu, ils/elles avaient connu
+Futur simple : je connaîtrai, tu connaîtras, il/elle connaîtra, nous connaîtrons, vous connaîtrez, ils/elles connaîtront
+23. Partir (se conjugue avec l'auxiliaire être)
+Présent : je pars, tu pars, il/elle part, nous partons, vous partez, ils/elles partent
+Passé composé : je suis parti(e), tu es parti(e), il/elle est parti(e), nous sommes parti(e)s, vous êtes parti(e)(s), ils/elles sont parti(e)s
+Imparfait : je partais, tu partais, il/elle partait, nous partions, vous partiez, ils/elles partaient
+Plus-que-parfait : j'étais parti(e), tu étais parti(e), il/elle était parti(e), nous étions parti(e)s, vous étiez parti(e)(s), ils/elles étaient parti(e)s
+Futur simple : je partirai, tu partiras, il/elle partira, nous partirons, vous partirez, ils/elles partiront
+24. Demander
+Présent : je demande, tu demandes, il/elle demande, nous demandons, vous demandez, ils/elles demandent
+Passé composé : j'ai demandé, tu as demandé, il/elle a demandé, nous avons demandé, vous avez demandé, ils/elles ont demandé
+Imparfait : je demandais, tu demandais, il/elle demandait, nous demandions, vous demandiez, ils/elles demandaient
+Plus-que-parfait : j'avais demandé, tu avais demandé, il/elle avait demandé, nous avions demandé, vous aviez demandé, ils/elles avaient demandé
+Futur simple : je demanderai, tu demanderas, il/elle demandera, nous demanderons, vous demanderez, ils/elles demanderont
+25. Tenir
+Présent : je tiens, tu tiens, il/elle tient, nous tenons, vous tenez, ils/elles tiennent
+Passé composé : j'ai tenu, tu as tenu, il/elle a tenu, nous avons tenu, vous avez tenu, ils/elles ont tenu
+Imparfait : je tenais, tu tenais, il/elle tenait, nous tenions, vous teniez, ils/elles tenaient
+Plus-que-parfait : j'avais tenu, tu avais tenu, il/elle avait tenu, nous avions tenu, vous aviez tenu, ils/elles avaient tenu
+Futur simple : je tiendrai, tu tiendras, il/elle tiendra, nous tiendrons, vous tiendrez, ils/elles tiendront
+26. Aimer
+Présent : j'aime, tu aimes, il/elle aime, nous aimons, vous aimez, ils/elles aiment
+Passé composé : j'ai aimé, tu as aimé, il/elle a aimé, nous avons aimé, vous avez aimé, ils/elles ont aimé
+Imparfait : j'aimais, tu aimais, il/elle aimait, nous aimions, vous aimiez, ils/elles aimaient
+Plus-que-parfait : j'avais aimé, tu avais aimé, il/elle avait aimé, nous avions aimé, vous aviez aimé, ils/elles avaient aimé
+Futur simple : j'aimerai, tu aimeras, il/elle aimera, nous aimerons, vous aimerez, ils/elles aimeront
+27. Penser
+Présent : je pense, tu penses, il/elle pense, nous pensons, vous pensez, ils/elles pensent
+Passé composé : j'ai pensé, tu as pensé, il/elle a pensé, nous avons pensé, vous avez pensé, ils/elles ont pensé
+Imparfait : je pensais, tu pensais, il/elle pensait, nous pensions, vous pensiez, ils/elles pensaient
+Plus-que-parfait : j'avais pensé, tu avais pensé, il/elle avait pensé, nous avions pensé, vous aviez pensé, ils/elles avaient pensé
+Futur simple : je penserai, tu penseras, il/elle pensera, nous penserons, vous penserez, ils/elles penseront
+28. Rester (se conjugue avec l'auxiliaire être)
+Présent : je reste, tu restes, il/elle reste, nous restons, vous restez, ils/elles restent
+Passé composé : je suis resté(e), tu es resté(e), il/elle est resté(e), nous sommes resté(e)s, vous êtes resté(e)(s), ils/elles sont resté(e)s
+Imparfait : je restais, tu restais, il/elle restait, nous restions, vous restiez, ils/elles restaient
+Plus-que-parfait : j'étais resté(e), tu étais resté(e), il/elle était resté(e), nous étions resté(e)s, vous étiez resté(e)(s), ils/elles étaient resté(e)s
+Futur simple : je resterai, tu resteras, il/elle restera, nous resterons, vous resterez, ils/elles resteront
+29. Manger
+Présent : je mange, tu manges, il/elle mange, nous mangeons, vous mangez, ils/elles mangent
+Passé composé : j'ai mangé, tu as mangé, il/elle a mangé, nous avons mangé, vous avez mangé, ils/elles ont mangé
+Imparfait : je mangeais, tu mangeais, il/elle mangeait, nous mangions, vous mangiez, ils/elles mangeaient
+Plus-que-parfait : j'avais mangé, tu avais mangé, il/elle avait mangé, nous avions mangé, vous aviez mangé, ils/elles avaient mangé
+Futur simple : je mangerai, tu mangeras, il/elle mangera, nous mangerons, vous mangerez, ils/elles mangeront
+30. Appeler
+Présent : j'appelle, tu appelles, il/elle appelle, nous appelons, vous appelez, ils/elles appellent
+Passé composé : j'ai appelé, tu as appelé, il/elle a appelé, nous avons appelé, vous avez appelé, ils/elles ont appelé
+Imparfait : j'appelais, tu appelais, il/elle appelait, nous appelions, vous appeliez, ils/elles appelaient
+Plus-que-parfait : j'avais appelé, tu avais appelé, il/elle avait appelé, nous avions appelé, vous aviez appelé, ils/elles avaient appelé
+Futur simple : j'appellerai, tu appelleras, il/elle appellera, nous appellerons, vous appellerez, ils/elles appelleront

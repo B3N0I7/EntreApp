@@ -1,0 +1,2103 @@
+{
+	"schemaVersion": 1,
+	"persons": ["je", "tu", "il", "elle", "nous", "vous", "ils", "elles"],
+	"tenses": [
+		{
+			"id": "present",
+			"label": "Présent"
+		},
+		{
+			"id": "passeCompose",
+			"label": "Passé composé"
+		},
+		{
+			"id": "imparfait",
+			"label": "Imparfait"
+		},
+		{
+			"id": "plusQueParfait",
+			"label": "Plus-que-parfait"
+		},
+		{
+			"id": "futurSimple",
+			"label": "Futur simple"
+		},
+		{
+			"id": "futurProche",
+			"label": "Futur proche",
+			"derivedFrom": "Présent d’aller + infinitif"
+		}
+	],
+	"verbs": [
+		{
+			"id": "etre",
+			"infinitive": "être",
+			"impersonal": false,
+			"notes": [
+				"Le verbe « être » est un verbe très important qui a plusieurs utilisations différentes.",
+				"Il est utilisé pour qualifier : Je suis sympa. Vous êtes français.",
+				"Il est également utilisé pour situer : Je suis à Bordeaux.",
+				"Il sert aussi d’auxiliaire : Je suis parti.",
+				"Enfin, il sert à construire la voix passive : La maison est peinte par Jean."
+			],
+			"conjugations": {
+				"present": {
+					"je": ["je suis"],
+					"tu": ["tu es"],
+					"il": ["il est"],
+					"elle": ["elle est"],
+					"nous": ["nous sommes"],
+					"vous": ["vous êtes"],
+					"ils": ["ils sont"],
+					"elles": ["elles sont"]
+				},
+				"passeCompose": {
+					"je": ["j'ai été"],
+					"tu": ["tu as été"],
+					"il": ["il a été"],
+					"elle": ["elle a été"],
+					"nous": ["nous avons été"],
+					"vous": ["vous avez été"],
+					"ils": ["ils ont été"],
+					"elles": ["elles ont été"]
+				},
+				"imparfait": {
+					"je": ["j'étais"],
+					"tu": ["tu étais"],
+					"il": ["il était"],
+					"elle": ["elle était"],
+					"nous": ["nous étions"],
+					"vous": ["vous étiez"],
+					"ils": ["ils étaient"],
+					"elles": ["elles étaient"]
+				},
+				"plusQueParfait": {
+					"je": ["j'avais été"],
+					"tu": ["tu avais été"],
+					"il": ["il avait été"],
+					"elle": ["elle avait été"],
+					"nous": ["nous avions été"],
+					"vous": ["vous aviez été"],
+					"ils": ["ils avaient été"],
+					"elles": ["elles avaient été"]
+				},
+				"futurSimple": {
+					"je": ["je serai"],
+					"tu": ["tu seras"],
+					"il": ["il sera"],
+					"elle": ["elle sera"],
+					"nous": ["nous serons"],
+					"vous": ["vous serez"],
+					"ils": ["ils seront"],
+					"elles": ["elles seront"]
+				},
+				"futurProche": {
+					"je": ["je vais être"],
+					"tu": ["tu vas être"],
+					"il": ["il va être"],
+					"elle": ["elle va être"],
+					"nous": ["nous allons être"],
+					"vous": ["vous allez être"],
+					"ils": ["ils vont être"],
+					"elles": ["elles vont être"]
+				}
+			}
+		},
+		{
+			"id": "avoir",
+			"infinitive": "avoir",
+			"impersonal": false,
+			"notes": [
+				"Au même titre que le verbe « être », le verbe « avoir » est aussi très important et a différentes utilisations.",
+				"Il sert à exprimer la possession : J’ai un ami.",
+				"Il sert aussi à exprimer l’âge : Vous avez dix ans.",
+				"Il est utilisé en tant qu’auxiliaire : J’ai mangé un sandwich.",
+				"Il est utilisé dans différentes expressions : Il y a, j’ai faim, j’ai froid, j’ai peur…"
+			],
+			"conjugations": {
+				"present": {
+					"je": ["j'ai"],
+					"tu": ["tu as"],
+					"il": ["il a"],
+					"elle": ["elle a"],
+					"nous": ["nous avons"],
+					"vous": ["vous avez"],
+					"ils": ["ils ont"],
+					"elles": ["elles ont"]
+				},
+				"passeCompose": {
+					"je": ["j'ai eu"],
+					"tu": ["tu as eu"],
+					"il": ["il a eu"],
+					"elle": ["elle a eu"],
+					"nous": ["nous avons eu"],
+					"vous": ["vous avez eu"],
+					"ils": ["ils ont eu"],
+					"elles": ["elles ont eu"]
+				},
+				"imparfait": {
+					"je": ["j'avais"],
+					"tu": ["tu avais"],
+					"il": ["il avait"],
+					"elle": ["elle avait"],
+					"nous": ["nous avions"],
+					"vous": ["vous aviez"],
+					"ils": ["ils avaient"],
+					"elles": ["elles avaient"]
+				},
+				"plusQueParfait": {
+					"je": ["j'avais eu"],
+					"tu": ["tu avais eu"],
+					"il": ["il avait eu"],
+					"elle": ["elle avait eu"],
+					"nous": ["nous avions eu"],
+					"vous": ["vous aviez eu"],
+					"ils": ["ils avaient eu"],
+					"elles": ["elles avaient eu"]
+				},
+				"futurSimple": {
+					"je": ["j'aurai"],
+					"tu": ["tu auras"],
+					"il": ["il aura"],
+					"elle": ["elle aura"],
+					"nous": ["nous aurons"],
+					"vous": ["vous aurez"],
+					"ils": ["ils auront"],
+					"elles": ["elles auront"]
+				},
+				"futurProche": {
+					"je": ["je vais avoir"],
+					"tu": ["tu vas avoir"],
+					"il": ["il va avoir"],
+					"elle": ["elle va avoir"],
+					"nous": ["nous allons avoir"],
+					"vous": ["vous allez avoir"],
+					"ils": ["ils vont avoir"],
+					"elles": ["elles vont avoir"]
+				}
+			}
+		},
+		{
+			"id": "faire",
+			"infinitive": "faire",
+			"impersonal": false,
+			"notes": [
+				"Le verbe « faire » est utilisé pour dire ce que l’on fait : Je fais du sport.",
+				"On l’utilise aussi pour parler du temps : Il fait beau.",
+				"Il est aussi utilisé dans certaines constructions passives : Il se fait engueuler par ses parents."
+			],
+			"conjugations": {
+				"present": {
+					"je": ["je fais"],
+					"tu": ["tu fais"],
+					"il": ["il fait"],
+					"elle": ["elle fait"],
+					"nous": ["nous faisons"],
+					"vous": ["vous faites"],
+					"ils": ["ils font"],
+					"elles": ["elles font"]
+				},
+				"passeCompose": {
+					"je": ["j'ai fait"],
+					"tu": ["tu as fait"],
+					"il": ["il a fait"],
+					"elle": ["elle a fait"],
+					"nous": ["nous avons fait"],
+					"vous": ["vous avez fait"],
+					"ils": ["ils ont fait"],
+					"elles": ["elles ont fait"]
+				},
+				"imparfait": {
+					"je": ["je faisais"],
+					"tu": ["tu faisais"],
+					"il": ["il faisait"],
+					"elle": ["elle faisait"],
+					"nous": ["nous faisions"],
+					"vous": ["vous faisiez"],
+					"ils": ["ils faisaient"],
+					"elles": ["elles faisaient"]
+				},
+				"plusQueParfait": {
+					"je": ["j'avais fait"],
+					"tu": ["tu avais fait"],
+					"il": ["il avait fait"],
+					"elle": ["elle avait fait"],
+					"nous": ["nous avions fait"],
+					"vous": ["vous aviez fait"],
+					"ils": ["ils avaient fait"],
+					"elles": ["elles avaient fait"]
+				},
+				"futurSimple": {
+					"je": ["je ferai"],
+					"tu": ["tu feras"],
+					"il": ["il fera"],
+					"elle": ["elle fera"],
+					"nous": ["nous ferons"],
+					"vous": ["vous ferez"],
+					"ils": ["ils feront"],
+					"elles": ["elles feront"]
+				},
+				"futurProche": {
+					"je": ["je vais faire"],
+					"tu": ["tu vas faire"],
+					"il": ["il va faire"],
+					"elle": ["elle va faire"],
+					"nous": ["nous allons faire"],
+					"vous": ["vous allez faire"],
+					"ils": ["ils vont faire"],
+					"elles": ["elles vont faire"]
+				}
+			}
+		},
+		{
+			"id": "dire",
+			"infinitive": "dire",
+			"impersonal": false,
+			"notes": [
+				"Par exemple : Je dis la vérité.",
+				"Il peut servir aussi à construire le discours rapporté : Il dit que vous êtes français."
+			],
+			"conjugations": {
+				"present": {
+					"je": ["je dis"],
+					"tu": ["tu dis"],
+					"il": ["il dit"],
+					"elle": ["elle dit"],
+					"nous": ["nous disons"],
+					"vous": ["vous dites"],
+					"ils": ["ils disent"],
+					"elles": ["elles disent"]
+				},
+				"passeCompose": {
+					"je": ["j'ai dit"],
+					"tu": ["tu as dit"],
+					"il": ["il a dit"],
+					"elle": ["elle a dit"],
+					"nous": ["nous avons dit"],
+					"vous": ["vous avez dit"],
+					"ils": ["ils ont dit"],
+					"elles": ["elles ont dit"]
+				},
+				"imparfait": {
+					"je": ["je disais"],
+					"tu": ["tu disais"],
+					"il": ["il disait"],
+					"elle": ["elle disait"],
+					"nous": ["nous disions"],
+					"vous": ["vous disiez"],
+					"ils": ["ils disaient"],
+					"elles": ["elles disaient"]
+				},
+				"plusQueParfait": {
+					"je": ["j'avais dit"],
+					"tu": ["tu avais dit"],
+					"il": ["il avait dit"],
+					"elle": ["elle avait dit"],
+					"nous": ["nous avions dit"],
+					"vous": ["vous aviez dit"],
+					"ils": ["ils avaient dit"],
+					"elles": ["elles avaient dit"]
+				},
+				"futurSimple": {
+					"je": ["je dirai"],
+					"tu": ["tu diras"],
+					"il": ["il dira"],
+					"elle": ["elle dira"],
+					"nous": ["nous dirons"],
+					"vous": ["vous direz"],
+					"ils": ["ils diront"],
+					"elles": ["elles diront"]
+				},
+				"futurProche": {
+					"je": ["je vais dire"],
+					"tu": ["tu vas dire"],
+					"il": ["il va dire"],
+					"elle": ["elle va dire"],
+					"nous": ["nous allons dire"],
+					"vous": ["vous allez dire"],
+					"ils": ["ils vont dire"],
+					"elles": ["elles vont dire"]
+				}
+			}
+		},
+		{
+			"id": "aller",
+			"infinitive": "aller",
+			"impersonal": false,
+			"notes": [
+				"Je vais bien.",
+				"Je vais à Paris.",
+				"Il est aussi utilisé pour former le futur proche : Je vais faire ça demain."
+			],
+			"conjugations": {
+				"present": {
+					"je": ["je vais"],
+					"tu": ["tu vas"],
+					"il": ["il va"],
+					"elle": ["elle va"],
+					"nous": ["nous allons"],
+					"vous": ["vous allez"],
+					"ils": ["ils vont"],
+					"elles": ["elles vont"]
+				},
+				"passeCompose": {
+					"je": ["je suis allée", "je suis allé"],
+					"tu": ["tu es allée", "tu es allé"],
+					"il": ["il est allé"],
+					"elle": ["elle est allée"],
+					"nous": ["nous sommes allées", "nous sommes allés"],
+					"vous": ["vous êtes allées", "vous êtes allée", "vous êtes allés", "vous êtes allé"],
+					"ils": ["ils sont allés"],
+					"elles": ["elles sont allées"]
+				},
+				"imparfait": {
+					"je": ["j'allais"],
+					"tu": ["tu allais"],
+					"il": ["il allait"],
+					"elle": ["elle allait"],
+					"nous": ["nous allions"],
+					"vous": ["vous alliez"],
+					"ils": ["ils allaient"],
+					"elles": ["elles allaient"]
+				},
+				"plusQueParfait": {
+					"je": ["j'étais allée", "j'étais allé"],
+					"tu": ["tu étais allée", "tu étais allé"],
+					"il": ["il était allé"],
+					"elle": ["elle était allée"],
+					"nous": ["nous étions allées", "nous étions allés"],
+					"vous": ["vous étiez allées", "vous étiez allée", "vous étiez allés", "vous étiez allé"],
+					"ils": ["ils étaient allés"],
+					"elles": ["elles étaient allées"]
+				},
+				"futurSimple": {
+					"je": ["j'irai"],
+					"tu": ["tu iras"],
+					"il": ["il ira"],
+					"elle": ["elle ira"],
+					"nous": ["nous irons"],
+					"vous": ["vous irez"],
+					"ils": ["ils iront"],
+					"elles": ["elles iront"]
+				},
+				"futurProche": {
+					"je": ["je vais aller"],
+					"tu": ["tu vas aller"],
+					"il": ["il va aller"],
+					"elle": ["elle va aller"],
+					"nous": ["nous allons aller"],
+					"vous": ["vous allez aller"],
+					"ils": ["ils vont aller"],
+					"elles": ["elles vont aller"]
+				}
+			}
+		},
+		{
+			"id": "voir",
+			"infinitive": "voir",
+			"impersonal": false,
+			"notes": ["Je vois les enfants dans le parc.", "Vous voyez ce que je veux dire ?"],
+			"conjugations": {
+				"present": {
+					"je": ["je vois"],
+					"tu": ["tu vois"],
+					"il": ["il voit"],
+					"elle": ["elle voit"],
+					"nous": ["nous voyons"],
+					"vous": ["vous voyez"],
+					"ils": ["ils voient"],
+					"elles": ["elles voient"]
+				},
+				"passeCompose": {
+					"je": ["j'ai vu"],
+					"tu": ["tu as vu"],
+					"il": ["il a vu"],
+					"elle": ["elle a vu"],
+					"nous": ["nous avons vu"],
+					"vous": ["vous avez vu"],
+					"ils": ["ils ont vu"],
+					"elles": ["elles ont vu"]
+				},
+				"imparfait": {
+					"je": ["je voyais"],
+					"tu": ["tu voyais"],
+					"il": ["il voyait"],
+					"elle": ["elle voyait"],
+					"nous": ["nous voyions"],
+					"vous": ["vous voyiez"],
+					"ils": ["ils voyaient"],
+					"elles": ["elles voyaient"]
+				},
+				"plusQueParfait": {
+					"je": ["j'avais vu"],
+					"tu": ["tu avais vu"],
+					"il": ["il avait vu"],
+					"elle": ["elle avait vu"],
+					"nous": ["nous avions vu"],
+					"vous": ["vous aviez vu"],
+					"ils": ["ils avaient vu"],
+					"elles": ["elles avaient vu"]
+				},
+				"futurSimple": {
+					"je": ["je verrai"],
+					"tu": ["tu verras"],
+					"il": ["il verra"],
+					"elle": ["elle verra"],
+					"nous": ["nous verrons"],
+					"vous": ["vous verrez"],
+					"ils": ["ils verront"],
+					"elles": ["elles verront"]
+				},
+				"futurProche": {
+					"je": ["je vais voir"],
+					"tu": ["tu vas voir"],
+					"il": ["il va voir"],
+					"elle": ["elle va voir"],
+					"nous": ["nous allons voir"],
+					"vous": ["vous allez voir"],
+					"ils": ["ils vont voir"],
+					"elles": ["elles vont voir"]
+				}
+			}
+		},
+		{
+			"id": "savoir",
+			"infinitive": "savoir",
+			"impersonal": false,
+			"notes": ["Je sais nager."],
+			"conjugations": {
+				"present": {
+					"je": ["je sais"],
+					"tu": ["tu sais"],
+					"il": ["il sait"],
+					"elle": ["elle sait"],
+					"nous": ["nous savons"],
+					"vous": ["vous savez"],
+					"ils": ["ils savent"],
+					"elles": ["elles savent"]
+				},
+				"passeCompose": {
+					"je": ["j'ai su"],
+					"tu": ["tu as su"],
+					"il": ["il a su"],
+					"elle": ["elle a su"],
+					"nous": ["nous avons su"],
+					"vous": ["vous avez su"],
+					"ils": ["ils ont su"],
+					"elles": ["elles ont su"]
+				},
+				"imparfait": {
+					"je": ["je savais"],
+					"tu": ["tu savais"],
+					"il": ["il savait"],
+					"elle": ["elle savait"],
+					"nous": ["nous savions"],
+					"vous": ["vous saviez"],
+					"ils": ["ils savaient"],
+					"elles": ["elles savaient"]
+				},
+				"plusQueParfait": {
+					"je": ["j'avais su"],
+					"tu": ["tu avais su"],
+					"il": ["il avait su"],
+					"elle": ["elle avait su"],
+					"nous": ["nous avions su"],
+					"vous": ["vous aviez su"],
+					"ils": ["ils avaient su"],
+					"elles": ["elles avaient su"]
+				},
+				"futurSimple": {
+					"je": ["je saurai"],
+					"tu": ["tu sauras"],
+					"il": ["il saura"],
+					"elle": ["elle saura"],
+					"nous": ["nous saurons"],
+					"vous": ["vous saurez"],
+					"ils": ["ils sauront"],
+					"elles": ["elles sauront"]
+				},
+				"futurProche": {
+					"je": ["je vais savoir"],
+					"tu": ["tu vas savoir"],
+					"il": ["il va savoir"],
+					"elle": ["elle va savoir"],
+					"nous": ["nous allons savoir"],
+					"vous": ["vous allez savoir"],
+					"ils": ["ils vont savoir"],
+					"elles": ["elles vont savoir"]
+				}
+			}
+		},
+		{
+			"id": "pouvoir",
+			"infinitive": "pouvoir",
+			"impersonal": false,
+			"notes": ["Vous pouvez venir s’il vous plaît ?"],
+			"conjugations": {
+				"present": {
+					"je": ["je peux", "je puis"],
+					"tu": ["tu peux"],
+					"il": ["il peut"],
+					"elle": ["elle peut"],
+					"nous": ["nous pouvons"],
+					"vous": ["vous pouvez"],
+					"ils": ["ils peuvent"],
+					"elles": ["elles peuvent"]
+				},
+				"passeCompose": {
+					"je": ["j'ai pu"],
+					"tu": ["tu as pu"],
+					"il": ["il a pu"],
+					"elle": ["elle a pu"],
+					"nous": ["nous avons pu"],
+					"vous": ["vous avez pu"],
+					"ils": ["ils ont pu"],
+					"elles": ["elles ont pu"]
+				},
+				"imparfait": {
+					"je": ["je pouvais"],
+					"tu": ["tu pouvais"],
+					"il": ["il pouvait"],
+					"elle": ["elle pouvait"],
+					"nous": ["nous pouvions"],
+					"vous": ["vous pouviez"],
+					"ils": ["ils pouvaient"],
+					"elles": ["elles pouvaient"]
+				},
+				"plusQueParfait": {
+					"je": ["j'avais pu"],
+					"tu": ["tu avais pu"],
+					"il": ["il avait pu"],
+					"elle": ["elle avait pu"],
+					"nous": ["nous avions pu"],
+					"vous": ["vous aviez pu"],
+					"ils": ["ils avaient pu"],
+					"elles": ["elles avaient pu"]
+				},
+				"futurSimple": {
+					"je": ["je pourrai"],
+					"tu": ["tu pourras"],
+					"il": ["il pourra"],
+					"elle": ["elle pourra"],
+					"nous": ["nous pourrons"],
+					"vous": ["vous pourrez"],
+					"ils": ["ils pourront"],
+					"elles": ["elles pourront"]
+				},
+				"futurProche": {
+					"je": ["je vais pouvoir"],
+					"tu": ["tu vas pouvoir"],
+					"il": ["il va pouvoir"],
+					"elle": ["elle va pouvoir"],
+					"nous": ["nous allons pouvoir"],
+					"vous": ["vous allez pouvoir"],
+					"ils": ["ils vont pouvoir"],
+					"elles": ["elles vont pouvoir"]
+				}
+			}
+		},
+		{
+			"id": "falloir",
+			"infinitive": "falloir",
+			"impersonal": true,
+			"notes": ["Il faut que vous veniez !", "Il faut partir."],
+			"conjugations": {
+				"present": {
+					"il": ["il faut"]
+				},
+				"passeCompose": {
+					"il": ["il a fallu"]
+				},
+				"imparfait": {
+					"il": ["il fallait"]
+				},
+				"plusQueParfait": {
+					"il": ["il avait fallu"]
+				},
+				"futurSimple": {
+					"il": ["il faudra"]
+				},
+				"futurProche": {
+					"il": ["il va falloir"]
+				}
+			}
+		},
+		{
+			"id": "vouloir",
+			"infinitive": "vouloir",
+			"impersonal": false,
+			"notes": ["Nous voulons rentrer."],
+			"conjugations": {
+				"present": {
+					"je": ["je veux"],
+					"tu": ["tu veux"],
+					"il": ["il veut"],
+					"elle": ["elle veut"],
+					"nous": ["nous voulons"],
+					"vous": ["vous voulez"],
+					"ils": ["ils veulent"],
+					"elles": ["elles veulent"]
+				},
+				"passeCompose": {
+					"je": ["j'ai voulu"],
+					"tu": ["tu as voulu"],
+					"il": ["il a voulu"],
+					"elle": ["elle a voulu"],
+					"nous": ["nous avons voulu"],
+					"vous": ["vous avez voulu"],
+					"ils": ["ils ont voulu"],
+					"elles": ["elles ont voulu"]
+				},
+				"imparfait": {
+					"je": ["je voulais"],
+					"tu": ["tu voulais"],
+					"il": ["il voulait"],
+					"elle": ["elle voulait"],
+					"nous": ["nous voulions"],
+					"vous": ["vous vouliez"],
+					"ils": ["ils voulaient"],
+					"elles": ["elles voulaient"]
+				},
+				"plusQueParfait": {
+					"je": ["j'avais voulu"],
+					"tu": ["tu avais voulu"],
+					"il": ["il avait voulu"],
+					"elle": ["elle avait voulu"],
+					"nous": ["nous avions voulu"],
+					"vous": ["vous aviez voulu"],
+					"ils": ["ils avaient voulu"],
+					"elles": ["elles avaient voulu"]
+				},
+				"futurSimple": {
+					"je": ["je voudrai"],
+					"tu": ["tu voudras"],
+					"il": ["il voudra"],
+					"elle": ["elle voudra"],
+					"nous": ["nous voudrons"],
+					"vous": ["vous voudrez"],
+					"ils": ["ils voudront"],
+					"elles": ["elles voudront"]
+				},
+				"futurProche": {
+					"je": ["je vais vouloir"],
+					"tu": ["tu vas vouloir"],
+					"il": ["il va vouloir"],
+					"elle": ["elle va vouloir"],
+					"nous": ["nous allons vouloir"],
+					"vous": ["vous allez vouloir"],
+					"ils": ["ils vont vouloir"],
+					"elles": ["elles vont vouloir"]
+				}
+			}
+		},
+		{
+			"id": "venir",
+			"infinitive": "venir",
+			"impersonal": false,
+			"notes": [
+				"Il vient avec ses amis.",
+				"Il vient de France.",
+				"Il sert aussi à former le passé récent : Vous venez de le faire ?"
+			],
+			"conjugations": {
+				"present": {
+					"je": ["je viens"],
+					"tu": ["tu viens"],
+					"il": ["il vient"],
+					"elle": ["elle vient"],
+					"nous": ["nous venons"],
+					"vous": ["vous venez"],
+					"ils": ["ils viennent"],
+					"elles": ["elles viennent"]
+				},
+				"passeCompose": {
+					"je": ["je suis venue", "je suis venu"],
+					"tu": ["tu es venue", "tu es venu"],
+					"il": ["il est venu"],
+					"elle": ["elle est venue"],
+					"nous": ["nous sommes venues", "nous sommes venus"],
+					"vous": ["vous êtes venues", "vous êtes venue", "vous êtes venus", "vous êtes venu"],
+					"ils": ["ils sont venus"],
+					"elles": ["elles sont venues"]
+				},
+				"imparfait": {
+					"je": ["je venais"],
+					"tu": ["tu venais"],
+					"il": ["il venait"],
+					"elle": ["elle venait"],
+					"nous": ["nous venions"],
+					"vous": ["vous veniez"],
+					"ils": ["ils venaient"],
+					"elles": ["elles venaient"]
+				},
+				"plusQueParfait": {
+					"je": ["j'étais venue", "j'étais venu"],
+					"tu": ["tu étais venue", "tu étais venu"],
+					"il": ["il était venu"],
+					"elle": ["elle était venue"],
+					"nous": ["nous étions venues", "nous étions venus"],
+					"vous": ["vous étiez venues", "vous étiez venue", "vous étiez venus", "vous étiez venu"],
+					"ils": ["ils étaient venus"],
+					"elles": ["elles étaient venues"]
+				},
+				"futurSimple": {
+					"je": ["je viendrai"],
+					"tu": ["tu viendras"],
+					"il": ["il viendra"],
+					"elle": ["elle viendra"],
+					"nous": ["nous viendrons"],
+					"vous": ["vous viendrez"],
+					"ils": ["ils viendront"],
+					"elles": ["elles viendront"]
+				},
+				"futurProche": {
+					"je": ["je vais venir"],
+					"tu": ["tu vas venir"],
+					"il": ["il va venir"],
+					"elle": ["elle va venir"],
+					"nous": ["nous allons venir"],
+					"vous": ["vous allez venir"],
+					"ils": ["ils vont venir"],
+					"elles": ["elles vont venir"]
+				}
+			}
+		},
+		{
+			"id": "prendre",
+			"infinitive": "prendre",
+			"impersonal": false,
+			"notes": [
+				"Prenez ce paquet, s’il vous plaît.",
+				"Il prend beaucoup de temps.",
+				"Je prends un verre avec mes amis. (Prendre un verre = boire un coup.)"
+			],
+			"conjugations": {
+				"present": {
+					"je": ["je prends"],
+					"tu": ["tu prends"],
+					"il": ["il prend"],
+					"elle": ["elle prend"],
+					"nous": ["nous prenons"],
+					"vous": ["vous prenez"],
+					"ils": ["ils prennent"],
+					"elles": ["elles prennent"]
+				},
+				"passeCompose": {
+					"je": ["j'ai pris"],
+					"tu": ["tu as pris"],
+					"il": ["il a pris"],
+					"elle": ["elle a pris"],
+					"nous": ["nous avons pris"],
+					"vous": ["vous avez pris"],
+					"ils": ["ils ont pris"],
+					"elles": ["elles ont pris"]
+				},
+				"imparfait": {
+					"je": ["je prenais"],
+					"tu": ["tu prenais"],
+					"il": ["il prenait"],
+					"elle": ["elle prenait"],
+					"nous": ["nous prenions"],
+					"vous": ["vous preniez"],
+					"ils": ["ils prenaient"],
+					"elles": ["elles prenaient"]
+				},
+				"plusQueParfait": {
+					"je": ["j'avais pris"],
+					"tu": ["tu avais pris"],
+					"il": ["il avait pris"],
+					"elle": ["elle avait pris"],
+					"nous": ["nous avions pris"],
+					"vous": ["vous aviez pris"],
+					"ils": ["ils avaient pris"],
+					"elles": ["elles avaient pris"]
+				},
+				"futurSimple": {
+					"je": ["je prendrai"],
+					"tu": ["tu prendras"],
+					"il": ["il prendra"],
+					"elle": ["elle prendra"],
+					"nous": ["nous prendrons"],
+					"vous": ["vous prendrez"],
+					"ils": ["ils prendront"],
+					"elles": ["elles prendront"]
+				},
+				"futurProche": {
+					"je": ["je vais prendre"],
+					"tu": ["tu vas prendre"],
+					"il": ["il va prendre"],
+					"elle": ["elle va prendre"],
+					"nous": ["nous allons prendre"],
+					"vous": ["vous allez prendre"],
+					"ils": ["ils vont prendre"],
+					"elles": ["elles vont prendre"]
+				}
+			}
+		},
+		{
+			"id": "arriver",
+			"infinitive": "arriver",
+			"impersonal": false,
+			"notes": ["Il arrive à l’heure à Paris.", "Je n’arrive pas à faire cela."],
+			"conjugations": {
+				"present": {
+					"je": ["j'arrive"],
+					"tu": ["tu arrives"],
+					"il": ["il arrive"],
+					"elle": ["elle arrive"],
+					"nous": ["nous arrivons"],
+					"vous": ["vous arrivez"],
+					"ils": ["ils arrivent"],
+					"elles": ["elles arrivent"]
+				},
+				"passeCompose": {
+					"je": ["je suis arrivée", "je suis arrivé"],
+					"tu": ["tu es arrivée", "tu es arrivé"],
+					"il": ["il est arrivé"],
+					"elle": ["elle est arrivée"],
+					"nous": ["nous sommes arrivées", "nous sommes arrivés"],
+					"vous": [
+						"vous êtes arrivées",
+						"vous êtes arrivée",
+						"vous êtes arrivés",
+						"vous êtes arrivé"
+					],
+					"ils": ["ils sont arrivés"],
+					"elles": ["elles sont arrivées"]
+				},
+				"imparfait": {
+					"je": ["j'arrivais"],
+					"tu": ["tu arrivais"],
+					"il": ["il arrivait"],
+					"elle": ["elle arrivait"],
+					"nous": ["nous arrivions"],
+					"vous": ["vous arriviez"],
+					"ils": ["ils arrivaient"],
+					"elles": ["elles arrivaient"]
+				},
+				"plusQueParfait": {
+					"je": ["j'étais arrivée", "j'étais arrivé"],
+					"tu": ["tu étais arrivée", "tu étais arrivé"],
+					"il": ["il était arrivé"],
+					"elle": ["elle était arrivée"],
+					"nous": ["nous étions arrivées", "nous étions arrivés"],
+					"vous": [
+						"vous étiez arrivées",
+						"vous étiez arrivée",
+						"vous étiez arrivés",
+						"vous étiez arrivé"
+					],
+					"ils": ["ils étaient arrivés"],
+					"elles": ["elles étaient arrivées"]
+				},
+				"futurSimple": {
+					"je": ["j'arriverai"],
+					"tu": ["tu arriveras"],
+					"il": ["il arrivera"],
+					"elle": ["elle arrivera"],
+					"nous": ["nous arriverons"],
+					"vous": ["vous arriverez"],
+					"ils": ["ils arriveront"],
+					"elles": ["elles arriveront"]
+				},
+				"futurProche": {
+					"je": ["je vais arriver"],
+					"tu": ["tu vas arriver"],
+					"il": ["il va arriver"],
+					"elle": ["elle va arriver"],
+					"nous": ["nous allons arriver"],
+					"vous": ["vous allez arriver"],
+					"ils": ["ils vont arriver"],
+					"elles": ["elles vont arriver"]
+				}
+			}
+		},
+		{
+			"id": "croire",
+			"infinitive": "croire",
+			"impersonal": false,
+			"notes": ["Je vous crois.", "Vous croyez que c’est bien ?", "Je crois en Dieu."],
+			"conjugations": {
+				"present": {
+					"je": ["je crois"],
+					"tu": ["tu crois"],
+					"il": ["il croit"],
+					"elle": ["elle croit"],
+					"nous": ["nous croyons"],
+					"vous": ["vous croyez"],
+					"ils": ["ils croient"],
+					"elles": ["elles croient"]
+				},
+				"passeCompose": {
+					"je": ["j'ai cru"],
+					"tu": ["tu as cru"],
+					"il": ["il a cru"],
+					"elle": ["elle a cru"],
+					"nous": ["nous avons cru"],
+					"vous": ["vous avez cru"],
+					"ils": ["ils ont cru"],
+					"elles": ["elles ont cru"]
+				},
+				"imparfait": {
+					"je": ["je croyais"],
+					"tu": ["tu croyais"],
+					"il": ["il croyait"],
+					"elle": ["elle croyait"],
+					"nous": ["nous croyions"],
+					"vous": ["vous croyiez"],
+					"ils": ["ils croyaient"],
+					"elles": ["elles croyaient"]
+				},
+				"plusQueParfait": {
+					"je": ["j'avais cru"],
+					"tu": ["tu avais cru"],
+					"il": ["il avait cru"],
+					"elle": ["elle avait cru"],
+					"nous": ["nous avions cru"],
+					"vous": ["vous aviez cru"],
+					"ils": ["ils avaient cru"],
+					"elles": ["elles avaient cru"]
+				},
+				"futurSimple": {
+					"je": ["je croirai"],
+					"tu": ["tu croiras"],
+					"il": ["il croira"],
+					"elle": ["elle croira"],
+					"nous": ["nous croirons"],
+					"vous": ["vous croirez"],
+					"ils": ["ils croiront"],
+					"elles": ["elles croiront"]
+				},
+				"futurProche": {
+					"je": ["je vais croire"],
+					"tu": ["tu vas croire"],
+					"il": ["il va croire"],
+					"elle": ["elle va croire"],
+					"nous": ["nous allons croire"],
+					"vous": ["vous allez croire"],
+					"ils": ["ils vont croire"],
+					"elles": ["elles vont croire"]
+				}
+			}
+		},
+		{
+			"id": "mettre",
+			"infinitive": "mettre",
+			"impersonal": false,
+			"notes": ["Il met des glaçons dans le verre.", "Je mets ce pantalon."],
+			"conjugations": {
+				"present": {
+					"je": ["je mets"],
+					"tu": ["tu mets"],
+					"il": ["il met"],
+					"elle": ["elle met"],
+					"nous": ["nous mettons"],
+					"vous": ["vous mettez"],
+					"ils": ["ils mettent"],
+					"elles": ["elles mettent"]
+				},
+				"passeCompose": {
+					"je": ["j'ai mis"],
+					"tu": ["tu as mis"],
+					"il": ["il a mis"],
+					"elle": ["elle a mis"],
+					"nous": ["nous avons mis"],
+					"vous": ["vous avez mis"],
+					"ils": ["ils ont mis"],
+					"elles": ["elles ont mis"]
+				},
+				"imparfait": {
+					"je": ["je mettais"],
+					"tu": ["tu mettais"],
+					"il": ["il mettait"],
+					"elle": ["elle mettait"],
+					"nous": ["nous mettions"],
+					"vous": ["vous mettiez"],
+					"ils": ["ils mettaient"],
+					"elles": ["elles mettaient"]
+				},
+				"plusQueParfait": {
+					"je": ["j'avais mis"],
+					"tu": ["tu avais mis"],
+					"il": ["il avait mis"],
+					"elle": ["elle avait mis"],
+					"nous": ["nous avions mis"],
+					"vous": ["vous aviez mis"],
+					"ils": ["ils avaient mis"],
+					"elles": ["elles avaient mis"]
+				},
+				"futurSimple": {
+					"je": ["je mettrai"],
+					"tu": ["tu mettras"],
+					"il": ["il mettra"],
+					"elle": ["elle mettra"],
+					"nous": ["nous mettrons"],
+					"vous": ["vous mettrez"],
+					"ils": ["ils mettront"],
+					"elles": ["elles mettront"]
+				},
+				"futurProche": {
+					"je": ["je vais mettre"],
+					"tu": ["tu vas mettre"],
+					"il": ["il va mettre"],
+					"elle": ["elle va mettre"],
+					"nous": ["nous allons mettre"],
+					"vous": ["vous allez mettre"],
+					"ils": ["ils vont mettre"],
+					"elles": ["elles vont mettre"]
+				}
+			}
+		},
+		{
+			"id": "passer",
+			"infinitive": "passer",
+			"impersonal": false,
+			"notes": [
+				"Il passe un examen de français.",
+				"Je passerai vous voir demain.",
+				"Il passe devant la maison.",
+				"Passez-moi le sel, s’il vous plaît !"
+			],
+			"conjugations": {
+				"present": {
+					"je": ["je passe"],
+					"tu": ["tu passes"],
+					"il": ["il passe"],
+					"elle": ["elle passe"],
+					"nous": ["nous passons"],
+					"vous": ["vous passez"],
+					"ils": ["ils passent"],
+					"elles": ["elles passent"]
+				},
+				"passeCompose": {
+					"je": ["j'ai passé", "je suis passée", "je suis passé"],
+					"tu": ["tu as passé"],
+					"il": ["il a passé"],
+					"elle": ["elle a passé"],
+					"nous": ["nous avons passé"],
+					"vous": ["vous avez passé"],
+					"ils": ["ils ont passé"],
+					"elles": ["elles ont passé"]
+				},
+				"imparfait": {
+					"je": ["je passais"],
+					"tu": ["tu passais"],
+					"il": ["il passait"],
+					"elle": ["elle passait"],
+					"nous": ["nous passions"],
+					"vous": ["vous passiez"],
+					"ils": ["ils passaient"],
+					"elles": ["elles passaient"]
+				},
+				"plusQueParfait": {
+					"je": ["j'avais passé", "j'étais passée", "j'étais passé"],
+					"tu": ["tu avais passé"],
+					"il": ["il avait passé"],
+					"elle": ["elle avait passé"],
+					"nous": ["nous avions passé"],
+					"vous": ["vous aviez passé"],
+					"ils": ["ils avaient passé"],
+					"elles": ["elles avaient passé"]
+				},
+				"futurSimple": {
+					"je": ["je passerai"],
+					"tu": ["tu passeras"],
+					"il": ["il passera"],
+					"elle": ["elle passera"],
+					"nous": ["nous passerons"],
+					"vous": ["vous passerez"],
+					"ils": ["ils passeront"],
+					"elles": ["elles passeront"]
+				},
+				"futurProche": {
+					"je": ["je vais passer"],
+					"tu": ["tu vas passer"],
+					"il": ["il va passer"],
+					"elle": ["elle va passer"],
+					"nous": ["nous allons passer"],
+					"vous": ["vous allez passer"],
+					"ils": ["ils vont passer"],
+					"elles": ["elles vont passer"]
+				}
+			}
+		},
+		{
+			"id": "devoir",
+			"infinitive": "devoir",
+			"impersonal": false,
+			"notes": ["Je dois partir à dix heures."],
+			"conjugations": {
+				"present": {
+					"je": ["je dois"],
+					"tu": ["tu dois"],
+					"il": ["il doit"],
+					"elle": ["elle doit"],
+					"nous": ["nous devons"],
+					"vous": ["vous devez"],
+					"ils": ["ils doivent"],
+					"elles": ["elles doivent"]
+				},
+				"passeCompose": {
+					"je": ["j'ai dû"],
+					"tu": ["tu as dû"],
+					"il": ["il a dû"],
+					"elle": ["elle a dû"],
+					"nous": ["nous avons dû"],
+					"vous": ["vous avez dû"],
+					"ils": ["ils ont dû"],
+					"elles": ["elles ont dû"]
+				},
+				"imparfait": {
+					"je": ["je devais"],
+					"tu": ["tu devais"],
+					"il": ["il devait"],
+					"elle": ["elle devait"],
+					"nous": ["nous devions"],
+					"vous": ["vous deviez"],
+					"ils": ["ils devaient"],
+					"elles": ["elles devaient"]
+				},
+				"plusQueParfait": {
+					"je": ["j'avais dû"],
+					"tu": ["tu avais dû"],
+					"il": ["il avait dû"],
+					"elle": ["elle avait dû"],
+					"nous": ["nous avions dû"],
+					"vous": ["vous aviez dû"],
+					"ils": ["ils avaient dû"],
+					"elles": ["elles avaient dû"]
+				},
+				"futurSimple": {
+					"je": ["je devrai"],
+					"tu": ["tu devras"],
+					"il": ["il devra"],
+					"elle": ["elle devra"],
+					"nous": ["nous devrons"],
+					"vous": ["vous devrez"],
+					"ils": ["ils devront"],
+					"elles": ["elles devront"]
+				},
+				"futurProche": {
+					"je": ["je vais devoir"],
+					"tu": ["tu vas devoir"],
+					"il": ["il va devoir"],
+					"elle": ["elle va devoir"],
+					"nous": ["nous allons devoir"],
+					"vous": ["vous allez devoir"],
+					"ils": ["ils vont devoir"],
+					"elles": ["elles vont devoir"]
+				}
+			}
+		},
+		{
+			"id": "parler",
+			"infinitive": "parler",
+			"impersonal": false,
+			"notes": ["Vous parlez français ?", "Il parle à/de/avec Marie."],
+			"conjugations": {
+				"present": {
+					"je": ["je parle"],
+					"tu": ["tu parles"],
+					"il": ["il parle"],
+					"elle": ["elle parle"],
+					"nous": ["nous parlons"],
+					"vous": ["vous parlez"],
+					"ils": ["ils parlent"],
+					"elles": ["elles parlent"]
+				},
+				"passeCompose": {
+					"je": ["j'ai parlé"],
+					"tu": ["tu as parlé"],
+					"il": ["il a parlé"],
+					"elle": ["elle a parlé"],
+					"nous": ["nous avons parlé"],
+					"vous": ["vous avez parlé"],
+					"ils": ["ils ont parlé"],
+					"elles": ["elles ont parlé"]
+				},
+				"imparfait": {
+					"je": ["je parlais"],
+					"tu": ["tu parlais"],
+					"il": ["il parlait"],
+					"elle": ["elle parlait"],
+					"nous": ["nous parlions"],
+					"vous": ["vous parliez"],
+					"ils": ["ils parlaient"],
+					"elles": ["elles parlaient"]
+				},
+				"plusQueParfait": {
+					"je": ["j'avais parlé"],
+					"tu": ["tu avais parlé"],
+					"il": ["il avait parlé"],
+					"elle": ["elle avait parlé"],
+					"nous": ["nous avions parlé"],
+					"vous": ["vous aviez parlé"],
+					"ils": ["ils avaient parlé"],
+					"elles": ["elles avaient parlé"]
+				},
+				"futurSimple": {
+					"je": ["je parlerai"],
+					"tu": ["tu parleras"],
+					"il": ["il parlera"],
+					"elle": ["elle parlera"],
+					"nous": ["nous parlerons"],
+					"vous": ["vous parlerez"],
+					"ils": ["ils parleront"],
+					"elles": ["elles parleront"]
+				},
+				"futurProche": {
+					"je": ["je vais parler"],
+					"tu": ["tu vas parler"],
+					"il": ["il va parler"],
+					"elle": ["elle va parler"],
+					"nous": ["nous allons parler"],
+					"vous": ["vous allez parler"],
+					"ils": ["ils vont parler"],
+					"elles": ["elles vont parler"]
+				}
+			}
+		},
+		{
+			"id": "trouver",
+			"infinitive": "trouver",
+			"impersonal": false,
+			"notes": ["J’ai trouvé mes clés !", "Il trouve que c’est super ici !"],
+			"conjugations": {
+				"present": {
+					"je": ["je trouve"],
+					"tu": ["tu trouves"],
+					"il": ["il trouve"],
+					"elle": ["elle trouve"],
+					"nous": ["nous trouvons"],
+					"vous": ["vous trouvez"],
+					"ils": ["ils trouvent"],
+					"elles": ["elles trouvent"]
+				},
+				"passeCompose": {
+					"je": ["j'ai trouvé"],
+					"tu": ["tu as trouvé"],
+					"il": ["il a trouvé"],
+					"elle": ["elle a trouvé"],
+					"nous": ["nous avons trouvé"],
+					"vous": ["vous avez trouvé"],
+					"ils": ["ils ont trouvé"],
+					"elles": ["elles ont trouvé"]
+				},
+				"imparfait": {
+					"je": ["je trouvais"],
+					"tu": ["tu trouvais"],
+					"il": ["il trouvait"],
+					"elle": ["elle trouvait"],
+					"nous": ["nous trouvions"],
+					"vous": ["vous trouviez"],
+					"ils": ["ils trouvaient"],
+					"elles": ["elles trouvaient"]
+				},
+				"plusQueParfait": {
+					"je": ["j'avais trouvé"],
+					"tu": ["tu avais trouvé"],
+					"il": ["il avait trouvé"],
+					"elle": ["elle avait trouvé"],
+					"nous": ["nous avions trouvé"],
+					"vous": ["vous aviez trouvé"],
+					"ils": ["ils avaient trouvé"],
+					"elles": ["elles avaient trouvé"]
+				},
+				"futurSimple": {
+					"je": ["je trouverai"],
+					"tu": ["tu trouveras"],
+					"il": ["il trouvera"],
+					"elle": ["elle trouvera"],
+					"nous": ["nous trouverons"],
+					"vous": ["vous trouverez"],
+					"ils": ["ils trouveront"],
+					"elles": ["elles trouveront"]
+				},
+				"futurProche": {
+					"je": ["je vais trouver"],
+					"tu": ["tu vas trouver"],
+					"il": ["il va trouver"],
+					"elle": ["elle va trouver"],
+					"nous": ["nous allons trouver"],
+					"vous": ["vous allez trouver"],
+					"ils": ["ils vont trouver"],
+					"elles": ["elles vont trouver"]
+				}
+			}
+		},
+		{
+			"id": "donner",
+			"infinitive": "donner",
+			"impersonal": false,
+			"notes": [
+				"Donnez-moi ce stylo, s’il vous plaît.",
+				"Je vous donne un coup de main ? (Donner un coup de main = aider quelqu’un.)",
+				"Je vous donne un coup de fil. (Donner un coup de fil = téléphoner.)"
+			],
+			"conjugations": {
+				"present": {
+					"je": ["je donne"],
+					"tu": ["tu donnes"],
+					"il": ["il donne"],
+					"elle": ["elle donne"],
+					"nous": ["nous donnons"],
+					"vous": ["vous donnez"],
+					"ils": ["ils donnent"],
+					"elles": ["elles donnent"]
+				},
+				"passeCompose": {
+					"je": ["j'ai donné"],
+					"tu": ["tu as donné"],
+					"il": ["il a donné"],
+					"elle": ["elle a donné"],
+					"nous": ["nous avons donné"],
+					"vous": ["vous avez donné"],
+					"ils": ["ils ont donné"],
+					"elles": ["elles ont donné"]
+				},
+				"imparfait": {
+					"je": ["je donnais"],
+					"tu": ["tu donnais"],
+					"il": ["il donnait"],
+					"elle": ["elle donnait"],
+					"nous": ["nous donnions"],
+					"vous": ["vous donniez"],
+					"ils": ["ils donnaient"],
+					"elles": ["elles donnaient"]
+				},
+				"plusQueParfait": {
+					"je": ["j'avais donné"],
+					"tu": ["tu avais donné"],
+					"il": ["il avait donné"],
+					"elle": ["elle avait donné"],
+					"nous": ["nous avions donné"],
+					"vous": ["vous aviez donné"],
+					"ils": ["ils avaient donné"],
+					"elles": ["elles avaient donné"]
+				},
+				"futurSimple": {
+					"je": ["je donnerai"],
+					"tu": ["tu donneras"],
+					"il": ["il donnera"],
+					"elle": ["elle donnera"],
+					"nous": ["nous donnerons"],
+					"vous": ["vous donnerez"],
+					"ils": ["ils donneront"],
+					"elles": ["elles donneront"]
+				},
+				"futurProche": {
+					"je": ["je vais donner"],
+					"tu": ["tu vas donner"],
+					"il": ["il va donner"],
+					"elle": ["elle va donner"],
+					"nous": ["nous allons donner"],
+					"vous": ["vous allez donner"],
+					"ils": ["ils vont donner"],
+					"elles": ["elles vont donner"]
+				}
+			}
+		},
+		{
+			"id": "comprendre",
+			"infinitive": "comprendre",
+			"impersonal": false,
+			"notes": ["Je comprends le russe.", "Il comprend que vous ne puissiez pas aller le voir."],
+			"conjugations": {
+				"present": {
+					"je": ["je comprends"],
+					"tu": ["tu comprends"],
+					"il": ["il comprend"],
+					"elle": ["elle comprend"],
+					"nous": ["nous comprenons"],
+					"vous": ["vous comprenez"],
+					"ils": ["ils comprennent"],
+					"elles": ["elles comprennent"]
+				},
+				"passeCompose": {
+					"je": ["j'ai compris"],
+					"tu": ["tu as compris"],
+					"il": ["il a compris"],
+					"elle": ["elle a compris"],
+					"nous": ["nous avons compris"],
+					"vous": ["vous avez compris"],
+					"ils": ["ils ont compris"],
+					"elles": ["elles ont compris"]
+				},
+				"imparfait": {
+					"je": ["je comprenais"],
+					"tu": ["tu comprenais"],
+					"il": ["il comprenait"],
+					"elle": ["elle comprenait"],
+					"nous": ["nous comprenions"],
+					"vous": ["vous compreniez"],
+					"ils": ["ils comprenaient"],
+					"elles": ["elles comprenaient"]
+				},
+				"plusQueParfait": {
+					"je": ["j'avais compris"],
+					"tu": ["tu avais compris"],
+					"il": ["il avait compris"],
+					"elle": ["elle avait compris"],
+					"nous": ["nous avions compris"],
+					"vous": ["vous aviez compris"],
+					"ils": ["ils avaient compris"],
+					"elles": ["elles avaient compris"]
+				},
+				"futurSimple": {
+					"je": ["je comprendrai"],
+					"tu": ["tu comprendras"],
+					"il": ["il comprendra"],
+					"elle": ["elle comprendra"],
+					"nous": ["nous comprendrons"],
+					"vous": ["vous comprendrez"],
+					"ils": ["ils comprendront"],
+					"elles": ["elles comprendront"]
+				},
+				"futurProche": {
+					"je": ["je vais comprendre"],
+					"tu": ["tu vas comprendre"],
+					"il": ["il va comprendre"],
+					"elle": ["elle va comprendre"],
+					"nous": ["nous allons comprendre"],
+					"vous": ["vous allez comprendre"],
+					"ils": ["ils vont comprendre"],
+					"elles": ["elles vont comprendre"]
+				}
+			}
+		},
+		{
+			"id": "connaitre",
+			"infinitive": "connaître",
+			"impersonal": false,
+			"notes": ["Je connais cette chanson."],
+			"conjugations": {
+				"present": {
+					"je": ["je connais"],
+					"tu": ["tu connais"],
+					"il": ["il connaît"],
+					"elle": ["elle connaît"],
+					"nous": ["nous connaissons"],
+					"vous": ["vous connaissez"],
+					"ils": ["ils connaissent"],
+					"elles": ["elles connaissent"]
+				},
+				"passeCompose": {
+					"je": ["j'ai connu"],
+					"tu": ["tu as connu"],
+					"il": ["il a connu"],
+					"elle": ["elle a connu"],
+					"nous": ["nous avons connu"],
+					"vous": ["vous avez connu"],
+					"ils": ["ils ont connu"],
+					"elles": ["elles ont connu"]
+				},
+				"imparfait": {
+					"je": ["je connaissais"],
+					"tu": ["tu connaissais"],
+					"il": ["il connaissait"],
+					"elle": ["elle connaissait"],
+					"nous": ["nous connaissions"],
+					"vous": ["vous connaissiez"],
+					"ils": ["ils connaissaient"],
+					"elles": ["elles connaissaient"]
+				},
+				"plusQueParfait": {
+					"je": ["j'avais connu"],
+					"tu": ["tu avais connu"],
+					"il": ["il avait connu"],
+					"elle": ["elle avait connu"],
+					"nous": ["nous avions connu"],
+					"vous": ["vous aviez connu"],
+					"ils": ["ils avaient connu"],
+					"elles": ["elles avaient connu"]
+				},
+				"futurSimple": {
+					"je": ["je connaîtrai"],
+					"tu": ["tu connaîtras"],
+					"il": ["il connaîtra"],
+					"elle": ["elle connaîtra"],
+					"nous": ["nous connaîtrons"],
+					"vous": ["vous connaîtrez"],
+					"ils": ["ils connaîtront"],
+					"elles": ["elles connaîtront"]
+				},
+				"futurProche": {
+					"je": ["je vais connaître"],
+					"tu": ["tu vas connaître"],
+					"il": ["il va connaître"],
+					"elle": ["elle va connaître"],
+					"nous": ["nous allons connaître"],
+					"vous": ["vous allez connaître"],
+					"ils": ["ils vont connaître"],
+					"elles": ["elles vont connaître"]
+				}
+			}
+		},
+		{
+			"id": "partir",
+			"infinitive": "partir",
+			"impersonal": false,
+			"notes": ["Je partirai demain."],
+			"conjugations": {
+				"present": {
+					"je": ["je pars"],
+					"tu": ["tu pars"],
+					"il": ["il part"],
+					"elle": ["elle part"],
+					"nous": ["nous partons"],
+					"vous": ["vous partez"],
+					"ils": ["ils partent"],
+					"elles": ["elles partent"]
+				},
+				"passeCompose": {
+					"je": ["je suis partie", "je suis parti"],
+					"tu": ["tu es partie", "tu es parti"],
+					"il": ["il est parti"],
+					"elle": ["elle est partie"],
+					"nous": ["nous sommes parties", "nous sommes partis"],
+					"vous": ["vous êtes parties", "vous êtes partie", "vous êtes partis", "vous êtes parti"],
+					"ils": ["ils sont partis"],
+					"elles": ["elles sont parties"]
+				},
+				"imparfait": {
+					"je": ["je partais"],
+					"tu": ["tu partais"],
+					"il": ["il partait"],
+					"elle": ["elle partait"],
+					"nous": ["nous partions"],
+					"vous": ["vous partiez"],
+					"ils": ["ils partaient"],
+					"elles": ["elles partaient"]
+				},
+				"plusQueParfait": {
+					"je": ["j'étais partie", "j'étais parti"],
+					"tu": ["tu étais partie", "tu étais parti"],
+					"il": ["il était parti"],
+					"elle": ["elle était partie"],
+					"nous": ["nous étions parties", "nous étions partis"],
+					"vous": [
+						"vous étiez parties",
+						"vous étiez partie",
+						"vous étiez partis",
+						"vous étiez parti"
+					],
+					"ils": ["ils étaient partis"],
+					"elles": ["elles étaient parties"]
+				},
+				"futurSimple": {
+					"je": ["je partirai"],
+					"tu": ["tu partiras"],
+					"il": ["il partira"],
+					"elle": ["elle partira"],
+					"nous": ["nous partirons"],
+					"vous": ["vous partirez"],
+					"ils": ["ils partiront"],
+					"elles": ["elles partiront"]
+				},
+				"futurProche": {
+					"je": ["je vais partir"],
+					"tu": ["tu vas partir"],
+					"il": ["il va partir"],
+					"elle": ["elle va partir"],
+					"nous": ["nous allons partir"],
+					"vous": ["vous allez partir"],
+					"ils": ["ils vont partir"],
+					"elles": ["elles vont partir"]
+				}
+			}
+		},
+		{
+			"id": "demander",
+			"infinitive": "demander",
+			"impersonal": false,
+			"notes": [
+				"Demandez l’addition, s’il vous plaît.",
+				"Si vous ne savez pas, demandez au professeur !"
+			],
+			"conjugations": {
+				"present": {
+					"je": ["je demande"],
+					"tu": ["tu demandes"],
+					"il": ["il demande"],
+					"elle": ["elle demande"],
+					"nous": ["nous demandons"],
+					"vous": ["vous demandez"],
+					"ils": ["ils demandent"],
+					"elles": ["elles demandent"]
+				},
+				"passeCompose": {
+					"je": ["j'ai demandé"],
+					"tu": ["tu as demandé"],
+					"il": ["il a demandé"],
+					"elle": ["elle a demandé"],
+					"nous": ["nous avons demandé"],
+					"vous": ["vous avez demandé"],
+					"ils": ["ils ont demandé"],
+					"elles": ["elles ont demandé"]
+				},
+				"imparfait": {
+					"je": ["je demandais"],
+					"tu": ["tu demandais"],
+					"il": ["il demandait"],
+					"elle": ["elle demandait"],
+					"nous": ["nous demandions"],
+					"vous": ["vous demandiez"],
+					"ils": ["ils demandaient"],
+					"elles": ["elles demandaient"]
+				},
+				"plusQueParfait": {
+					"je": ["j'avais demandé"],
+					"tu": ["tu avais demandé"],
+					"il": ["il avait demandé"],
+					"elle": ["elle avait demandé"],
+					"nous": ["nous avions demandé"],
+					"vous": ["vous aviez demandé"],
+					"ils": ["ils avaient demandé"],
+					"elles": ["elles avaient demandé"]
+				},
+				"futurSimple": {
+					"je": ["je demanderai"],
+					"tu": ["tu demanderas"],
+					"il": ["il demandera"],
+					"elle": ["elle demandera"],
+					"nous": ["nous demanderons"],
+					"vous": ["vous demanderez"],
+					"ils": ["ils demanderont"],
+					"elles": ["elles demanderont"]
+				},
+				"futurProche": {
+					"je": ["je vais demander"],
+					"tu": ["tu vas demander"],
+					"il": ["il va demander"],
+					"elle": ["elle va demander"],
+					"nous": ["nous allons demander"],
+					"vous": ["vous allez demander"],
+					"ils": ["ils vont demander"],
+					"elles": ["elles vont demander"]
+				}
+			}
+		},
+		{
+			"id": "tenir",
+			"infinitive": "tenir",
+			"impersonal": false,
+			"notes": [
+				"Je tiens ce livre. (Je l’ai dans mes mains.)",
+				"Je tiens à ce livre. (Il est important pour moi.)",
+				"Tenez, prenez-le une minute, s’il vous plaît.",
+				"Il tient le coup. (Tenir le coup = supporter quelque chose.)"
+			],
+			"conjugations": {
+				"present": {
+					"je": ["je tiens"],
+					"tu": ["tu tiens"],
+					"il": ["il tient"],
+					"elle": ["elle tient"],
+					"nous": ["nous tenons"],
+					"vous": ["vous tenez"],
+					"ils": ["ils tiennent"],
+					"elles": ["elles tiennent"]
+				},
+				"passeCompose": {
+					"je": ["j'ai tenu"],
+					"tu": ["tu as tenu"],
+					"il": ["il a tenu"],
+					"elle": ["elle a tenu"],
+					"nous": ["nous avons tenu"],
+					"vous": ["vous avez tenu"],
+					"ils": ["ils ont tenu"],
+					"elles": ["elles ont tenu"]
+				},
+				"imparfait": {
+					"je": ["je tenais"],
+					"tu": ["tu tenais"],
+					"il": ["il tenait"],
+					"elle": ["elle tenait"],
+					"nous": ["nous tenions"],
+					"vous": ["vous teniez"],
+					"ils": ["ils tenaient"],
+					"elles": ["elles tenaient"]
+				},
+				"plusQueParfait": {
+					"je": ["j'avais tenu"],
+					"tu": ["tu avais tenu"],
+					"il": ["il avait tenu"],
+					"elle": ["elle avait tenu"],
+					"nous": ["nous avions tenu"],
+					"vous": ["vous aviez tenu"],
+					"ils": ["ils avaient tenu"],
+					"elles": ["elles avaient tenu"]
+				},
+				"futurSimple": {
+					"je": ["je tiendrai"],
+					"tu": ["tu tiendras"],
+					"il": ["il tiendra"],
+					"elle": ["elle tiendra"],
+					"nous": ["nous tiendrons"],
+					"vous": ["vous tiendrez"],
+					"ils": ["ils tiendront"],
+					"elles": ["elles tiendront"]
+				},
+				"futurProche": {
+					"je": ["je vais tenir"],
+					"tu": ["tu vas tenir"],
+					"il": ["il va tenir"],
+					"elle": ["elle va tenir"],
+					"nous": ["nous allons tenir"],
+					"vous": ["vous allez tenir"],
+					"ils": ["ils vont tenir"],
+					"elles": ["elles vont tenir"]
+				}
+			}
+		},
+		{
+			"id": "aimer",
+			"infinitive": "aimer",
+			"impersonal": false,
+			"notes": ["J’aime la musique."],
+			"conjugations": {
+				"present": {
+					"je": ["j'aime"],
+					"tu": ["tu aimes"],
+					"il": ["il aime"],
+					"elle": ["elle aime"],
+					"nous": ["nous aimons"],
+					"vous": ["vous aimez"],
+					"ils": ["ils aiment"],
+					"elles": ["elles aiment"]
+				},
+				"passeCompose": {
+					"je": ["j'ai aimé"],
+					"tu": ["tu as aimé"],
+					"il": ["il a aimé"],
+					"elle": ["elle a aimé"],
+					"nous": ["nous avons aimé"],
+					"vous": ["vous avez aimé"],
+					"ils": ["ils ont aimé"],
+					"elles": ["elles ont aimé"]
+				},
+				"imparfait": {
+					"je": ["j'aimais"],
+					"tu": ["tu aimais"],
+					"il": ["il aimait"],
+					"elle": ["elle aimait"],
+					"nous": ["nous aimions"],
+					"vous": ["vous aimiez"],
+					"ils": ["ils aimaient"],
+					"elles": ["elles aimaient"]
+				},
+				"plusQueParfait": {
+					"je": ["j'avais aimé"],
+					"tu": ["tu avais aimé"],
+					"il": ["il avait aimé"],
+					"elle": ["elle avait aimé"],
+					"nous": ["nous avions aimé"],
+					"vous": ["vous aviez aimé"],
+					"ils": ["ils avaient aimé"],
+					"elles": ["elles avaient aimé"]
+				},
+				"futurSimple": {
+					"je": ["j'aimerai"],
+					"tu": ["tu aimeras"],
+					"il": ["il aimera"],
+					"elle": ["elle aimera"],
+					"nous": ["nous aimerons"],
+					"vous": ["vous aimerez"],
+					"ils": ["ils aimeront"],
+					"elles": ["elles aimeront"]
+				},
+				"futurProche": {
+					"je": ["je vais aimer"],
+					"tu": ["tu vas aimer"],
+					"il": ["il va aimer"],
+					"elle": ["elle va aimer"],
+					"nous": ["nous allons aimer"],
+					"vous": ["vous allez aimer"],
+					"ils": ["ils vont aimer"],
+					"elles": ["elles vont aimer"]
+				}
+			}
+		},
+		{
+			"id": "penser",
+			"infinitive": "penser",
+			"impersonal": false,
+			"notes": ["Je pense à ma femme.", "Je pense que nous devons partir."],
+			"conjugations": {
+				"present": {
+					"je": ["je pense"],
+					"tu": ["tu penses"],
+					"il": ["il pense"],
+					"elle": ["elle pense"],
+					"nous": ["nous pensons"],
+					"vous": ["vous pensez"],
+					"ils": ["ils pensent"],
+					"elles": ["elles pensent"]
+				},
+				"passeCompose": {
+					"je": ["j'ai pensé"],
+					"tu": ["tu as pensé"],
+					"il": ["il a pensé"],
+					"elle": ["elle a pensé"],
+					"nous": ["nous avons pensé"],
+					"vous": ["vous avez pensé"],
+					"ils": ["ils ont pensé"],
+					"elles": ["elles ont pensé"]
+				},
+				"imparfait": {
+					"je": ["je pensais"],
+					"tu": ["tu pensais"],
+					"il": ["il pensait"],
+					"elle": ["elle pensait"],
+					"nous": ["nous pensions"],
+					"vous": ["vous pensiez"],
+					"ils": ["ils pensaient"],
+					"elles": ["elles pensaient"]
+				},
+				"plusQueParfait": {
+					"je": ["j'avais pensé"],
+					"tu": ["tu avais pensé"],
+					"il": ["il avait pensé"],
+					"elle": ["elle avait pensé"],
+					"nous": ["nous avions pensé"],
+					"vous": ["vous aviez pensé"],
+					"ils": ["ils avaient pensé"],
+					"elles": ["elles avaient pensé"]
+				},
+				"futurSimple": {
+					"je": ["je penserai"],
+					"tu": ["tu penseras"],
+					"il": ["il pensera"],
+					"elle": ["elle pensera"],
+					"nous": ["nous penserons"],
+					"vous": ["vous penserez"],
+					"ils": ["ils penseront"],
+					"elles": ["elles penseront"]
+				},
+				"futurProche": {
+					"je": ["je vais penser"],
+					"tu": ["tu vas penser"],
+					"il": ["il va penser"],
+					"elle": ["elle va penser"],
+					"nous": ["nous allons penser"],
+					"vous": ["vous allez penser"],
+					"ils": ["ils vont penser"],
+					"elles": ["elles vont penser"]
+				}
+			}
+		},
+		{
+			"id": "rester",
+			"infinitive": "rester",
+			"impersonal": false,
+			"notes": ["Nous restons à la maison ce week-end.", "Il reste du gâteau ?"],
+			"conjugations": {
+				"present": {
+					"je": ["je reste"],
+					"tu": ["tu restes"],
+					"il": ["il reste"],
+					"elle": ["elle reste"],
+					"nous": ["nous restons"],
+					"vous": ["vous restez"],
+					"ils": ["ils restent"],
+					"elles": ["elles restent"]
+				},
+				"passeCompose": {
+					"je": ["je suis restée", "je suis resté"],
+					"tu": ["tu es restée", "tu es resté"],
+					"il": ["il est resté"],
+					"elle": ["elle est restée"],
+					"nous": ["nous sommes restées", "nous sommes restés"],
+					"vous": ["vous êtes restées", "vous êtes restée", "vous êtes restés", "vous êtes resté"],
+					"ils": ["ils sont restés"],
+					"elles": ["elles sont restées"]
+				},
+				"imparfait": {
+					"je": ["je restais"],
+					"tu": ["tu restais"],
+					"il": ["il restait"],
+					"elle": ["elle restait"],
+					"nous": ["nous restions"],
+					"vous": ["vous restiez"],
+					"ils": ["ils restaient"],
+					"elles": ["elles restaient"]
+				},
+				"plusQueParfait": {
+					"je": ["j'étais restée", "j'étais resté"],
+					"tu": ["tu étais restée", "tu étais resté"],
+					"il": ["il était resté"],
+					"elle": ["elle était restée"],
+					"nous": ["nous étions restées", "nous étions restés"],
+					"vous": [
+						"vous étiez restées",
+						"vous étiez restée",
+						"vous étiez restés",
+						"vous étiez resté"
+					],
+					"ils": ["ils étaient restés"],
+					"elles": ["elles étaient restées"]
+				},
+				"futurSimple": {
+					"je": ["je resterai"],
+					"tu": ["tu resteras"],
+					"il": ["il restera"],
+					"elle": ["elle restera"],
+					"nous": ["nous resterons"],
+					"vous": ["vous resterez"],
+					"ils": ["ils resteront"],
+					"elles": ["elles resteront"]
+				},
+				"futurProche": {
+					"je": ["je vais rester"],
+					"tu": ["tu vas rester"],
+					"il": ["il va rester"],
+					"elle": ["elle va rester"],
+					"nous": ["nous allons rester"],
+					"vous": ["vous allez rester"],
+					"ils": ["ils vont rester"],
+					"elles": ["elles vont rester"]
+				}
+			}
+		},
+		{
+			"id": "manger",
+			"infinitive": "manger",
+			"impersonal": false,
+			"notes": ["Ils mangent du riz tous les jours."],
+			"conjugations": {
+				"present": {
+					"je": ["je mange"],
+					"tu": ["tu manges"],
+					"il": ["il mange"],
+					"elle": ["elle mange"],
+					"nous": ["nous mangeons"],
+					"vous": ["vous mangez"],
+					"ils": ["ils mangent"],
+					"elles": ["elles mangent"]
+				},
+				"passeCompose": {
+					"je": ["j'ai mangé"],
+					"tu": ["tu as mangé"],
+					"il": ["il a mangé"],
+					"elle": ["elle a mangé"],
+					"nous": ["nous avons mangé"],
+					"vous": ["vous avez mangé"],
+					"ils": ["ils ont mangé"],
+					"elles": ["elles ont mangé"]
+				},
+				"imparfait": {
+					"je": ["je mangeais"],
+					"tu": ["tu mangeais"],
+					"il": ["il mangeait"],
+					"elle": ["elle mangeait"],
+					"nous": ["nous mangions"],
+					"vous": ["vous mangiez"],
+					"ils": ["ils mangeaient"],
+					"elles": ["elles mangeaient"]
+				},
+				"plusQueParfait": {
+					"je": ["j'avais mangé"],
+					"tu": ["tu avais mangé"],
+					"il": ["il avait mangé"],
+					"elle": ["elle avait mangé"],
+					"nous": ["nous avions mangé"],
+					"vous": ["vous aviez mangé"],
+					"ils": ["ils avaient mangé"],
+					"elles": ["elles avaient mangé"]
+				},
+				"futurSimple": {
+					"je": ["je mangerai"],
+					"tu": ["tu mangeras"],
+					"il": ["il mangera"],
+					"elle": ["elle mangera"],
+					"nous": ["nous mangerons"],
+					"vous": ["vous mangerez"],
+					"ils": ["ils mangeront"],
+					"elles": ["elles mangeront"]
+				},
+				"futurProche": {
+					"je": ["je vais manger"],
+					"tu": ["tu vas manger"],
+					"il": ["il va manger"],
+					"elle": ["elle va manger"],
+					"nous": ["nous allons manger"],
+					"vous": ["vous allez manger"],
+					"ils": ["ils vont manger"],
+					"elles": ["elles vont manger"]
+				}
+			}
+		},
+		{
+			"id": "appeler",
+			"infinitive": "appeler",
+			"impersonal": false,
+			"notes": [
+				"J’appelle mes parents tous les jours.",
+				"On déjeune ? Je vais appeler les enfants !",
+				"Je m’appelle Pierre. (Du verbe pronominal « s’appeler ».)"
+			],
+			"conjugations": {
+				"present": {
+					"je": ["j'appelle"],
+					"tu": ["tu appelles"],
+					"il": ["il appelle"],
+					"elle": ["elle appelle"],
+					"nous": ["nous appelons"],
+					"vous": ["vous appelez"],
+					"ils": ["ils appellent"],
+					"elles": ["elles appellent"]
+				},
+				"passeCompose": {
+					"je": ["j'ai appelé"],
+					"tu": ["tu as appelé"],
+					"il": ["il a appelé"],
+					"elle": ["elle a appelé"],
+					"nous": ["nous avons appelé"],
+					"vous": ["vous avez appelé"],
+					"ils": ["ils ont appelé"],
+					"elles": ["elles ont appelé"]
+				},
+				"imparfait": {
+					"je": ["j'appelais"],
+					"tu": ["tu appelais"],
+					"il": ["il appelait"],
+					"elle": ["elle appelait"],
+					"nous": ["nous appelions"],
+					"vous": ["vous appeliez"],
+					"ils": ["ils appelaient"],
+					"elles": ["elles appelaient"]
+				},
+				"plusQueParfait": {
+					"je": ["j'avais appelé"],
+					"tu": ["tu avais appelé"],
+					"il": ["il avait appelé"],
+					"elle": ["elle avait appelé"],
+					"nous": ["nous avions appelé"],
+					"vous": ["vous aviez appelé"],
+					"ils": ["ils avaient appelé"],
+					"elles": ["elles avaient appelé"]
+				},
+				"futurSimple": {
+					"je": ["j'appellerai"],
+					"tu": ["tu appelleras"],
+					"il": ["il appellera"],
+					"elle": ["elle appellera"],
+					"nous": ["nous appellerons"],
+					"vous": ["vous appellerez"],
+					"ils": ["ils appelleront"],
+					"elles": ["elles appelleront"]
+				},
+				"futurProche": {
+					"je": ["je vais appeler"],
+					"tu": ["tu vas appeler"],
+					"il": ["il va appeler"],
+					"elle": ["elle va appeler"],
+					"nous": ["nous allons appeler"],
+					"vous": ["vous allez appeler"],
+					"ils": ["ils vont appeler"],
+					"elles": ["elles vont appeler"]
+				}
+			}
+		}
+	]
+}

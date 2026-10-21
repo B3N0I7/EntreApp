@@ -11,7 +11,8 @@
 	const links = [
 		{ label: 'Tirage au sort', href: '/' },
 		{ label: 'Trouve la définition', href: '/vocabulaire/mot' },
-		{ label: 'Donne la définition', href: '/vocabulaire/definition' }
+		{ label: 'Donne la définition', href: '/vocabulaire/definition' },
+		{ label: 'Conjugaison', href: '/conjugaison' }
 	] as const;
 
 	function closeMenu() {

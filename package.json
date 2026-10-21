@@ -6,6 +6,7 @@
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
+		"import:conjugation": "node scripts/import-conjugation.mjs && prettier --write src/lib/data/conjugation.json",
 		"import:vocabulary": "node scripts/import-vocabulary.mjs",
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",
