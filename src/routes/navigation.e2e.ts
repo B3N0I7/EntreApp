@@ -12,7 +12,8 @@ test('desktop navigation opens each section', async ({ page }) => {
 	await navigation.getByRole('link', { name: 'Trouve la définition' }).click();
 	await expect(page.getByRole('heading', { name: 'Trouve la définition' })).toBeVisible();
 	await page.getByLabel('Thème').selectOption('Le tourisme et les voyages');
-	await expect(page.getByText('Carte 1 / 116')).toBeVisible();
+	await expect(page.getByText('Carte 1 / 5')).toBeVisible();
+	await expect(page.getByText('5 cartes dans la série · 116 disponibles')).toBeVisible();
 	await navigation.getByRole('link', { name: 'Donne la définition' }).click();
 	await expect(page.getByRole('heading', { name: 'Retrouve le mot' })).toBeVisible();
 	await navigation.getByRole('link', { name: 'Conjugaison' }).click();

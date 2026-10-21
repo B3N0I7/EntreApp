@@ -10,13 +10,21 @@ const sources = [
 		file: 'fichierstxt/les relations familiales et l amour.txt',
 		theme: 'Les relations familiales et l’amour',
 		idPrefix: 'famille',
-		bulletEntries: true
+		bulletEntries: true,
+		sectionTitles: [
+			'Les moments de la vie',
+			'Les membres de la famille',
+			'Les relations familiales',
+			'L’amour',
+			'Les relations humaines'
+		]
 	},
 	{
 		file: 'fichierstxt/le tourisme et les voyages.txt',
 		theme: 'Le tourisme et les voyages',
 		idPrefix: 'voyage',
-		bulletEntries: false
+		bulletEntries: false,
+		numberedSections: true
 	}
 ];
 
@@ -24,13 +32,36 @@ function importEntries(source) {
 	const content = readFileSync(resolve(root, source.file), 'utf8');
 	const entries = [];
 	let currentEntry;
+	let currentSection = '';
+	let currentSubsection;
 
 	for (const rawLine of content.split(/\r?\n/)) {
 		let line = rawLine.trim();
 		if (!line || /^_+$/.test(line)) continue;
 
+		if (source.sectionTitles?.includes(line)) {
+			currentSection = line;
+			currentSubsection = undefined;
+			continue;
+		}
+
+		if (source.numberedSections) {
+			const sectionHeading = line.match(/^\d+\.\s+(.+)$/u);
+			if (sectionHeading) {
+				currentSection = sectionHeading[1].trim();
+				currentSubsection = undefined;
+				continue;
+			}
+		}
+
+		if (/^Détails des sports\s*:?$/u.test(line)) {
+			currentSubsection = 'Détails des sports';
+			continue;
+		}
+
 		const isBullet = line.startsWith('•');
 		if (source.bulletEntries && !isBullet) continue;
+		if (source.numberedSections && !isBullet) currentSubsection = undefined;
 		if (isBullet) line = line.slice(1).trim();
 
 		if (source.bulletEntries && /^soit\b/i.test(line)) {
@@ -48,10 +79,13 @@ function importEntries(source) {
 		const definition = line.slice(separator + 1).trim();
 		if (!definition && !source.bulletEntries) continue;
 		if (!word) throw new Error(`Missing term in ${source.file}: ${rawLine}`);
+		if (!currentSection) throw new Error(`Entry has no section in ${source.file}: ${rawLine}`);
 
 		currentEntry = {
 			id: `${source.idPrefix}-${String(entries.length + 1).padStart(3, '0')}`,
 			theme: source.theme,
+			section: currentSection,
+			...(currentSubsection ? { subsection: currentSubsection } : {}),
 			word,
 			definition
 		};

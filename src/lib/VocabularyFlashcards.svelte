@@ -1,11 +1,18 @@
 <script lang="ts">
 	import {
+		ALL_SECTIONS,
+		canUseMultipleChoice,
 		createAnswerOptions,
+		createVocabularySession,
 		getCardContent,
+		maxVocabularySessionSize,
+		RANDOM_SECTION,
+		RANDOM_THEME,
+		sectionsForTheme,
 		THEMES,
-		vocabularyForTheme,
 		type AnswerMode,
 		type AnswerOption,
+		type VocabularyEntry,
 		type VocabularyDirection
 	} from './vocabulary';
 
@@ -15,7 +22,16 @@
 
 	let { direction }: Props = $props();
 	let selectedTheme = $state(THEMES[0] ?? '');
+	let selectedSection = $state(ALL_SECTIONS);
+	let selectedLength = $state('5');
+	let customLength = $state<number | undefined>(5);
 	let answerMode = $state<AnswerMode>('self-assessment');
+	let sessionEntries = $state<VocabularyEntry[]>([]);
+	let activePool = $state<VocabularyEntry[]>([]);
+	let sessionTheme = $state('');
+	let sessionSection = $state<string | null>(null);
+	let sessionSize = $state(0);
+	let sessionError = $state('');
 	let currentIndex = $state(0);
 	let answerRevealed = $state(false);
 	let selectedAnswer = $state<string | null>(null);
@@ -25,13 +41,20 @@
 	let correctCount = $state(0);
 	let incorrectCount = $state(0);
 
-	let entries = $derived(vocabularyForTheme(selectedTheme));
-	let currentEntry = $derived(entries[currentIndex]);
+	let entries = $derived(sessionEntries);
+	let availableSections = $derived(
+		selectedTheme === RANDOM_THEME ? [] : sectionsForTheme(selectedTheme)
+	);
+	let maximumAvailable = $derived(
+		maxVocabularySessionSize(selectedTheme, selectedSection, direction)
+	);
+	let qcmAvailable = $derived(canUseMultipleChoice(activePool, direction));
+	let currentEntry = $derived(sessionEntries[currentIndex]);
 	let card = $derived(currentEntry ? getCardContent(currentEntry, direction) : null);
 	let options = $derived.by(() => {
 		if (answerMode !== 'multiple-choice' || !currentEntry) return [];
 		try {
-			return createAnswerOptions(entries, currentEntry, direction);
+			return createAnswerOptions(activePool, currentEntry, direction);
 		} catch {
 			return [];
 		}
@@ -54,8 +77,47 @@
 		incorrectCount = 0;
 	}
 
+	function applySession(session: ReturnType<typeof createVocabularySession>, quantity: number) {
+		resetStudy();
+		activePool = session.pool;
+		sessionEntries = session.entries;
+		sessionTheme = session.theme;
+		sessionSection = session.section;
+		sessionSize = quantity;
+		sessionError = '';
+		if (!canUseMultipleChoice(session.pool, direction)) answerMode = 'self-assessment';
+	}
+
+	function startStudy() {
+		const quantity = selectedLength === 'custom' ? customLength : Number(selectedLength);
+		if (!Number.isInteger(quantity) || quantity === undefined || quantity < 1) {
+			resetStudy();
+			sessionEntries = [];
+			activePool = [];
+			sessionError = 'Saisissez un nombre entier supérieur ou égal à 1.';
+			return;
+		}
+
+		try {
+			applySession(
+				createVocabularySession(selectedTheme, selectedSection, direction, quantity),
+				quantity
+			);
+		} catch (error) {
+			resetStudy();
+			sessionEntries = [];
+			activePool = [];
+			sessionError = error instanceof Error ? error.message : 'Impossible de créer cette série.';
+		}
+	}
+
+	function changeTheme() {
+		selectedSection = ALL_SECTIONS;
+		startStudy();
+	}
+
 	function setAnswerMode(mode: AnswerMode) {
-		if (answerMode === mode) return;
+		if (answerMode === mode || (mode === 'multiple-choice' && !qcmAvailable)) return;
 		answerMode = mode;
 		resetStudy();
 	}
@@ -84,8 +146,19 @@
 	}
 
 	function restart() {
-		resetStudy();
+		if (!sessionTheme || sessionSize < 1) return;
+		const sectionChoice = sessionSection ?? ALL_SECTIONS;
+		try {
+			applySession(
+				createVocabularySession(sessionTheme, sectionChoice, direction, sessionSize),
+				sessionSize
+			);
+		} catch {
+			startStudy();
+		}
 	}
+
+	startStudy();
 </script>
 
 <section class="study-shell" aria-labelledby="study-title">
@@ -94,18 +167,61 @@
 			<p class="eyebrow">Vocabulaire · {directionLabel}</p>
 			<h1 id="study-title">{pageTitle}</h1>
 		</div>
-		<p class="theme-total">{entries.length} cartes</p>
+		<p class="theme-total">
+			{#if entries.length}
+				{entries.length} cartes dans la série · {activePool.length} disponibles
+			{:else}
+				Jusqu’à {maximumAvailable} cartes distinctes
+			{/if}
+		</p>
 	</header>
 
 	<div class="study-controls">
-		<label class="theme-control" for="vocabulary-theme">
+		<label class="filter-control" for="vocabulary-theme">
 			<span>Thème</span>
-			<select id="vocabulary-theme" bind:value={selectedTheme} onchange={resetStudy}>
+			<select id="vocabulary-theme" bind:value={selectedTheme} onchange={changeTheme}>
+				<option value={RANDOM_THEME}>Thème aléatoire</option>
 				{#each THEMES as theme (theme)}
 					<option value={theme}>{theme}</option>
 				{/each}
 			</select>
 		</label>
+		<label class="filter-control" for="vocabulary-section">
+			<span>Section</span>
+			<select id="vocabulary-section" bind:value={selectedSection} onchange={startStudy}>
+				<option value={ALL_SECTIONS}>Toutes les sections</option>
+				<option value={RANDOM_SECTION}>Section aléatoire</option>
+				{#each availableSections as section (section)}
+					<option value={section}>{section}</option>
+				{/each}
+			</select>
+		</label>
+		<label class="filter-control" for="vocabulary-length">
+			<span>Cartes par série</span>
+			<select id="vocabulary-length" bind:value={selectedLength} onchange={startStudy}>
+				<option value="5">5</option>
+				<option value="10">10</option>
+				<option value="15">15</option>
+				<option value="custom">Personnalisé</option>
+			</select>
+		</label>
+		{#if selectedLength === 'custom'}
+			<label class="filter-control custom-length" for="vocabulary-custom-length">
+				<span>Nombre de cartes</span>
+				<input
+					id="vocabulary-custom-length"
+					aria-label="Nombre de cartes personnalisé"
+					type="number"
+					min="1"
+					step="1"
+					bind:value={customLength}
+					oninput={(event) => {
+						customLength = event.currentTarget.valueAsNumber;
+						startStudy();
+					}}
+				/>
+			</label>
+		{/if}
 
 		<div class="mode-control" role="group" aria-label="Mode de réponse">
 			<button
@@ -120,16 +236,28 @@
 				type="button"
 				class:active={answerMode === 'multiple-choice'}
 				aria-pressed={answerMode === 'multiple-choice'}
+				disabled={!qcmAvailable}
+				title={qcmAvailable
+					? undefined
+					: 'Cette sélection ne permet pas trois distracteurs distincts.'}
 				onclick={() => setAnswerMode('multiple-choice')}
 			>
 				QCM
 			</button>
 		</div>
 	</div>
+	<p class="availability-note">
+		Maximum de la sélection : {maximumAvailable} cartes distinctes.
+	</p>
+	{#if activePool.length > 0 && !qcmAvailable}
+		<p class="availability-note" role="status">
+			Le QCM est indisponible : il faut trois réponses incorrectes distinctes.
+		</p>
+	{/if}
 
 	{#if seriesComplete}
 		<section class="completion-panel" aria-labelledby="completion-title">
-			<p class="eyebrow">{selectedTheme}</p>
+			<p class="eyebrow">{sessionTheme}{sessionSection ? ` · ${sessionSection}` : ''}</p>
 			<h2 id="completion-title">Série terminée</h2>
 			<p class="completion-result" role="status">
 				{#if answerMode === 'self-assessment'}
@@ -140,12 +268,15 @@
 			</p>
 			<button class="primary-button" type="button" onclick={restart}>Recommencer</button>
 		</section>
+	{:else if sessionError}
+		<p class="session-error" role="alert">{sessionError}</p>
 	{:else if card && currentEntry}
 		<div class="progress-heading">
-			<span>Carte {currentIndex + 1} / {entries.length}</span>
-			<span>{selectedTheme}</span>
+			<span>Carte {currentIndex + 1} / {sessionEntries.length}</span>
+			<span>{sessionTheme}{sessionSection ? ` · ${sessionSection}` : ''}</span>
 		</div>
-		<progress aria-label="Progression" max={entries.length} value={currentIndex + 1}></progress>
+		<progress aria-label="Progression" max={sessionEntries.length} value={currentIndex + 1}
+		></progress>
 
 		<article class="flashcard" aria-labelledby="card-prompt">
 			<div class="card-index" aria-hidden="true">
@@ -209,7 +340,7 @@
 				{/if}
 			{:else}
 				<p class="answer-feedback" role="status">
-					Ce thème ne contient pas assez de réponses distinctes pour un QCM.
+					Cette sélection ne contient pas assez de réponses distinctes pour un QCM.
 				</p>
 			{/if}
 		</article>
@@ -274,11 +405,13 @@
 
 	.study-controls {
 		align-items: flex-end;
+		flex-wrap: wrap;
 		margin-bottom: 2rem;
 	}
 
-	.theme-control {
-		min-width: min(100%, 22rem);
+	.filter-control {
+		min-width: min(100%, 14rem);
+		flex: 1 1 14rem;
 		display: grid;
 		gap: 0.5rem;
 		color: #60756a;
@@ -286,7 +419,8 @@
 		font-weight: 800;
 	}
 
-	select {
+	select,
+	input {
 		min-height: 2.9rem;
 		padding: 0 2.5rem 0 0.85rem;
 		border: 1px solid #bdcbc0;
@@ -295,6 +429,21 @@
 		color: #182c25;
 		font-size: 0.88rem;
 		font-weight: 600;
+	}
+
+	.availability-note {
+		margin: -1.25rem 0 1.5rem;
+		color: #60756a;
+		font-size: 0.76rem;
+	}
+
+	.session-error {
+		margin: 1.5rem 0;
+		padding: 1rem 1.1rem;
+		border-left: 3px solid #d84831;
+		background: #fae8e1;
+		color: #6d2418;
+		font-weight: 700;
 	}
 
 	.mode-control {
@@ -317,6 +466,11 @@
 	.mode-control button.active {
 		background: #173b30;
 		color: #f3f5e9;
+	}
+
+	.mode-control button:disabled {
+		cursor: not-allowed;
+		opacity: 0.48;
 	}
 
 	.mode-control button:focus-visible,
@@ -550,7 +704,7 @@
 			flex-direction: column;
 		}
 
-		.theme-control {
+		.filter-control {
 			width: 100%;
 		}
 

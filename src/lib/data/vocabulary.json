@@ -2,1044 +2,1226 @@
 	{
 		"id": "famille-001",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les moments de la vie",
 		"word": "l’adolescence (f.)",
 		"definition": "période de la vie entre l’enfance et l’âge adulte (environ 12–18 ans)."
 	},
 	{
 		"id": "famille-002",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les moments de la vie",
 		"word": "les anciens / les aînés",
 		"definition": "les personnes plus âgées, notamment les grands-parents et les personnes âgées."
 	},
 	{
 		"id": "famille-003",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les moments de la vie",
 		"word": "l’enfance (f.)",
 		"definition": "période de la vie quand on est enfant."
 	},
 	{
 		"id": "famille-004",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les moments de la vie",
 		"word": "la génération",
 		"definition": "groupe de personnes qui ont à peu près le même âge (par exemple : la génération des parents, des grands-parents)."
 	},
 	{
 		"id": "famille-005",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les moments de la vie",
 		"word": "grandir",
 		"definition": "devenir plus grand, passer de l’enfance à l’âge adulte."
 	},
 	{
 		"id": "famille-006",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les moments de la vie",
 		"word": "la maison de retraite",
 		"definition": "lieu où vivent des personnes âgées qui ont besoin d’aide au quotidien."
 	},
 	{
 		"id": "famille-007",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les moments de la vie",
 		"word": "naître",
 		"definition": "venir au monde, commencer sa vie."
 	},
 	{
 		"id": "famille-008",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les membres de la famille",
 		"word": "l’arrière-petit-fils / l’arrière-petite-fille",
 		"definition": "le fils ou la fille de son petit-fils ou de sa petite-fille."
 	},
 	{
 		"id": "famille-009",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les membres de la famille",
 		"word": "les arrière-petits-enfants",
 		"definition": "ensemble des arrière-petit-fils et arrière-petite-filles."
 	},
 	{
 		"id": "famille-010",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les membres de la famille",
 		"word": "le beau-père",
 		"definition": "soit le père de son mari ou de sa femme (père du conjoint), soit le nouveau mari de sa mère (dans une famille recomposée)."
 	},
 	{
 		"id": "famille-011",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les membres de la famille",
 		"word": "la belle-mère",
 		"definition": "soit la mère de son mari ou de sa femme (mère du conjoint), soit la nouvelle femme de son père."
 	},
 	{
 		"id": "famille-012",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les membres de la famille",
 		"word": "la belle-famille",
 		"definition": "la famille de son mari ou de sa femme (beau-père, belle-mère, beaux-frères, belles-sœurs, etc.)."
 	},
 	{
 		"id": "famille-013",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les membres de la famille",
 		"word": "le / la cousin(e)",
 		"definition": "enfant de la tante ou de l’oncle, personne de la même génération que soi dans la famille."
 	},
 	{
 		"id": "famille-014",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les membres de la famille",
 		"word": "le frère",
 		"definition": "garçon qui a les mêmes parents que soi."
 	},
 	{
 		"id": "famille-015",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les membres de la famille",
 		"word": "la sœur",
 		"definition": "fille qui a les mêmes parents que soi."
 	},
 	{
 		"id": "famille-016",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les membres de la famille",
 		"word": "la fratrie",
 		"definition": "ensemble des frères et sœurs."
 	},
 	{
 		"id": "famille-017",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les membres de la famille",
 		"word": "le gendre",
 		"definition": "mari de sa fille."
 	},
 	{
 		"id": "famille-018",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les membres de la famille",
 		"word": "la belle-fille",
 		"definition": "femme de son fils."
 	},
 	{
 		"id": "famille-019",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les membres de la famille",
 		"word": "la grand-mère / la mamie",
 		"definition": "mère de son père ou de sa mère."
 	},
 	{
 		"id": "famille-020",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les membres de la famille",
 		"word": "le grand-père / le papi",
 		"definition": "père de son père ou de sa mère."
 	},
 	{
 		"id": "famille-021",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les membres de la famille",
 		"word": "le neveu",
 		"definition": "fils de son frère ou de sa sœur."
 	},
 	{
 		"id": "famille-022",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les membres de la famille",
 		"word": "la nièce",
 		"definition": "fille de son frère ou de sa sœur."
 	},
 	{
 		"id": "famille-023",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les membres de la famille",
 		"word": "l’oncle (m.)",
 		"definition": "frère de son père ou de sa mère."
 	},
 	{
 		"id": "famille-024",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les membres de la famille",
 		"word": "la tante",
 		"definition": "sœur de son père ou de sa mère."
 	},
 	{
 		"id": "famille-025",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les membres de la famille",
 		"word": "le petit-fils",
 		"definition": "fils de son fils ou de sa fille."
 	},
 	{
 		"id": "famille-026",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les membres de la famille",
 		"word": "la petite-fille",
 		"definition": "fille de son fils ou de sa fille."
 	},
 	{
 		"id": "famille-027",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les membres de la famille",
 		"word": "les petits-enfants",
 		"definition": "ensemble des petits-fils et petites-filles."
 	},
 	{
 		"id": "famille-028",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les membres de la famille",
 		"word": "les grands-parents",
 		"definition": "ensemble du grand-père et de la grand-mère."
 	},
 	{
 		"id": "famille-029",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les relations familiales",
 		"word": "le divorce",
 		"definition": "fin officielle d’un mariage, quand les époux se séparent légalement."
 	},
 	{
 		"id": "famille-030",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les relations familiales",
 		"word": "être seul(e)",
 		"definition": "ne pas vivre en couple, ne pas avoir de partenaire."
 	},
 	{
 		"id": "famille-031",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les relations familiales",
 		"word": "en couple",
 		"definition": "vivre une relation amoureuse avec quelqu’un."
 	},
 	{
 		"id": "famille-032",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les relations familiales",
 		"word": "la famille nombreuse",
 		"definition": "famille avec beaucoup d’enfants."
 	},
 	{
 		"id": "famille-033",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les relations familiales",
 		"word": "se fiancer",
 		"definition": "décider officiellement de se marier et souvent échanger des bagues de fiançailles."
 	},
 	{
 		"id": "famille-034",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les relations familiales",
 		"word": "se marier",
 		"definition": "s’unir officiellement avec quelqu’un par le mariage."
 	},
 	{
 		"id": "famille-035",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les relations familiales",
 		"word": "la séparation",
 		"definition": "fin d’une relation de couple, quand deux personnes ne vivent plus ensemble."
 	},
 	{
 		"id": "famille-036",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les relations familiales",
 		"word": "tomber enceinte",
 		"definition": "commencer une grossesse, attendre un bébé."
 	},
 	{
 		"id": "famille-037",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les relations familiales",
 		"word": "être enceinte",
 		"definition": "être en train d’attendre un bébé (pour une femme)."
 	},
 	{
 		"id": "famille-038",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les relations familiales",
 		"word": "la tribu",
 		"definition": "au sens familier, une grande famille ou un groupe familial très soudé."
 	},
 	{
 		"id": "famille-039",
 		"theme": "Les relations familiales et l’amour",
+		"section": "L’amour",
 		"word": "l’âme sœur (f.)",
 		"definition": "personne qui semble parfaitement faite pour soi, avec qui on a une grande complicité."
 	},
 	{
 		"id": "famille-040",
 		"theme": "Les relations familiales et l’amour",
+		"section": "L’amour",
 		"word": "(tomber) amoureux / amoureuse",
 		"definition": "commencer à aimer quelqu’un d’amour."
 	},
 	{
 		"id": "famille-041",
 		"theme": "Les relations familiales et l’amour",
+		"section": "L’amour",
 		"word": "l’être aimé",
 		"definition": "la personne que l’on aime d’amour."
 	},
 	{
 		"id": "famille-042",
 		"theme": "Les relations familiales et l’amour",
+		"section": "L’amour",
 		"word": "être romantique",
 		"definition": "aimer exprimer ses sentiments avec douceur, gestes tendres, cadeaux, etc."
 	},
 	{
 		"id": "famille-043",
 		"theme": "Les relations familiales et l’amour",
+		"section": "L’amour",
 		"word": "être fleur bleue",
 		"definition": "être très romantique et sensible, parfois de façon un peu naïve."
 	},
 	{
 		"id": "famille-044",
 		"theme": "Les relations familiales et l’amour",
+		"section": "L’amour",
 		"word": "les histoires de cœur",
 		"definition": "les histoires d’amour, les relations amoureuses."
 	},
 	{
 		"id": "famille-045",
 		"theme": "Les relations familiales et l’amour",
+		"section": "L’amour",
 		"word": "s’amouracher",
 		"definition": "tomber amoureux rapidement et souvent de manière un peu excessive."
 	},
 	{
 		"id": "famille-046",
 		"theme": "Les relations familiales et l’amour",
+		"section": "L’amour",
 		"word": "(se) séduire",
 		"definition": "attirer quelqu’un, lui plaire fortement, ou se plaire mutuellement."
 	},
 	{
 		"id": "famille-047",
 		"theme": "Les relations familiales et l’amour",
+		"section": "L’amour",
 		"word": "trouver l’amour",
 		"definition": "rencontrer une personne avec qui on vit une relation amoureuse importante."
 	},
 	{
 		"id": "famille-048",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les relations humaines",
 		"word": "attachant(e)",
 		"definition": "personne ou chose qu’on aime facilement, qui donne envie d’être proche."
 	},
 	{
 		"id": "famille-049",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les relations humaines",
 		"word": "débattre",
 		"definition": "discuter d’un sujet en donnant des arguments différents."
 	},
 	{
 		"id": "famille-050",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les relations humaines",
 		"word": "l’échec (m.)",
 		"definition": "fait de ne pas réussir, de ne pas atteindre son objectif."
 	},
 	{
 		"id": "famille-051",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les relations humaines",
 		"word": "jaloux / jalouse",
 		"definition": "qui a peur de perdre l’affection de quelqu’un ou qui envie ce que les autres ont."
 	},
 	{
 		"id": "famille-052",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les relations humaines",
 		"word": "juger",
 		"definition": "se faire une opinion sur quelqu’un, souvent en le critiquant."
 	},
 	{
 		"id": "famille-053",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les relations humaines",
 		"word": "la passion",
 		"definition": "sentiment très fort, très intense (souvent lié à l’amour ou à un intérêt très vif)."
 	},
 	{
 		"id": "famille-054",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les relations humaines",
 		"word": "ravi(e)",
 		"definition": "très content, très heureux."
 	},
 	{
 		"id": "famille-055",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les relations humaines",
 		"word": "remonter le moral",
 		"definition": "aider quelqu’un à se sentir mieux, moins triste."
 	},
 	{
 		"id": "famille-056",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les relations humaines",
 		"word": "se remettre (d’une épreuve, d’une rupture…)",
 		"definition": "retrouver un état normal après une difficulté, se reconstruire."
 	},
 	{
 		"id": "famille-057",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les relations humaines",
 		"word": "(se) trahir",
 		"definition": "ne pas respecter la confiance de quelqu’un (ou de soi-même), faire quelque chose contre lui."
 	},
 	{
 		"id": "famille-058",
 		"theme": "Les relations familiales et l’amour",
+		"section": "Les relations humaines",
 		"word": "voyeur / voyeuse",
 		"definition": "personne qui aime observer secrètement les autres, leur intimité, sans qu’ils le sachent."
 	},
 	{
 		"id": "voyage-001",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les transports / les verbes",
 		"word": "Aller / voyager",
 		"definition": "se déplacer d’un endroit à un autre."
 	},
 	{
 		"id": "voyage-002",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les transports / les verbes",
 		"word": "Voyager en bus",
 		"definition": "se déplacer en utilisant un bus."
 	},
 	{
 		"id": "voyage-003",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les transports / les verbes",
 		"word": "Voyager en train",
 		"definition": "se déplacer en utilisant le train."
 	},
 	{
 		"id": "voyage-004",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les transports / les verbes",
 		"word": "Voyager en avion",
 		"definition": "se déplacer en utilisant un avion."
 	},
 	{
 		"id": "voyage-005",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les transports / les verbes",
 		"word": "Voyager en bateau",
 		"definition": "se déplacer en utilisant un bateau."
 	},
 	{
 		"id": "voyage-006",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les transports / les verbes",
 		"word": "Voyager en tram",
 		"definition": "se déplacer en utilisant le tramway."
 	},
 	{
 		"id": "voyage-007",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les transports / les verbes",
 		"word": "Voyager en autocar",
 		"definition": "se déplacer en utilisant un grand bus pour les longs trajets."
 	},
 	{
 		"id": "voyage-008",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les transports / les verbes",
 		"word": "Voyager en taxi",
 		"definition": "se déplacer en utilisant une voiture avec chauffeur que l’on paie."
 	},
 	{
 		"id": "voyage-009",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les transports / les verbes",
 		"word": "Voyager à vélo",
 		"definition": "se déplacer en utilisant une bicyclette."
 	},
 	{
 		"id": "voyage-010",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les transports / les verbes",
 		"word": "Voyager à moto",
 		"definition": "se déplacer en utilisant une motocyclette."
 	},
 	{
 		"id": "voyage-011",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les transports / les verbes",
 		"word": "Voyager à pied",
 		"definition": "se déplacer en marchant."
 	},
 	{
 		"id": "voyage-012",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les lieux de transport",
 		"word": "Une gare",
 		"definition": "bâtiment où arrivent et partent les trains."
 	},
 	{
 		"id": "voyage-013",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les lieux de transport",
 		"word": "Un aéroport",
 		"definition": "grand lieu où arrivent et partent les avions."
 	},
 	{
 		"id": "voyage-014",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les lieux de transport",
 		"word": "Une gare routière",
 		"definition": "lieu où arrivent et partent les bus et autocars."
 	},
 	{
 		"id": "voyage-015",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les lieux de transport",
 		"word": "Une station (de métro)",
 		"definition": "lieu où l’on prend le métro, sous terre ou en surface."
 	},
 	{
 		"id": "voyage-016",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les lieux de transport",
 		"word": "Un arrêt (de bus)",
 		"definition": "endroit où le bus s’arrête pour prendre ou déposer des passagers."
 	},
 	{
 		"id": "voyage-017",
 		"theme": "Le tourisme et les voyages",
+		"section": "L’hébergement (où dormir)",
 		"word": "Un hôtel (de luxe)",
 		"definition": "établissement où l’on paie pour avoir une chambre ; « de luxe » = très confortable, très cher."
 	},
 	{
 		"id": "voyage-018",
 		"theme": "Le tourisme et les voyages",
+		"section": "L’hébergement (où dormir)",
 		"word": "Une auberge de jeunesse",
 		"definition": "lieu d’hébergement bon marché, souvent avec des dortoirs, pour les jeunes voyageurs."
 	},
 	{
 		"id": "voyage-019",
 		"theme": "Le tourisme et les voyages",
+		"section": "L’hébergement (où dormir)",
 		"word": "Une chambre d’hôtes",
 		"definition": "chambre chez l’habitant, dans une maison privée, avec petit-déjeuner souvent inclus."
 	},
 	{
 		"id": "voyage-020",
 		"theme": "Le tourisme et les voyages",
+		"section": "L’hébergement (où dormir)",
 		"word": "Un gîte",
 		"definition": "maison ou appartement à la campagne ou dans une région touristique, à louer pour les vacances."
 	},
 	{
 		"id": "voyage-021",
 		"theme": "Le tourisme et les voyages",
+		"section": "L’hébergement (où dormir)",
 		"word": "Un camping",
 		"definition": "terrain où l’on peut installer une tente ou garer un camping-car pour dormir."
 	},
 	{
 		"id": "voyage-022",
 		"theme": "Le tourisme et les voyages",
+		"section": "L’hébergement (où dormir)",
 		"word": "Une tente",
 		"definition": "abri en toile, que l’on monte pour dormir dehors, au camping ou dans la nature."
 	},
 	{
 		"id": "voyage-023",
 		"theme": "Le tourisme et les voyages",
+		"section": "L’hébergement (où dormir)",
 		"word": "Un camping-car",
 		"definition": "véhicule aménagé comme une petite maison (lit, cuisine) pour voyager et dormir."
 	},
 	{
 		"id": "voyage-024",
 		"theme": "Le tourisme et les voyages",
+		"section": "L’hébergement (où dormir)",
 		"word": "Une caravane",
 		"definition": "petite maison mobile à tirer avec une voiture pour voyager et dormir."
 	},
 	{
 		"id": "voyage-025",
 		"theme": "Le tourisme et les voyages",
+		"section": "L’hébergement (où dormir)",
 		"word": "Un chalet",
 		"definition": "petite maison en bois, souvent à la montagne."
 	},
 	{
 		"id": "voyage-026",
 		"theme": "Le tourisme et les voyages",
+		"section": "La météo",
 		"word": "Il fait (très) chaud",
 		"definition": "la température est élevée ; il fait beaucoup de chaleur."
 	},
 	{
 		"id": "voyage-027",
 		"theme": "Le tourisme et les voyages",
+		"section": "La météo",
 		"word": "Il fait (très) froid",
 		"definition": "la température est basse ; il fait très frais."
 	},
 	{
 		"id": "voyage-028",
 		"theme": "Le tourisme et les voyages",
+		"section": "La météo",
 		"word": "Il fait beau",
 		"definition": "le temps est agréable, souvent avec du soleil."
 	},
 	{
 		"id": "voyage-029",
 		"theme": "Le tourisme et les voyages",
+		"section": "La météo",
 		"word": "Il fait moche",
 		"definition": "le temps est mauvais, gris ou pluvieux."
 	},
 	{
 		"id": "voyage-030",
 		"theme": "Le tourisme et les voyages",
+		"section": "La météo",
 		"word": "Il pleut",
 		"definition": "il y a de la pluie."
 	},
 	{
 		"id": "voyage-031",
 		"theme": "Le tourisme et les voyages",
+		"section": "La météo",
 		"word": "Il neige",
 		"definition": "il tombe de la neige."
 	},
 	{
 		"id": "voyage-032",
 		"theme": "Le tourisme et les voyages",
+		"section": "La météo",
 		"word": "Il y a du soleil",
 		"definition": "le soleil brille."
 	},
 	{
 		"id": "voyage-033",
 		"theme": "Le tourisme et les voyages",
+		"section": "La météo",
 		"word": "Il y a des nuages",
 		"definition": "le ciel est couvert de nuages."
 	},
 	{
 		"id": "voyage-034",
 		"theme": "Le tourisme et les voyages",
+		"section": "La météo",
 		"word": "Il y a de l’orage",
 		"definition": "il y a du tonnerre, des éclairs, parfois de la pluie forte."
 	},
 	{
 		"id": "voyage-035",
 		"theme": "Le tourisme et les voyages",
+		"section": "La météo",
 		"word": "Il y a du brouillard",
 		"definition": "l’air est opaque, on voit mal au loin."
 	},
 	{
 		"id": "voyage-036",
 		"theme": "Le tourisme et les voyages",
+		"section": "La météo",
 		"word": "Il y a du vent",
 		"definition": "l’air se déplace fortement."
 	},
 	{
 		"id": "voyage-037",
 		"theme": "Le tourisme et les voyages",
+		"section": "La météo",
 		"word": "Il y a un arc-en-ciel",
 		"definition": "on voit, dans le ciel, une bande de couleurs après la pluie."
 	},
 	{
 		"id": "voyage-038",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les saisons / partir",
 		"word": "Partir en automne",
 		"definition": "voyager pendant la saison d’automne (septembre–novembre)."
 	},
 	{
 		"id": "voyage-039",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les saisons / partir",
 		"word": "Partir en été",
 		"definition": "voyager pendant l’été (juin–août)."
 	},
 	{
 		"id": "voyage-040",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les saisons / partir",
 		"word": "Partir en hiver",
 		"definition": "voyager pendant l’hiver (décembre–février)."
 	},
 	{
 		"id": "voyage-041",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les saisons / partir",
 		"word": "Partir au printemps",
 		"definition": "voyager pendant le printemps (mars–mai)."
 	},
 	{
 		"id": "voyage-042",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les lieux touristiques",
 		"word": "Un office du tourisme",
 		"definition": "lieu où l’on reçoit des informations, des plans et des conseils pour visiter une ville ou une région."
 	},
 	{
 		"id": "voyage-043",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les lieux touristiques",
 		"word": "Un musée",
 		"definition": "bâtiment où l’on peut voir des œuvres d’art ou des objets historiques."
 	},
 	{
 		"id": "voyage-044",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les lieux touristiques",
 		"word": "Un château",
 		"definition": "grand bâtiment ancien, souvent fortifié, où vivaient des rois, seigneurs ou nobles."
 	},
 	{
 		"id": "voyage-045",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les lieux touristiques",
 		"word": "Une cathédrale",
 		"definition": "très grande église, souvent ancienne et monumentale."
 	},
 	{
 		"id": "voyage-046",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les lieux touristiques",
 		"word": "Une église",
 		"definition": "lieu religieux chrétien où l’on prie et où ont lieu les cérémonies."
 	},
 	{
 		"id": "voyage-047",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les lieux touristiques",
 		"word": "Un parc d’attractions",
 		"definition": "grand parc avec des manèges, des montagnes russes, des jeux."
 	},
 	{
 		"id": "voyage-048",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les lieux touristiques",
 		"word": "Un parc aquatique",
 		"definition": "parc avec des piscines, toboggans et jeux d’eau."
 	},
 	{
 		"id": "voyage-049",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les lieux touristiques",
 		"word": "Un jardin exotique",
 		"definition": "jardin avec des plantes rares ou tropicales."
 	},
 	{
 		"id": "voyage-050",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les lieux touristiques",
 		"word": "Une cité médiévale",
 		"definition": "ville ancienne qui date du Moyen Âge, avec des remparts et des rues historiques."
 	},
 	{
 		"id": "voyage-051",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les lieux touristiques",
 		"word": "Un monument historique",
 		"definition": "bâtiment ou lieu ancien protégé pour son importance historique ou culturelle."
 	},
 	{
 		"id": "voyage-052",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les lieux touristiques",
 		"word": "La vieille ville / le centre historique",
 		"definition": "partie ancienne de la ville, avec des bâtiments historiques et des rues traditionnelles."
 	},
 	{
 		"id": "voyage-053",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les types de voyages",
 		"word": "Faire une croisière en bateau",
 		"definition": "voyager plusieurs jours sur un bateau, en faisant des escales."
 	},
 	{
 		"id": "voyage-054",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les types de voyages",
 		"word": "Faire un trek à la montagne",
 		"definition": "marcher longtemps en montagne, souvent sur plusieurs jours, avec sac à dos."
 	},
 	{
 		"id": "voyage-055",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les types de voyages",
 		"word": "Faire un tour du monde",
 		"definition": "voyager dans plusieurs pays sur différents continents."
 	},
 	{
 		"id": "voyage-056",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les types de voyages",
 		"word": "Un voyage détente",
 		"definition": "voyage pour se reposer et se relaxer."
 	},
 	{
 		"id": "voyage-057",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les types de voyages",
 		"word": "Faire un circuit organisé",
 		"definition": "suivre un programme de visites préparé par une agence, avec guide."
 	},
 	{
 		"id": "voyage-058",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les types de voyages",
 		"word": "Un séjour tout compris",
 		"definition": "voyage où tout est inclus (hébergement, repas, activités)."
 	},
 	{
 		"id": "voyage-059",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les types de voyages",
 		"word": "Faire un road-trip",
 		"definition": "voyager en voiture, en changeant souvent de lieu, en faisant un itinéraire libre."
 	},
 	{
 		"id": "voyage-060",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les types de voyages",
 		"word": "Voyager en solitaire",
 		"definition": "voyager seul, sans compagnon."
 	},
 	{
 		"id": "voyage-061",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les types de voyages",
 		"word": "Un voyage humanitaire",
 		"definition": "voyage pour aider les populations (santé, éducation, construction…)."
 	},
 	{
 		"id": "voyage-062",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les types de voyages",
 		"word": "Un week-end romantique",
 		"definition": "court séjour à deux, souvent en couple, dans un lieu agréable."
 	},
 	{
 		"id": "voyage-063",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les types de voyages",
 		"word": "Un voyage aventure",
 		"definition": "voyage avec beaucoup d’action, de risque ou de découverte (sports, nature sauvage…)."
 	},
 	{
 		"id": "voyage-064",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les activités",
 		"word": "Découvrir une culture / une ville",
 		"definition": "apprendre à connaître un pays ou une ville (habitudes, monuments, histoire)."
 	},
 	{
 		"id": "voyage-065",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les activités",
 		"word": "Goûter la cuisine locale",
 		"definition": "manger les plats typiques du pays ou de la région."
 	},
 	{
 		"id": "voyage-066",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les activités",
 		"word": "Rencontrer des gens",
 		"definition": "faire connaissance avec des personnes, parler avec elles."
 	},
 	{
 		"id": "voyage-067",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les activités",
 		"word": "Faire de la randonnée",
 		"definition": "marcher longtemps dans la nature (montagne, campagne…)."
 	},
 	{
 		"id": "voyage-068",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les activités",
 		"word": "Faire du sport",
 		"definition": "pratiquer une activité sportive."
 	},
 	{
 		"id": "voyage-069",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les activités",
+		"subsection": "Détails des sports",
 		"word": "De l’escalade",
 		"definition": "grimper sur des rochers ou des murs."
 	},
 	{
 		"id": "voyage-070",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les activités",
+		"subsection": "Détails des sports",
 		"word": "De l’équitation",
 		"definition": "monter à cheval."
 	},
 	{
 		"id": "voyage-071",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les activités",
+		"subsection": "Détails des sports",
 		"word": "De la natation",
 		"definition": "nager."
 	},
 	{
 		"id": "voyage-072",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les activités",
+		"subsection": "Détails des sports",
 		"word": "Du VTT",
 		"definition": "faire du vélo tout-terrain, dans la nature."
 	},
 	{
 		"id": "voyage-073",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les activités",
+		"subsection": "Détails des sports",
 		"word": "De la planche à voile",
 		"definition": "glisser sur l’eau avec une planche et une voile."
 	},
 	{
 		"id": "voyage-074",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les activités",
+		"subsection": "Détails des sports",
 		"word": "Du ski",
 		"definition": "glisser sur la neige avec des skis."
 	},
 	{
 		"id": "voyage-075",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les activités",
+		"subsection": "Détails des sports",
 		"word": "Du snowboard",
 		"definition": "glisser sur la neige avec une planche."
 	},
 	{
 		"id": "voyage-076",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les activités",
+		"subsection": "Détails des sports",
 		"word": "Du canoë-kayak",
 		"definition": "pagayer dans une petite embarcation sur l’eau."
 	},
 	{
 		"id": "voyage-077",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les activités",
 		"word": "Se relaxer",
 		"definition": "se reposer, calmer le corps et l’esprit."
 	},
 	{
 		"id": "voyage-078",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les activités",
 		"word": "Bronzer",
 		"definition": "prendre le soleil pour avoir la peau plus foncée."
 	},
 	{
 		"id": "voyage-079",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les activités",
 		"word": "Visiter un musée",
 		"definition": "aller dans un musée pour voir des expositions."
 	},
 	{
 		"id": "voyage-080",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les activités",
 		"word": "Faire une excursion",
 		"definition": "faire une sortie organisée, souvent d’une journée, pour visiter un lieu."
 	},
 	{
 		"id": "voyage-081",
 		"theme": "Le tourisme et les voyages",
+		"section": "Les activités",
 		"word": "Prendre des photos",
 		"definition": "utiliser un appareil pour garder des images de ce que l’on voit."
 	},
 	{
 		"id": "voyage-082",
 		"theme": "Le tourisme et les voyages",
+		"section": "La nature",
 		"word": "Une montagne",
 		"definition": "grande hauteur de terre, souvent avec des sommets."
 	},
 	{
 		"id": "voyage-083",
 		"theme": "Le tourisme et les voyages",
+		"section": "La nature",
 		"word": "Une plage",
 		"definition": "bord de mer ou de lac avec du sable ou des galets."
 	},
 	{
 		"id": "voyage-084",
 		"theme": "Le tourisme et les voyages",
+		"section": "La nature",
 		"word": "Une côte",
 		"definition": "zone où la terre rencontre la mer, le littoral."
 	},
 	{
 		"id": "voyage-085",
 		"theme": "Le tourisme et les voyages",
+		"section": "La nature",
 		"word": "Un désert",
 		"definition": "région très sèche, avec peu de végétation, souvent du sable."
 	},
 	{
 		"id": "voyage-086",
 		"theme": "Le tourisme et les voyages",
+		"section": "La nature",
 		"word": "Une forêt",
 		"definition": "grande zone avec beaucoup d’arbres."
 	},
 	{
 		"id": "voyage-087",
 		"theme": "Le tourisme et les voyages",
+		"section": "La nature",
 		"word": "Une jungle",
 		"definition": "forêt très dense, tropicale, avec une végétation épaisse."
 	},
 	{
 		"id": "voyage-088",
 		"theme": "Le tourisme et les voyages",
+		"section": "La nature",
 		"word": "La mer / l’océan",
 		"definition": "grandes étendues d’eau salée."
 	},
 	{
 		"id": "voyage-089",
 		"theme": "Le tourisme et les voyages",
+		"section": "La nature",
 		"word": "Un parc national",
 		"definition": "zone naturelle protégée par l’État pour la nature et les animaux."
 	},
 	{
 		"id": "voyage-090",
 		"theme": "Le tourisme et les voyages",
+		"section": "La nature",
 		"word": "Une réserve naturelle",
 		"definition": "espace protégé pour préserver les plantes et les animaux."
 	},
 	{
 		"id": "voyage-091",
 		"theme": "Le tourisme et les voyages",
+		"section": "La nature",
 		"word": "Un fleuve",
 		"definition": "grande rivière qui se jette dans la mer ou l’océan."
 	},
 	{
 		"id": "voyage-092",
 		"theme": "Le tourisme et les voyages",
+		"section": "La nature",
 		"word": "Une rivière",
 		"definition": "cours d’eau plus petit qu’un fleuve."
 	},
 	{
 		"id": "voyage-093",
 		"theme": "Le tourisme et les voyages",
+		"section": "La nature",
 		"word": "Un lac",
 		"definition": "grande étendue d’eau entourée de terre."
 	},
 	{
 		"id": "voyage-094",
 		"theme": "Le tourisme et les voyages",
+		"section": "Qualifier des vacances, un lieu, un hébergement, une activité",
 		"word": "Agréable",
 		"definition": "qui fait plaisir, qui est doux et confortable."
 	},
 	{
 		"id": "voyage-095",
 		"theme": "Le tourisme et les voyages",
+		"section": "Qualifier des vacances, un lieu, un hébergement, une activité",
 		"word": "Calme",
 		"definition": "où il y a peu de bruit, peu d’agitation."
 	},
 	{
 		"id": "voyage-096",
 		"theme": "Le tourisme et les voyages",
+		"section": "Qualifier des vacances, un lieu, un hébergement, une activité",
 		"word": "Déprimant(e)",
 		"definition": "qui rend triste, sans énergie."
 	},
 	{
 		"id": "voyage-097",
 		"theme": "Le tourisme et les voyages",
+		"section": "Qualifier des vacances, un lieu, un hébergement, une activité",
 		"word": "Reposant(e)",
 		"definition": "qui permet de se reposer."
 	},
 	{
 		"id": "voyage-098",
 		"theme": "Le tourisme et les voyages",
+		"section": "Qualifier des vacances, un lieu, un hébergement, une activité",
 		"word": "Stressant(e)",
 		"definition": "qui donne du stress, de la tension."
 	},
 	{
 		"id": "voyage-099",
 		"theme": "Le tourisme et les voyages",
+		"section": "Qualifier des vacances, un lieu, un hébergement, une activité",
 		"word": "Ensoleillé(e)",
 		"definition": "où il y a beaucoup de soleil."
 	},
 	{
 		"id": "voyage-100",
 		"theme": "Le tourisme et les voyages",
+		"section": "Qualifier des vacances, un lieu, un hébergement, une activité",
 		"word": "Spectaculaire",
 		"definition": "très impressionnant, qui surprend."
 	},
 	{
 		"id": "voyage-101",
 		"theme": "Le tourisme et les voyages",
+		"section": "Qualifier des vacances, un lieu, un hébergement, une activité",
 		"word": "Touristique",
 		"definition": "où il y a beaucoup de touristes, beaucoup d’activités pour les visiteurs."
 	},
 	{
 		"id": "voyage-102",
 		"theme": "Le tourisme et les voyages",
+		"section": "Qualifier des vacances, un lieu, un hébergement, une activité",
 		"word": "Éducatif(-ve)",
 		"definition": "qui permet d’apprendre quelque chose."
 	},
 	{
 		"id": "voyage-103",
 		"theme": "Le tourisme et les voyages",
+		"section": "Qualifier des vacances, un lieu, un hébergement, une activité",
 		"word": "Culturel(le)",
 		"definition": "lié à l’art, à l’histoire, aux traditions."
 	},
 	{
 		"id": "voyage-104",
 		"theme": "Le tourisme et les voyages",
+		"section": "Qualifier des vacances, un lieu, un hébergement, une activité",
 		"word": "Fatigant(e)",
 		"definition": "qui demande beaucoup d’énergie, qui rend fatigué."
 	},
 	{
 		"id": "voyage-105",
 		"theme": "Le tourisme et les voyages",
+		"section": "Qualifier des vacances, un lieu, un hébergement, une activité",
 		"word": "Dangereux(-euse)",
 		"definition": "qui peut causer des accidents ou des blessures."
 	},
 	{
 		"id": "voyage-106",
 		"theme": "Le tourisme et les voyages",
+		"section": "Qualifier des vacances, un lieu, un hébergement, une activité",
 		"word": "Ennuyeux(-euse)",
 		"definition": "qui n’est pas intéressant, qui donne de l’ennui."
 	},
 	{
 		"id": "voyage-107",
 		"theme": "Le tourisme et les voyages",
+		"section": "Qualifier des vacances, un lieu, un hébergement, une activité",
 		"word": "Intéressant(e)",
 		"definition": "qui donne envie de s’y intéresser, de en savoir plus."
 	},
 	{
 		"id": "voyage-108",
 		"theme": "Le tourisme et les voyages",
+		"section": "Qualifier des vacances, un lieu, un hébergement, une activité",
 		"word": "Tranquille",
 		"definition": "calme, sans problème, sans bruit."
 	},
 	{
 		"id": "voyage-109",
 		"theme": "Le tourisme et les voyages",
+		"section": "Qualifier des vacances, un lieu, un hébergement, une activité",
 		"word": "Inoubliable",
 		"definition": "tellement fort ou beau qu’on ne peut pas l’oublier."
 	},
 	{
 		"id": "voyage-110",
 		"theme": "Le tourisme et les voyages",
+		"section": "Qualifier des vacances, un lieu, un hébergement, une activité",
 		"word": "Bon marché",
 		"definition": "peu cher, avec un petit prix."
 	},
 	{
 		"id": "voyage-111",
 		"theme": "Le tourisme et les voyages",
+		"section": "Qualifier des vacances, un lieu, un hébergement, une activité",
 		"word": "Cher(-ère)",
 		"definition": "avec un prix élevé."
 	},
 	{
 		"id": "voyage-112",
 		"theme": "Le tourisme et les voyages",
+		"section": "Qualifier des vacances, un lieu, un hébergement, une activité",
 		"word": "De luxe",
 		"definition": "très confortable, très haut de gamme, souvent très cher."
 	},
 	{
 		"id": "voyage-113",
 		"theme": "Le tourisme et les voyages",
+		"section": "Qualifier des vacances, un lieu, un hébergement, une activité",
 		"word": "Bien organisé(e)",
 		"definition": "avec un bon planning, une bonne organisation."
 	},
 	{
 		"id": "voyage-114",
 		"theme": "Le tourisme et les voyages",
+		"section": "Qualifier des vacances, un lieu, un hébergement, une activité",
 		"word": "Mal organisé(e)",
 		"definition": "avec une mauvaise organisation, du désordre."
 	},
 	{
 		"id": "voyage-115",
 		"theme": "Le tourisme et les voyages",
+		"section": "Qualifier des vacances, un lieu, un hébergement, une activité",
 		"word": "Magnifique",
 		"definition": "très beau, impressionnant."
 	},
 	{
 		"id": "voyage-116",
 		"theme": "Le tourisme et les voyages",
+		"section": "Qualifier des vacances, un lieu, un hébergement, une activité",
 		"word": "Passionnant(e)",
 		"definition": "très intéressant, captivant."
 	}
