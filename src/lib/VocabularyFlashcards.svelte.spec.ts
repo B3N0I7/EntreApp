@@ -1,7 +1,14 @@
 import { page } from 'vitest/browser';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
-import { RANDOM_SECTION, RANDOM_THEME } from './vocabulary';
+import {
+	ALL_SECTIONS,
+	createAnswerOptions,
+	createVocabularySession,
+	RANDOM_SECTION,
+	RANDOM_THEME,
+	THEMES
+} from './vocabulary';
 import VocabularyFlashcards from './VocabularyFlashcards.svelte';
 
 describe('VocabularyFlashcards', () => {
@@ -84,5 +91,84 @@ describe('VocabularyFlashcards', () => {
 			.element(page.getByText('Les relations familiales et l’amour · Les moments de la vie'))
 			.toBeInTheDocument();
 		await expect.element(page.getByText('Carte 1 / 5')).toBeInTheDocument();
+	});
+
+	it('persists a completed self-assessment with review cards as errors', async () => {
+		const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+			new Response(JSON.stringify({ saved: true }), {
+				headers: { 'content-type': 'application/json' }
+			})
+		);
+		render(VocabularyFlashcards, { direction: 'word-to-definition' });
+
+		for (let index = 0; index < 5; index += 1) {
+			await page.getByRole('button', { name: 'Révéler la réponse' }).click();
+			await page.getByRole('button', { name: index === 0 ? 'À revoir' : 'Acquis' }).click();
+		}
+
+		await expect.poll(() => fetchSpy).toHaveBeenCalledTimes(1);
+		const payload = JSON.parse(String(fetchSpy.mock.calls[0]?.[1]?.body)) as {
+			module: string;
+			score: string;
+			erreurs: Array<{ entryId: string; mode: string; reponseEleve: string; correction: string }>;
+		};
+		expect(fetchSpy.mock.calls[0]?.[0]).toBe('/api/history');
+		expect(payload).toMatchObject({ module: 'vocabulaire-mot', score: '4/5' });
+		expect(payload.erreurs).toHaveLength(1);
+		expect(payload.erreurs[0]?.entryId).toBeTruthy();
+		expect(payload.erreurs[0]).toMatchObject({
+			mode: 'self-assessment',
+			reponseEleve: ''
+		});
+	});
+
+	it('persists wrong QCM choices with the correction', async () => {
+		const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+			new Response(JSON.stringify({ saved: true }), {
+				headers: { 'content-type': 'application/json' }
+			})
+		);
+		render(VocabularyFlashcards, { direction: 'word-to-definition' });
+		await page.getByRole('button', { name: 'QCM' }).click();
+
+		const answers = page.getByRole('group', { name: 'Réponses proposées' });
+		const session = createVocabularySession(
+			THEMES[0] ?? '',
+			ALL_SECTIONS,
+			'word-to-definition',
+			5,
+			() => 0
+		);
+		const firstOptions = createAnswerOptions(
+			session.pool,
+			session.entries[0]!,
+			'word-to-definition',
+			() => 0
+		);
+		const correctAnswer = firstOptions.find((option) => option.correct)?.value;
+		const wrongChoice = firstOptions.find((option) => !option.correct)?.value;
+		expect(wrongChoice).toBeTruthy();
+
+		for (let index = 0; index < 5; index += 1) {
+			const choices = page.getByRole('group', { name: 'Réponses proposées' }).getByRole('button');
+			if (index === 0) {
+				await answers.getByRole('button', { name: wrongChoice!, exact: true }).click();
+			} else await choices.first().click();
+			await page.getByRole('button', { name: 'Carte suivante' }).click();
+		}
+
+		await expect.poll(() => fetchSpy).toHaveBeenCalledTimes(1);
+		const payload = JSON.parse(String(fetchSpy.mock.calls[0]?.[1]?.body)) as {
+			module: string;
+			erreurs: Array<{ mode: string; reponseEleve: string; correction: string }>;
+		};
+		expect(payload.module).toBe('vocabulaire-mot');
+		expect(payload.erreurs).toContainEqual(
+			expect.objectContaining({
+				mode: 'multiple-choice',
+				reponseEleve: wrongChoice,
+				correction: correctAnswer
+			})
+		);
 	});
 });

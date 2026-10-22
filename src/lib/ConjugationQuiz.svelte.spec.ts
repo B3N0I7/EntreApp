@@ -1,7 +1,11 @@
 import { page } from 'vitest/browser';
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import ConjugationQuiz from './ConjugationQuiz.svelte';
+
+afterEach(() => {
+	vi.restoreAllMocks();
+});
 
 describe('ConjugationQuiz', () => {
 	it('checks all eight pronouns and reports the completed score', async () => {
@@ -63,5 +67,37 @@ describe('ConjugationQuiz', () => {
 		await page.getByRole('textbox').fill('je vais aller');
 		await page.getByRole('button', { name: 'Vérifier' }).click();
 		await expect.element(page.getByRole('status')).toHaveTextContent('Correct');
+	});
+
+	it('persists one completed run with the failed conjugation', async () => {
+		const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+			new Response(JSON.stringify({ saved: true }), {
+				headers: { 'content-type': 'application/json' }
+			})
+		);
+		render(ConjugationQuiz);
+		await page.getByRole('combobox', { name: 'Verbe' }).selectOptions('falloir');
+		await page.getByRole('combobox', { name: 'Temps' }).selectOptions('passeCompose');
+		await page.getByRole('button', { name: 'Commencer' }).click();
+		await page.getByRole('textbox').fill('il est fallu');
+		await page.getByRole('button', { name: 'Vérifier' }).click();
+		await page.getByRole('button', { name: 'Voir le résultat' }).click();
+
+		await expect.poll(() => fetchSpy).toHaveBeenCalledTimes(1);
+		const payload = JSON.parse(String(fetchSpy.mock.calls[0]?.[1]?.body)) as {
+			module: string;
+			score: string;
+			erreurs: Array<{ verbeId: string; tempsId: string; pronom: string; reponseEleve: string }>;
+		};
+		expect(fetchSpy.mock.calls[0]?.[0]).toBe('/api/history');
+		expect(payload).toMatchObject({ module: 'conjugaison', score: '0/1' });
+		expect(payload.erreurs).toEqual([
+			expect.objectContaining({
+				verbeId: 'falloir',
+				tempsId: 'passeCompose',
+				pronom: 'il',
+				reponseEleve: 'il est fallu'
+			})
+		]);
 	});
 });

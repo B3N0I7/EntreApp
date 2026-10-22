@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+	import { takeReplay } from './replay';
+	import { enregistrerPartie, type ErreurVocabulaire } from './sheetService';
 	import {
 		ALL_SECTIONS,
 		canUseMultipleChoice,
@@ -10,6 +13,7 @@
 		RANDOM_THEME,
 		sectionsForTheme,
 		THEMES,
+		VOCABULARY,
 		type AnswerMode,
 		type AnswerOption,
 		type VocabularyEntry,
@@ -40,6 +44,9 @@
 	let reviewCount = $state(0);
 	let correctCount = $state(0);
 	let incorrectCount = $state(0);
+	let errors = $state<ErreurVocabulaire[]>([]);
+	let completionRecorded = $state(false);
+	let persistenceError = $state('');
 
 	let entries = $derived(sessionEntries);
 	let availableSections = $derived(
@@ -75,6 +82,9 @@
 		reviewCount = 0;
 		correctCount = 0;
 		incorrectCount = 0;
+		errors = [];
+		completionRecorded = false;
+		persistenceError = '';
 	}
 
 	function applySession(session: ReturnType<typeof createVocabularySession>, quantity: number) {
@@ -124,7 +134,7 @@
 
 	function advance() {
 		if (currentIndex >= entries.length - 1) {
-			seriesComplete = true;
+			void completeSeries();
 			return;
 		}
 		currentIndex += 1;
@@ -133,16 +143,82 @@
 	}
 
 	function assess(known: boolean) {
+		if (!currentEntry || !card) return;
 		if (known) knownCount += 1;
-		else reviewCount += 1;
+		else {
+			reviewCount += 1;
+			errors = [
+				...errors,
+				{
+					entryId: currentEntry.id,
+					direction,
+					mode: answerMode,
+					mot: currentEntry.word,
+					reponseEleve: '',
+					correction: card.answer
+				}
+			];
+		}
 		advance();
 	}
 
 	function chooseAnswer(option: AnswerOption) {
-		if (selectedAnswer !== null) return;
+		if (selectedAnswer !== null || !currentEntry || !card) return;
 		selectedAnswer = option.value;
 		if (option.correct) correctCount += 1;
-		else incorrectCount += 1;
+		else {
+			incorrectCount += 1;
+			errors = [
+				...errors,
+				{
+					entryId: currentEntry.id,
+					direction,
+					mode: 'multiple-choice',
+					mot: currentEntry.word,
+					reponseEleve: option.value,
+					correction: card.answer
+				}
+			];
+		}
+	}
+
+	async function completeSeries() {
+		seriesComplete = true;
+		if (completionRecorded) return;
+		completionRecorded = true;
+		const successfulCount = answerMode === 'self-assessment' ? knownCount : correctCount;
+		const module =
+			direction === 'word-to-definition' ? 'vocabulaire-mot' : 'vocabulaire-definition';
+		try {
+			await enregistrerPartie(module, `${successfulCount}/${sessionEntries.length}`, errors);
+		} catch {
+			persistenceError = 'La partie est terminée, mais son enregistrement a échoué.';
+		}
+	}
+
+	function startReplay(replayErrors: import('./sheetService').Erreur[]) {
+		const matchingErrors = replayErrors.filter(
+			(error): error is ErreurVocabulaire => 'entryId' in error && error.direction === direction
+		);
+		const replayEntries = matchingErrors
+			.map((error) => VOCABULARY.find((entry) => entry.id === error.entryId))
+			.filter((entry): entry is VocabularyEntry => entry !== undefined);
+		if (replayEntries.length === 0) {
+			sessionError = 'Les cartes de cette partie ne sont plus disponibles.';
+			return;
+		}
+
+		resetStudy();
+		sessionEntries = replayEntries;
+		activePool = [...VOCABULARY];
+		sessionTheme = 'Erreurs à revoir';
+		sessionSection = null;
+		sessionSize = replayEntries.length;
+		answerMode = matchingErrors[0]?.mode ?? 'self-assessment';
+		if (answerMode === 'multiple-choice' && !canUseMultipleChoice(activePool, direction)) {
+			answerMode = 'self-assessment';
+		}
+		sessionError = '';
 	}
 
 	function restart() {
@@ -158,7 +234,16 @@
 		}
 	}
 
-	startStudy();
+	onMount(() => {
+		const replay = takeReplay(
+			direction === 'word-to-definition' ? 'vocabulaire-mot' : 'vocabulaire-definition'
+		);
+		if (replay) {
+			startReplay(replay);
+			return;
+		}
+		startStudy();
+	});
 </script>
 
 <section class="study-shell" aria-labelledby="study-title">
@@ -266,6 +351,7 @@
 					{correctCount} bonnes réponses · {incorrectCount} à revoir
 				{/if}
 			</p>
+			{#if persistenceError}<p class="session-error" role="alert">{persistenceError}</p>{/if}
 			<button class="primary-button" type="button" onclick={restart}>Recommencer</button>
 		</section>
 	{:else if sessionError}

@@ -1,5 +1,9 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
+	import { page } from '$app/state';
 	import { tick } from 'svelte';
+	import { takeReplay } from './replay';
+	import { enregistrerPartie, type ErreurConjugaison } from './sheetService';
 	import {
 		chooseConjugationPair,
 		getAcceptedAnswers,
@@ -8,6 +12,7 @@
 		isCorrectConjugation,
 		TENSES,
 		VERBS,
+		type Person,
 		type PairSelection,
 		type TenseId
 	} from './conjugation';
@@ -22,12 +27,19 @@
 	let correctCount = $state(0);
 	let sessionComplete = $state(false);
 	let answerInput = $state<HTMLInputElement>();
+	let replayPersons = $state<Person[] | null>(null);
+	let sessionErrors = $state<ErreurConjugaison[]>([]);
+	let completionRecorded = $state(false);
+	let persistenceError = $state('');
+	let sessionError = $state('');
 
 	let verb = $derived(session ? getVerb(session.verbId) : undefined);
 	let tenseId = $derived(session?.tenseId);
 	let tense = $derived(tenseId ? TENSES.find((candidate) => candidate.id === tenseId) : undefined);
 	let pronouns = $derived(verb && tenseId ? getPronouns(verb, tenseId) : []);
-	let person = $derived(pronouns[personIndex]);
+	let questionPersons = $derived(replayPersons ?? pronouns);
+	let questionCount = $derived(questionPersons.length);
+	let person = $derived(questionPersons[personIndex]);
 	let acceptedAnswers = $derived(
 		verb && tenseId && person ? getAcceptedAnswers(verb, tenseId, person) : []
 	);
@@ -61,6 +73,11 @@
 		feedback = null;
 		correctCount = 0;
 		sessionComplete = false;
+		replayPersons = null;
+		sessionErrors = [];
+		completionRecorded = false;
+		persistenceError = '';
+		sessionError = '';
 	}
 
 	function submitStart(event: SubmitEvent) {
@@ -74,11 +91,25 @@
 		const correct = isCorrectConjugation(answer, acceptedAnswers);
 		feedback = { correct, answers: acceptedAnswers };
 		if (correct) correctCount += 1;
+		else if (verb && tense && person) {
+			sessionErrors = [
+				...sessionErrors,
+				{
+					verbeId: verb.id,
+					tempsId: tense.id,
+					verbe: verb.infinitive,
+					temps: tense.label,
+					pronom: person,
+					reponseEleve: answer.trim(),
+					correction: acceptedAnswers
+				}
+			];
+		}
 	}
 
 	async function moveToNextPerson() {
-		if (personIndex >= pronouns.length - 1) {
-			sessionComplete = true;
+		if (personIndex >= questionCount - 1) {
+			await completeSession();
 			return;
 		}
 		personIndex += 1;
@@ -87,6 +118,69 @@
 		await tick();
 		answerInput?.focus();
 	}
+
+	async function completeSession() {
+		sessionComplete = true;
+		if (completionRecorded || !session || questionCount === 0) return;
+		completionRecorded = true;
+		try {
+			await enregistrerPartie('conjugaison', `${correctCount}/${questionCount}`, sessionErrors);
+		} catch {
+			persistenceError = 'La série est terminée, mais son enregistrement a échoué.';
+		}
+	}
+
+	function startReplay(errors: import('./sheetService').Erreur[]) {
+		const conjugationErrors = errors.filter(
+			(error): error is ErreurConjugaison => 'verbeId' in error && 'tempsId' in error
+		);
+		const firstError = conjugationErrors[0];
+		const replayVerb = firstError ? getVerb(firstError.verbeId) : undefined;
+		const replayTense = firstError
+			? TENSES.find((candidate) => candidate.id === firstError.tempsId)
+			: undefined;
+		if (!firstError || !replayVerb || !replayTense) {
+			sessionError = 'Les questions de cette série ne sont plus disponibles.';
+			return;
+		}
+
+		const availablePersons = getPronouns(replayVerb, replayTense.id);
+		const targets = [
+			...new Set(
+				conjugationErrors
+					.filter((error) => error.verbeId === replayVerb.id && error.tempsId === replayTense.id)
+					.map((error) => error.pronom)
+			)
+		].filter((pronoun): pronoun is Person => availablePersons.includes(pronoun as Person));
+		if (targets.length === 0) {
+			sessionError = 'Aucun pronom à rejouer n’est disponible.';
+			return;
+		}
+
+		session = { verbId: replayVerb.id, tenseId: replayTense.id };
+		verbChoice = replayVerb.id;
+		tenseChoice = replayTense.id;
+		replayPersons = targets;
+		personIndex = 0;
+		answer = '';
+		feedback = null;
+		correctCount = 0;
+		sessionErrors = [];
+		sessionComplete = false;
+		completionRecorded = false;
+		persistenceError = '';
+		sessionError = '';
+	}
+
+	onMount(() => {
+		if (page.url.searchParams.get('replay') === '1') {
+			const replay = takeReplay('conjugaison');
+			if (replay) {
+				startReplay(replay);
+				return;
+			}
+		}
+	});
 </script>
 
 <svelte:head>
@@ -129,6 +223,7 @@
 			<span aria-hidden="true">↗</span>
 		</button>
 	</form>
+	{#if sessionError}<p class="session-error" role="alert">{sessionError}</p>{/if}
 
 	{#if session && verb && tense}
 		{#if sessionComplete}
@@ -136,8 +231,9 @@
 				<p class="eyebrow">{verb.infinitive} · {tense.label}</p>
 				<h2 id="completion-title">Série terminée</h2>
 				<p class="score" role="status">
-					{correctCount} / {pronouns.length} réponses correctes
+					{correctCount} / {questionCount} réponses correctes
 				</p>
+				{#if persistenceError}<p class="session-error" role="alert">{persistenceError}</p>{/if}
 				<button class="start-button" type="button" onclick={startSession}>Nouvelle série</button>
 			</section>
 		{:else if person}
@@ -147,10 +243,10 @@
 						<p class="eyebrow">{tense.label}</p>
 						<h2 id="question-title">{verb.infinitive}</h2>
 					</div>
-					<p class="progress-count">{personIndex + 1} / {pronouns.length}</p>
+					<p class="progress-count">{personIndex + 1} / {questionCount}</p>
 				</div>
 
-				<progress aria-label="Progression de la série" max={pronouns.length} value={personIndex + 1}
+				<progress aria-label="Progression de la série" max={questionCount} value={personIndex + 1}
 				></progress>
 
 				<div class="question-card">
@@ -166,7 +262,7 @@
 							<span>{feedback.answers.join(' / ')}</span>
 						</div>
 						<button class="next-button" type="button" onclick={moveToNextPerson}>
-							{personIndex === pronouns.length - 1 ? 'Voir le résultat' : 'Pronom suivant'}
+							{personIndex === questionCount - 1 ? 'Voir le résultat' : 'Pronom suivant'}
 						</button>
 					{:else}
 						<form class="answer-form" onsubmit={submitAnswer}>

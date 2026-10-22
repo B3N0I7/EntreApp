@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import { resolve } from '$app/paths';
 	import favicon from '#lib/assets/favicon.svg';
@@ -17,6 +18,12 @@
 
 	function closeMenu() {
 		menuOpen = false;
+	}
+
+	async function logout() {
+		const response = await fetch('/api/auth/logout', { method: 'POST' });
+		if (response.ok) await goto(resolve('/login'), { invalidateAll: true });
+		closeMenu();
 	}
 
 	function handleKeydown(event: KeyboardEvent) {
@@ -66,6 +73,34 @@
 					{link.label}
 				</a>
 			{/each}
+			{#if page.data.user && page.data.user.role !== 'guest'}
+				<a
+					href={resolve('/historique')}
+					class:active={page.url.pathname.startsWith('/historique')}
+					aria-current={page.url.pathname.startsWith('/historique') ? 'page' : undefined}
+					onclick={closeMenu}>Historique</a
+				>
+				{#if page.data.user.role === 'admin'}
+					<a
+						href={resolve('/admin')}
+						class:active={page.url.pathname.startsWith('/admin')}
+						aria-current={page.url.pathname.startsWith('/admin') ? 'page' : undefined}
+						onclick={closeMenu}>Administration</a
+					>
+				{/if}
+				<span class="user-name">{page.data.user.name}</span>
+				<button class="session-action" type="button" onclick={logout}>Déconnexion</button>
+			{:else if page.data.user}
+				<span class="user-name">Invité</span>
+				<button class="session-action" type="button" onclick={logout}>Quitter</button>
+			{:else}
+				<a
+					href={resolve('/login')}
+					class:active={page.url.pathname === '/login'}
+					aria-current={page.url.pathname === '/login' ? 'page' : undefined}
+					onclick={closeMenu}>Connexion</a
+				>
+			{/if}
 		</nav>
 	</header>
 
@@ -147,6 +182,22 @@
 		color: #173b30;
 	}
 
+	.user-name {
+		color: #173b30;
+		font-size: 0.84rem;
+		font-weight: 800;
+	}
+
+	.session-action {
+		padding: 0.55rem 0.7rem;
+		border: 1px solid #bdcbc0;
+		background: transparent;
+		color: #52665b;
+		font-size: 0.8rem;
+		font-weight: 700;
+		cursor: pointer;
+	}
+
 	nav a.active::after {
 		position: absolute;
 		right: 0;
@@ -193,6 +244,7 @@
 	}
 
 	.menu-toggle:focus-visible,
+	.session-action:focus-visible,
 	nav a:focus-visible,
 	.brand:focus-visible {
 		outline: 3px solid #173b30;
@@ -236,6 +288,15 @@
 
 		nav a:last-child {
 			border-bottom: 0;
+		}
+
+		.user-name {
+			padding: 0.95rem 0.25rem;
+		}
+
+		.session-action {
+			align-self: flex-start;
+			margin: 0.5rem 0.25rem;
 		}
 
 		nav a.active::after {
