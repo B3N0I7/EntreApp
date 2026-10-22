@@ -22,7 +22,8 @@ export const GET: RequestHandler = async ({ locals, url }) => {
 			targetUserId: locals.user.role === 'admin' ? requestedUserId : locals.user.userId
 		});
 		return json(history);
-	} catch {
+	} catch (error) {
+		console.error('Apps Script history lookup failed.', error);
 		return json({ error: 'L’historique est temporairement indisponible.' }, { status: 502 });
 	}
 };
@@ -49,7 +50,8 @@ export const POST: RequestHandler = async ({ locals, request }) => {
 			partie: body
 		});
 		return json({ saved: true });
-	} catch {
+	} catch (error) {
+		console.error('Apps Script savePartie failed.', error);
 		return json({ error: 'La partie n’a pas pu être enregistrée.' }, { status: 502 });
 	}
 };

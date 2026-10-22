@@ -121,11 +121,20 @@
 
 	async function completeSession() {
 		sessionComplete = true;
-		if (completionRecorded || !session || questionCount === 0) return;
+		if (completionRecorded) return;
+		if (!session || questionCount === 0) {
+			// Reveals the otherwise-silent skip in the console if this guard is ever hit unexpectedly.
+			console.warn('Partie de conjugaison non enregistrée : session ou questions manquantes.', {
+				hasSession: Boolean(session),
+				questionCount
+			});
+			return;
+		}
 		completionRecorded = true;
 		try {
 			await enregistrerPartie('conjugaison', `${correctCount}/${questionCount}`, sessionErrors);
-		} catch {
+		} catch (error) {
+			console.error('Échec de l’enregistrement de la partie de conjugaison.', error);
 			persistenceError = 'La série est terminée, mais son enregistrement a échoué.';
 		}
 	}

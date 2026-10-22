@@ -191,7 +191,8 @@
 			direction === 'word-to-definition' ? 'vocabulaire-mot' : 'vocabulaire-definition';
 		try {
 			await enregistrerPartie(module, `${successfulCount}/${sessionEntries.length}`, errors);
-		} catch {
+		} catch (error) {
+			console.error('Échec de l’enregistrement de la partie de vocabulaire.', error);
 			persistenceError = 'La partie est terminée, mais son enregistrement a échoué.';
 		}
 	}
