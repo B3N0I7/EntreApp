@@ -67,8 +67,10 @@ function verifyRequest(envelope) {
 		throw apiError('INVALID_REQUEST', 'Request expired.');
 	}
 
+	// Explicit UTF-8 charset: payloads with accented characters (e.g. erreurs
+	// de vocabulaire) must hash the same bytes as Node's createHmac() client-side.
 	const expected = bytesToHex(
-		Utilities.computeHmacSha256Signature(timestamp + '.' + payloadJson, secret)
+		Utilities.computeHmacSha256Signature(timestamp + '.' + payloadJson, secret, Utilities.Charset.UTF_8)
 	);
 	if (!constantTimeEqual(expected, String(envelope.signature || ''))) {
 		throw apiError('INVALID_REQUEST', 'Invalid request.');
