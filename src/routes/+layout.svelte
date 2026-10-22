@@ -36,8 +36,8 @@
 <div class="site-shell">
 	<header class="site-header">
 		<a class="brand" href={resolve('/')} onclick={closeMenu} aria-label="Accueil">
-			<span class="brand-mark" aria-hidden="true">A</span>
-			<span>Atelier</span>
+			<span class="brand-mark" aria-hidden="true">B1</span>
+			<span>Objectif B1</span>
 		</a>
 
 		<button
