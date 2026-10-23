@@ -23,8 +23,9 @@
 	}
 
 	function shouldShowLink(href: string) {
-		if (href !== '/') return true;
 		const role = page.data.user?.role;
+		if (!role) return false;
+		if (href !== '/') return true;
 		return role !== 'student' && role !== 'guest';
 	}
 

@@ -118,11 +118,19 @@ test('mobile navigation opens, closes with Escape, and closes after navigation',
 });
 
 test('guest can try exercises without exposing history or persisting a run', async ({ page }) => {
-	await page.goto('/conjugaison');
-	await expect(page).toHaveURL(/\/login$/);
 	await page.goto('/login');
 	await expect(page.getByRole('heading', { name: 'Connexion' })).toBeVisible();
 	await expect(page.getByRole('combobox', { name: 'Nom' }).locator('option')).toHaveCount(14);
+	const navigation = page.getByRole('navigation', { name: 'Navigation principale' });
+	for (const label of ['Tirage au sort', 'Vocabulaire', 'Expressions françaises', 'Conjugaison']) {
+		await expect(navigation.getByRole('link', { name: label })).toHaveCount(0);
+	}
+	await expect(navigation.getByRole('link', { name: 'Connexion' })).toBeVisible();
+
+	for (const path of ['/', '/vocabulaire', '/expressions', '/conjugaison']) {
+		await page.goto(path);
+		await expect(page).toHaveURL(/\/login$/);
+	}
 
 	await page.getByRole('button', { name: 'Continuer comme invité' }).click();
 	await expect(page.getByRole('heading', { name: 'À qui le tour?' })).toBeVisible();
