@@ -11,11 +11,16 @@
 
 	const links = [
 		{ label: 'Tirage au sort', href: '/' },
-		{ label: 'Trouve la définition', href: '/vocabulaire/mot' },
-		{ label: 'Donne la définition', href: '/vocabulaire/definition' },
+		{ label: 'Vocabulaire', href: '/vocabulaire' },
 		{ label: 'Expressions françaises', href: '/expressions' },
 		{ label: 'Conjugaison', href: '/conjugaison' }
 	] as const;
+
+	function isActiveLink(href: string) {
+		return href === '/vocabulaire'
+			? page.url.pathname === href || page.url.pathname.startsWith(`${href}/`)
+			: page.url.pathname === href;
+	}
 
 	function closeMenu() {
 		menuOpen = false;
@@ -67,8 +72,8 @@
 			{#each links as link (link.href)}
 				<a
 					href={resolve(link.href)}
-					class:active={page.url.pathname === link.href}
-					aria-current={page.url.pathname === link.href ? 'page' : undefined}
+					class:active={isActiveLink(link.href)}
+					aria-current={isActiveLink(link.href) ? 'page' : undefined}
 					onclick={closeMenu}
 				>
 					{link.label}

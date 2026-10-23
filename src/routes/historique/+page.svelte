@@ -59,13 +59,15 @@
 			await goto(`${resolve('/expressions')}?direction=${direction}`);
 			return;
 		}
-		const path =
-			partie.module === 'conjugaison'
-				? '/conjugaison'
-				: partie.module === 'vocabulaire-mot'
-					? '/vocabulaire/mot'
-					: '/vocabulaire/definition';
-		await goto(resolve(path));
+		if (partie.module === 'vocabulaire-mot' || partie.module === 'vocabulaire-definition') {
+			const direction =
+				partie.module === 'vocabulaire-mot' ? 'word-to-definition' : 'definition-to-word';
+			// The route is resolved before appending the replay direction query.
+			// eslint-disable-next-line svelte/no-navigation-without-resolve
+			await goto(`${resolve('/vocabulaire')}?direction=${direction}`);
+			return;
+		}
+		await goto(resolve('/conjugaison'));
 	}
 </script>
 

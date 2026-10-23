@@ -15,12 +15,21 @@ test('desktop navigation opens each section', async ({ page }) => {
 		'aria-current',
 		'page'
 	);
-	await navigation.getByRole('link', { name: 'Trouve la définition' }).click();
+	await expect(navigation.getByRole('link', { name: 'Vocabulaire' })).toHaveCount(1);
+	await expect(navigation.getByRole('link', { name: 'Trouve la définition' })).toHaveCount(0);
+	await expect(navigation.getByRole('link', { name: 'Donne la définition' })).toHaveCount(0);
+	await navigation.getByRole('link', { name: 'Vocabulaire' }).click();
 	await expect(page.getByRole('heading', { name: 'Trouve la définition' })).toBeVisible();
+	await expect(navigation.getByRole('link', { name: 'Vocabulaire' })).toHaveAttribute(
+		'aria-current',
+		'page'
+	);
 	await page.getByLabel('Thème').selectOption('Le tourisme et les voyages');
 	await expect(page.getByText('Carte 1 / 5')).toBeVisible();
 	await expect(page.getByText('5 cartes dans la série · 116 disponibles')).toBeVisible();
-	await navigation.getByRole('link', { name: 'Donne la définition' }).click();
+	await page.getByLabel('Sens des cartes').selectOption('definition-to-word');
+	await expect(page.getByRole('heading', { name: 'Retrouve le mot' })).toBeVisible();
+	await page.goto('/vocabulaire?direction=definition-to-word');
 	await expect(page.getByRole('heading', { name: 'Retrouve le mot' })).toBeVisible();
 	await navigation.getByRole('link', { name: 'Expressions françaises' }).click();
 	await expect(page.getByRole('heading', { name: 'Expressions françaises' })).toBeVisible();
