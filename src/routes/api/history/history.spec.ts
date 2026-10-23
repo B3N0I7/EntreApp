@@ -89,6 +89,24 @@ describe('/api/history authorization', () => {
 		});
 	});
 
+	it('accepts expression activity modules', async () => {
+		scriptCall.mockResolvedValue({ saved: true });
+		const response = await POST(
+			makeEvent(student, '/api/history', 'POST', {
+				module: 'expressions-word-to-definition',
+				score: '4/5',
+				erreurs: []
+			})
+		);
+
+		expect(response.status).toBe(200);
+		expect(scriptCall).toHaveBeenCalledWith({
+			action: 'savePartie',
+			actorUserId: 'ali',
+			partie: { module: 'expressions-word-to-definition', score: '4/5', erreurs: [] }
+		});
+	});
+
 	it('allows Prof to request the complete history', async () => {
 		scriptCall.mockResolvedValue([]);
 		const response = await GET(makeEvent(admin));

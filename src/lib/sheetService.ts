@@ -21,7 +21,12 @@ export interface ErreurConjugaison {
 
 export type Erreur = ErreurVocabulaire | ErreurConjugaison;
 
-export type ModuleType = 'vocabulaire-definition' | 'vocabulaire-mot' | 'conjugaison';
+export type ModuleType =
+	| 'vocabulaire-definition'
+	| 'vocabulaire-mot'
+	| 'expressions-word-to-definition'
+	| 'expressions-definition-to-word'
+	| 'conjugaison';
 
 export interface Partie {
 	date: string;

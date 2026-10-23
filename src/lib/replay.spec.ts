@@ -32,4 +32,24 @@ describe('replay handoff', () => {
 		expect(takeReplay('vocabulaire-mot', storage)).toEqual(errors);
 		expect(takeReplay('vocabulaire-mot', storage)).toBeNull();
 	});
+
+	it('keeps expression replays isolated by direction', () => {
+		const storage = createStorage();
+		const errors = [
+			{
+				entryId: 'expression-001',
+				direction: 'definition-to-word' as const,
+				mode: 'multiple-choice' as const,
+				mot: 'Avoir le cafard',
+				reponseEleve: 'Avoir du pain sur la planche',
+				correction: 'Avoir le cafard'
+			}
+		];
+
+		storeReplay({ module: 'expressions-definition-to-word', erreurs: errors }, storage);
+		expect(takeReplay('expressions-word-to-definition', storage)).toBeNull();
+
+		storeReplay({ module: 'expressions-definition-to-word', erreurs: errors }, storage);
+		expect(takeReplay('expressions-definition-to-word', storage)).toEqual(errors);
+	});
 });

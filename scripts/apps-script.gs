@@ -70,7 +70,11 @@ function verifyRequest(envelope) {
 	// Explicit UTF-8 charset: payloads with accented characters (e.g. erreurs
 	// de vocabulaire) must hash the same bytes as Node's createHmac() client-side.
 	const expected = bytesToHex(
-		Utilities.computeHmacSha256Signature(timestamp + '.' + payloadJson, secret, Utilities.Charset.UTF_8)
+		Utilities.computeHmacSha256Signature(
+			timestamp + '.' + payloadJson,
+			secret,
+			Utilities.Charset.UTF_8
+		)
 	);
 	if (!constantTimeEqual(expected, String(envelope.signature || ''))) {
 		throw apiError('INVALID_REQUEST', 'Invalid request.');
@@ -236,7 +240,15 @@ function parseErrors(value) {
 }
 
 function isValidModule(module) {
-	return ['vocabulaire-definition', 'vocabulaire-mot', 'conjugaison'].indexOf(module) !== -1;
+	return (
+		[
+			'vocabulaire-definition',
+			'vocabulaire-mot',
+			'expressions-word-to-definition',
+			'expressions-definition-to-word',
+			'conjugaison'
+		].indexOf(module) !== -1
+	);
 }
 
 function isValidPin(pin) {

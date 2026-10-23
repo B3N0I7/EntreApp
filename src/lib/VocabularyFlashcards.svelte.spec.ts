@@ -41,6 +41,36 @@ describe('VocabularyFlashcards', () => {
 		await expect.element(page.getByText('Carte 2 / 5')).toBeInTheDocument();
 	});
 
+	it('studies expressions in a custom-length QCM', async () => {
+		render(VocabularyFlashcards, {
+			direction: 'word-to-definition',
+			fixedTheme: 'Expressions françaises'
+		});
+
+		await expect
+			.element(page.getByRole('heading', { name: 'Expressions françaises' }))
+			.toBeInTheDocument();
+		await expect
+			.element(page.getByRole('heading', { name: 'Avoir le cafard' }))
+			.toBeInTheDocument();
+		await expect
+			.element(page.getByText('5 cartes dans la série · 101 disponibles'))
+			.toBeInTheDocument();
+
+		await page.getByRole('combobox', { name: 'Cartes par série' }).selectOptions('custom');
+		await page.getByRole('spinbutton', { name: 'Nombre de cartes personnalisé' }).fill('7');
+		await expect.element(page.getByText('Carte 1 / 7')).toBeInTheDocument();
+
+		await page.getByRole('button', { name: 'QCM' }).click();
+		await expect
+			.element(
+				page
+					.getByRole('group', { name: 'Réponses proposées' })
+					.getByRole('button', { name: 'être triste, mélancolique ou déprimé.' })
+			)
+			.toBeInTheDocument();
+	});
+
 	it('offers a QCM from a definition to its word', async () => {
 		render(VocabularyFlashcards, { direction: 'definition-to-word' });
 

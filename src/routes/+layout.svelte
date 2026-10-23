@@ -13,6 +13,7 @@
 		{ label: 'Tirage au sort', href: '/' },
 		{ label: 'Trouve la définition', href: '/vocabulaire/mot' },
 		{ label: 'Donne la définition', href: '/vocabulaire/definition' },
+		{ label: 'Expressions françaises', href: '/expressions' },
 		{ label: 'Conjugaison', href: '/conjugaison' }
 	] as const;
 

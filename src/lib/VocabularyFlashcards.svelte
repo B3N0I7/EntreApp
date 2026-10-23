@@ -22,10 +22,11 @@
 
 	type Props = {
 		direction: VocabularyDirection;
+		fixedTheme?: string;
 	};
 
-	let { direction }: Props = $props();
-	let selectedTheme = $state(THEMES[0] ?? '');
+	let { direction, fixedTheme }: Props = $props();
+	let selectedTheme = $state('');
 	let selectedSection = $state(ALL_SECTIONS);
 	let selectedLength = $state('5');
 	let customLength = $state<number | undefined>(5);
@@ -67,11 +68,26 @@
 		}
 	});
 	let pageTitle = $derived(
-		direction === 'word-to-definition' ? 'Trouve la définition' : 'Retrouve le mot'
+		fixedTheme ?? (direction === 'word-to-definition' ? 'Trouve la définition' : 'Retrouve le mot')
 	);
 	let directionLabel = $derived(
-		direction === 'word-to-definition' ? 'Mot → définition' : 'Définition → mot'
+		fixedTheme
+			? direction === 'word-to-definition'
+				? 'Expression → définition'
+				: 'Définition → expression'
+			: direction === 'word-to-definition'
+				? 'Mot → définition'
+				: 'Définition → mot'
 	);
+
+	function moduleForDirection() {
+		if (fixedTheme) {
+			return direction === 'word-to-definition'
+				? 'expressions-word-to-definition'
+				: 'expressions-definition-to-word';
+		}
+		return direction === 'word-to-definition' ? 'vocabulaire-mot' : 'vocabulaire-definition';
+	}
 
 	function resetStudy() {
 		currentIndex = 0;
@@ -187,8 +203,7 @@
 		if (completionRecorded) return;
 		completionRecorded = true;
 		const successfulCount = answerMode === 'self-assessment' ? knownCount : correctCount;
-		const module =
-			direction === 'word-to-definition' ? 'vocabulaire-mot' : 'vocabulaire-definition';
+		const module = moduleForDirection();
 		try {
 			await enregistrerPartie(module, `${successfulCount}/${sessionEntries.length}`, errors);
 		} catch (error) {
@@ -211,7 +226,9 @@
 
 		resetStudy();
 		sessionEntries = replayEntries;
-		activePool = [...VOCABULARY];
+		activePool = fixedTheme
+			? VOCABULARY.filter((entry) => entry.theme === fixedTheme)
+			: [...VOCABULARY];
 		sessionTheme = 'Erreurs à revoir';
 		sessionSection = null;
 		sessionSize = replayEntries.length;
@@ -236,9 +253,8 @@
 	}
 
 	onMount(() => {
-		const replay = takeReplay(
-			direction === 'word-to-definition' ? 'vocabulaire-mot' : 'vocabulaire-definition'
-		);
+		selectedTheme = fixedTheme ?? THEMES[0] ?? '';
+		const replay = takeReplay(moduleForDirection());
 		if (replay) {
 			startReplay(replay);
 			return;
@@ -250,7 +266,7 @@
 <section class="study-shell" aria-labelledby="study-title">
 	<header class="study-heading">
 		<div>
-			<p class="eyebrow">Vocabulaire · {directionLabel}</p>
+			<p class="eyebrow">{fixedTheme ?? 'Vocabulaire'} · {directionLabel}</p>
 			<h1 id="study-title">{pageTitle}</h1>
 		</div>
 		<p class="theme-total">
@@ -263,25 +279,27 @@
 	</header>
 
 	<div class="study-controls">
-		<label class="filter-control" for="vocabulary-theme">
-			<span>Thème</span>
-			<select id="vocabulary-theme" bind:value={selectedTheme} onchange={changeTheme}>
-				<option value={RANDOM_THEME}>Thème aléatoire</option>
-				{#each THEMES as theme (theme)}
-					<option value={theme}>{theme}</option>
-				{/each}
-			</select>
-		</label>
-		<label class="filter-control" for="vocabulary-section">
-			<span>Section</span>
-			<select id="vocabulary-section" bind:value={selectedSection} onchange={startStudy}>
-				<option value={ALL_SECTIONS}>Toutes les sections</option>
-				<option value={RANDOM_SECTION}>Section aléatoire</option>
-				{#each availableSections as section (section)}
-					<option value={section}>{section}</option>
-				{/each}
-			</select>
-		</label>
+		{#if !fixedTheme}
+			<label class="filter-control" for="vocabulary-theme">
+				<span>Thème</span>
+				<select id="vocabulary-theme" bind:value={selectedTheme} onchange={changeTheme}>
+					<option value={RANDOM_THEME}>Thème aléatoire</option>
+					{#each THEMES as theme (theme)}
+						<option value={theme}>{theme}</option>
+					{/each}
+				</select>
+			</label>
+			<label class="filter-control" for="vocabulary-section">
+				<span>Section</span>
+				<select id="vocabulary-section" bind:value={selectedSection} onchange={startStudy}>
+					<option value={ALL_SECTIONS}>Toutes les sections</option>
+					<option value={RANDOM_SECTION}>Section aléatoire</option>
+					{#each availableSections as section (section)}
+						<option value={section}>{section}</option>
+					{/each}
+				</select>
+			</label>
+		{/if}
 		<label class="filter-control" for="vocabulary-length">
 			<span>Cartes par série</span>
 			<select id="vocabulary-length" bind:value={selectedLength} onchange={startStudy}>
@@ -377,7 +395,13 @@
 			{#if answerMode === 'self-assessment'}
 				{#if answerRevealed}
 					<div class="answer-reveal" aria-live="polite">
-						<p>{direction === 'word-to-definition' ? 'Définition' : 'Mot'}</p>
+						<p>
+							{direction === 'word-to-definition'
+								? 'Définition'
+								: fixedTheme
+									? 'Expression'
+									: 'Mot'}
+						</p>
 						<div>{card.answer}</div>
 					</div>
 					<div class="assessment-actions" aria-label="Évaluation de la réponse">

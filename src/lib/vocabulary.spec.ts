@@ -17,12 +17,14 @@ import {
 
 const familyTheme = 'Les relations familiales et l’amour';
 const travelTheme = 'Le tourisme et les voyages';
+const expressionsTheme = 'Expressions françaises';
 
 describe('vocabulary data', () => {
 	it('contains both complete themes and keeps compound family definitions together', () => {
-		expect(THEMES).toEqual([familyTheme, travelTheme]);
+		expect(THEMES).toEqual([familyTheme, travelTheme, expressionsTheme]);
 		expect(vocabularyForTheme(familyTheme)).toHaveLength(58);
 		expect(vocabularyForTheme(travelTheme)).toHaveLength(116);
+		expect(vocabularyForTheme(expressionsTheme)).toHaveLength(101);
 		expect(
 			VOCABULARY.every((entry) => entry.id && entry.section && entry.word && entry.definition)
 		).toBe(true);
@@ -32,6 +34,10 @@ describe('vocabulary data', () => {
 		);
 		expect(stepParent?.definition).toContain('soit le père de son mari');
 		expect(stepParent?.definition).toContain('soit le nouveau mari de sa mère');
+		expect(vocabularyForTheme(expressionsTheme)[0]).toMatchObject({
+			word: 'Avoir le cafard',
+			definition: 'être triste, mélancolique ou déprimé.'
+		});
 	});
 
 	it('preserves source sections and the sports subsection', () => {

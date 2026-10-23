@@ -22,6 +22,13 @@ test('desktop navigation opens each section', async ({ page }) => {
 	await expect(page.getByText('5 cartes dans la série · 116 disponibles')).toBeVisible();
 	await navigation.getByRole('link', { name: 'Donne la définition' }).click();
 	await expect(page.getByRole('heading', { name: 'Retrouve le mot' })).toBeVisible();
+	await navigation.getByRole('link', { name: 'Expressions françaises' }).click();
+	await expect(page.getByRole('heading', { name: 'Expressions françaises' })).toBeVisible();
+	await expect(page.getByText('5 cartes dans la série · 101 disponibles')).toBeVisible();
+	await page.getByLabel('Sens des cartes').selectOption('definition-to-word');
+	await expect(
+		page.getByRole('article').getByText('Définition → expression', { exact: true })
+	).toBeVisible();
 	await navigation.getByRole('link', { name: 'Conjugaison' }).click();
 	await expect(page.getByRole('heading', { name: 'Conjugaison' })).toBeVisible();
 	await page.getByRole('combobox', { name: 'Verbe' }).selectOption('être');

@@ -126,6 +126,12 @@
 					<option value="all">Tous les modules</option>
 					<option value="vocabulaire-mot">Trouve la définition</option>
 					<option value="vocabulaire-definition">Donne la définition</option>
+					<option value="expressions-word-to-definition"
+						>Expressions françaises · expression → définition</option
+					>
+					<option value="expressions-definition-to-word"
+						>Expressions françaises · définition → expression</option
+					>
 					<option value="conjugaison">Conjugaison</option>
 				</select>
 			</div>

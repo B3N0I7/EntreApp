@@ -3,7 +3,13 @@ import type { RequestHandler } from './$types';
 import { callAppsScript } from '#lib/server/appsScript';
 import type { Partie, PayloadPartie } from '#lib/sheetService';
 
-const modules = new Set(['vocabulaire-definition', 'vocabulaire-mot', 'conjugaison']);
+const modules = new Set([
+	'vocabulaire-definition',
+	'vocabulaire-mot',
+	'expressions-word-to-definition',
+	'expressions-definition-to-word',
+	'conjugaison'
+]);
 
 export const GET: RequestHandler = async ({ locals, url }) => {
 	if (!locals.user || locals.user.role === 'guest') {

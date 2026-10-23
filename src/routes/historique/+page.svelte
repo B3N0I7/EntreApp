@@ -23,6 +23,8 @@
 		return {
 			'vocabulaire-definition': 'Donne la définition',
 			'vocabulaire-mot': 'Trouve la définition',
+			'expressions-word-to-definition': 'Expressions françaises · expression → définition',
+			'expressions-definition-to-word': 'Expressions françaises · définition → expression',
 			conjugaison: 'Conjugaison'
 		}[module];
 	}
@@ -44,6 +46,19 @@
 	async function replay(partie: Partie) {
 		if (!partie.erreurs.length) return;
 		storeReplay({ module: partie.module, erreurs: partie.erreurs });
+		if (
+			partie.module === 'expressions-word-to-definition' ||
+			partie.module === 'expressions-definition-to-word'
+		) {
+			const direction =
+				partie.module === 'expressions-word-to-definition'
+					? 'word-to-definition'
+					: 'definition-to-word';
+			// The route is resolved before appending the replay direction query.
+			// eslint-disable-next-line svelte/no-navigation-without-resolve
+			await goto(`${resolve('/expressions')}?direction=${direction}`);
+			return;
+		}
 		const path =
 			partie.module === 'conjugaison'
 				? '/conjugaison'
