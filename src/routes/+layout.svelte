@@ -22,6 +22,12 @@
 			: page.url.pathname === href;
 	}
 
+	function shouldShowLink(href: string) {
+		if (href !== '/') return true;
+		const role = page.data.user?.role;
+		return role !== 'student' && role !== 'guest';
+	}
+
 	function closeMenu() {
 		menuOpen = false;
 	}
@@ -70,14 +76,16 @@
 
 		<nav id="main-navigation" class:open={menuOpen} aria-label="Navigation principale">
 			{#each links as link (link.href)}
-				<a
-					href={resolve(link.href)}
-					class:active={isActiveLink(link.href)}
-					aria-current={isActiveLink(link.href) ? 'page' : undefined}
-					onclick={closeMenu}
-				>
-					{link.label}
-				</a>
+				{#if shouldShowLink(link.href)}
+					<a
+						href={resolve(link.href)}
+						class:active={isActiveLink(link.href)}
+						aria-current={isActiveLink(link.href) ? 'page' : undefined}
+						onclick={closeMenu}
+					>
+						{link.label}
+					</a>
+				{/if}
 			{/each}
 			{#if page.data.user && page.data.user.role !== 'guest'}
 				<a

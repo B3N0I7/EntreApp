@@ -1,8 +1,37 @@
 import { expect, test, type Page } from '@playwright/test';
+import { ACCOUNTS } from '../lib/accounts';
+import {
+	createSessionToken,
+	SESSION_COOKIE,
+	SESSION_DURATION_SECONDS
+} from '../lib/server/session';
 
 async function startGuestSession(page: Page) {
 	await page.goto('/login');
 	await page.getByRole('button', { name: 'Continuer comme invité' }).click();
+	await expect(page.getByRole('heading', { name: 'À qui le tour?' })).toBeVisible();
+}
+
+async function startAccountSession(page: Page, accountId: 'ali' | 'prof') {
+	const account = ACCOUNTS.find(({ id }) => id === accountId);
+	if (!account) throw new Error(`Unknown test account: ${accountId}`);
+	const secret = process.env.SESSION_SECRET;
+	if (!secret) throw new Error('The Playwright session secret is not configured.');
+
+	await page.goto('/login');
+	const token = createSessionToken(
+		{
+			userId: account.id,
+			name: account.name,
+			role: account.role,
+			expiresAt: Date.now() + SESSION_DURATION_SECONDS * 1000
+		},
+		secret
+	);
+	await page
+		.context()
+		.addCookies([{ name: SESSION_COOKIE, value: token, url: new URL(page.url()).origin }]);
+	await page.goto('/');
 	await expect(page.getByRole('heading', { name: 'À qui le tour?' })).toBeVisible();
 }
 
@@ -11,10 +40,7 @@ test('desktop navigation opens each section', async ({ page }) => {
 	await startGuestSession(page);
 
 	const navigation = page.getByRole('navigation', { name: 'Navigation principale' });
-	await expect(navigation.getByRole('link', { name: 'Tirage au sort' })).toHaveAttribute(
-		'aria-current',
-		'page'
-	);
+	await expect(navigation.getByRole('link', { name: 'Tirage au sort' })).toHaveCount(0);
 	await expect(navigation.getByRole('link', { name: 'Vocabulaire' })).toHaveCount(1);
 	await expect(navigation.getByRole('link', { name: 'Trouve la définition' })).toHaveCount(0);
 	await expect(navigation.getByRole('link', { name: 'Donne la définition' })).toHaveCount(0);
@@ -45,8 +71,27 @@ test('desktop navigation opens each section', async ({ page }) => {
 	await page.getByRole('button', { name: 'Commencer' }).click();
 	await expect(page.getByRole('heading', { name: 'être' })).toBeVisible();
 	await expect(page.getByRole('region').getByText('Plus-que-parfait')).toBeVisible();
-	await navigation.getByRole('link', { name: 'Tirage au sort' }).click();
+	await page.getByRole('link', { name: 'Accueil' }).click();
 	await expect(page.getByRole('heading', { name: 'À qui le tour?' })).toBeVisible();
+});
+
+test('student does not see the draw link but can still open the home route', async ({ page }) => {
+	await startAccountSession(page, 'ali');
+
+	const navigation = page.getByRole('navigation', { name: 'Navigation principale' });
+	await expect(navigation.getByRole('link', { name: 'Tirage au sort' })).toHaveCount(0);
+	await expect(navigation.getByRole('link', { name: 'Vocabulaire' })).toBeVisible();
+});
+
+test('admin still sees the draw link', async ({ page }) => {
+	await startAccountSession(page, 'prof');
+
+	const navigation = page.getByRole('navigation', { name: 'Navigation principale' });
+	await expect(navigation.getByRole('link', { name: 'Tirage au sort' })).toHaveAttribute(
+		'aria-current',
+		'page'
+	);
+	await expect(navigation.getByRole('link', { name: 'Administration' })).toBeVisible();
 });
 
 test('mobile navigation opens, closes with Escape, and closes after navigation', async ({
