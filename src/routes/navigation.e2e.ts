@@ -35,6 +35,28 @@ async function startAccountSession(page: Page, accountId: 'ali' | 'prof') {
 	await expect(page.getByRole('heading', { name: 'Objectif B1' })).toBeVisible();
 }
 
+async function expectCompactFilter(page: Page, id: string) {
+	const select = page.locator(`#${id}`);
+	await expect(select).toBeVisible();
+	const height = await select.evaluate((element) =>
+		Number.parseFloat(getComputedStyle(element).height)
+	);
+	const bounds = await select.boundingBox();
+	const labelGap = await select.evaluate((element) => {
+		const labelText = element.closest('label')?.querySelector('span');
+		return labelText
+			? element.getBoundingClientRect().top - labelText.getBoundingClientRect().bottom
+			: null;
+	});
+
+	expect(height).toBe(44);
+	expect(bounds).not.toBeNull();
+	expect(bounds!.x).toBeGreaterThanOrEqual(0);
+	expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(390);
+	expect(labelGap).not.toBeNull();
+	expect(labelGap).toBeLessThanOrEqual(5);
+}
+
 test('desktop navigation opens each section', async ({ page }) => {
 	await page.setViewportSize({ width: 1280, height: 900 });
 	await startGuestSession(page);
@@ -124,6 +146,26 @@ test('mobile navigation opens, closes with Escape, and closes after navigation',
 	await navigation.getByRole('link', { name: 'Conjugaison' }).click();
 	await expect(page.getByRole('heading', { name: 'Conjugaison' })).toBeVisible();
 	await expect(navigation).toBeHidden();
+});
+
+test('mobile vocabulary controls stay compact', async ({ page }) => {
+	await page.setViewportSize({ width: 390, height: 844 });
+	await startGuestSession(page);
+
+	const navigation = page.getByRole('navigation', { name: 'Navigation principale' });
+	await page.getByRole('button', { name: 'Ouvrir le menu' }).click();
+	await navigation.getByRole('link', { name: 'Vocabulaire' }).click();
+	await expect(page.getByRole('heading', { name: 'Trouve la définition' })).toBeVisible();
+	for (const id of ['vocabulary-theme', 'vocabulary-section', 'vocabulary-length']) {
+		await expectCompactFilter(page, id);
+	}
+
+	await page.getByRole('button', { name: 'Ouvrir le menu' }).click();
+	await navigation.getByRole('link', { name: 'Expressions françaises' }).click();
+	await expect(page.getByRole('heading', { name: 'Expressions françaises' })).toBeVisible();
+	await expect(page.locator('#vocabulary-theme')).toHaveCount(0);
+	await expect(page.locator('#vocabulary-section')).toHaveCount(0);
+	await expectCompactFilter(page, 'vocabulary-length');
 });
 
 test('guest can try exercises without exposing history or persisting a run', async ({ page }) => {

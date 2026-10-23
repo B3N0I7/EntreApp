@@ -817,6 +817,12 @@
 
 		.filter-control {
 			width: 100%;
+			gap: 0.25rem;
+		}
+
+		select {
+			height: 2.75rem;
+			min-height: 2.75rem;
 		}
 
 		.mode-control {
