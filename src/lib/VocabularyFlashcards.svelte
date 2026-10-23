@@ -280,7 +280,7 @@
 
 	<div class="study-controls">
 		{#if !fixedTheme}
-			<label class="filter-control" for="vocabulary-theme">
+			<label class="filter-control theme-filter" for="vocabulary-theme">
 				<span>Thème</span>
 				<select id="vocabulary-theme" bind:value={selectedTheme} onchange={changeTheme}>
 					<option value={RANDOM_THEME}>Thème aléatoire</option>
@@ -289,7 +289,7 @@
 					{/each}
 				</select>
 			</label>
-			<label class="filter-control" for="vocabulary-section">
+			<label class="filter-control section-filter" for="vocabulary-section">
 				<span>Section</span>
 				<select id="vocabulary-section" bind:value={selectedSection} onchange={startStudy}>
 					<option value={ALL_SECTIONS}>Toutes les sections</option>
@@ -300,7 +300,7 @@
 				</select>
 			</label>
 		{/if}
-		<label class="filter-control" for="vocabulary-length">
+		<label class="filter-control cards-filter" for="vocabulary-length">
 			<span>Cartes par série</span>
 			<select id="vocabulary-length" bind:value={selectedLength} onchange={startStudy}>
 				<option value="5">5</option>
@@ -532,6 +532,8 @@
 
 	select,
 	input {
+		min-width: 0;
+		width: 100%;
 		min-height: 2.9rem;
 		padding: 0 2.5rem 0 0.85rem;
 		border: 1px solid #bdcbc0;
@@ -816,8 +818,14 @@
 		}
 
 		.filter-control {
+			flex: none;
 			width: 100%;
-			gap: 0.25rem;
+		}
+
+		.theme-filter,
+		.section-filter,
+		.cards-filter {
+			max-width: 18rem;
 		}
 
 		select {

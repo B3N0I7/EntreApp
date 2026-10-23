@@ -58,4 +58,10 @@
 		color: #1f3025;
 		font: inherit;
 	}
+
+	@media (max-width: 760px) {
+		.vocabulary-page :global(.study-shell) {
+			padding-inline: 0;
+		}
+	}
 </style>

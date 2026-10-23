@@ -54,7 +54,7 @@ async function expectCompactFilter(page: Page, id: string) {
 	expect(bounds!.x).toBeGreaterThanOrEqual(0);
 	expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(390);
 	expect(labelGap).not.toBeNull();
-	expect(labelGap).toBeLessThanOrEqual(5);
+	expect(labelGap).toBeLessThanOrEqual(8);
 }
 
 test('desktop navigation opens each section', async ({ page }) => {
@@ -159,6 +159,18 @@ test('mobile vocabulary controls stay compact', async ({ page }) => {
 	for (const id of ['vocabulary-theme', 'vocabulary-section', 'vocabulary-length']) {
 		await expectCompactFilter(page, id);
 	}
+	for (const width of [320, 390, 760]) {
+		await page.setViewportSize({ width, height: 844 });
+		const bounds = await Promise.all(
+			['vocabulary-theme', 'vocabulary-section', 'vocabulary-length'].map((id) =>
+				page.locator(`#${id}`).boundingBox()
+			)
+		);
+		expect(bounds.every((box) => box?.x === bounds[0]?.x && box?.width === bounds[0]?.width)).toBe(
+			true
+		);
+	}
+	await page.setViewportSize({ width: 390, height: 844 });
 
 	await page.getByRole('button', { name: 'Ouvrir le menu' }).click();
 	await navigation.getByRole('link', { name: 'Expressions françaises' }).click();
@@ -166,6 +178,23 @@ test('mobile vocabulary controls stay compact', async ({ page }) => {
 	await expect(page.locator('#vocabulary-theme')).toHaveCount(0);
 	await expect(page.locator('#vocabulary-section')).toHaveCount(0);
 	await expectCompactFilter(page, 'vocabulary-length');
+});
+
+test('desktop vocabulary dropdowns fit their labels', async ({ page }) => {
+	await startGuestSession(page);
+	await page.goto('/vocabulaire');
+	await expect(page.getByRole('heading', { name: 'Trouve la définition' })).toBeVisible();
+
+	for (const width of [927, 1024, 1280]) {
+		await page.setViewportSize({ width, height: 844 });
+		for (const id of ['vocabulary-theme', 'vocabulary-section', 'vocabulary-length']) {
+			const select = await page.locator(`#${id}`).boundingBox();
+			const label = await page.locator(`label[for="${id}"]`).boundingBox();
+			expect(select).not.toBeNull();
+			expect(select?.x).toBe(label?.x);
+			expect(select?.width).toBe(label?.width);
+		}
+	}
 });
 
 test('guest can try exercises without exposing history or persisting a run', async ({ page }) => {
