@@ -1,10 +1,10 @@
 import { page } from 'vitest/browser';
 import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
-import { PEOPLE } from '../lib/draw';
+import { PEOPLE } from '../../lib/draw';
 import Home from './+page.svelte';
 
-describe('home draw page', () => {
+describe('draw page', () => {
 	it('updates the available count and starts a new cycle after all participants', async () => {
 		render(Home);
 

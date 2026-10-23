@@ -9,7 +9,7 @@ import {
 async function startGuestSession(page: Page) {
 	await page.goto('/login');
 	await page.getByRole('button', { name: 'Continuer comme invité' }).click();
-	await expect(page.getByRole('heading', { name: 'À qui le tour?' })).toBeVisible();
+	await expect(page.getByRole('heading', { name: 'Objectif B1' })).toBeVisible();
 }
 
 async function startAccountSession(page: Page, accountId: 'ali' | 'prof') {
@@ -32,7 +32,7 @@ async function startAccountSession(page: Page, accountId: 'ali' | 'prof') {
 		.context()
 		.addCookies([{ name: SESSION_COOKIE, value: token, url: new URL(page.url()).origin }]);
 	await page.goto('/');
-	await expect(page.getByRole('heading', { name: 'À qui le tour?' })).toBeVisible();
+	await expect(page.getByRole('heading', { name: 'Objectif B1' })).toBeVisible();
 }
 
 test('desktop navigation opens each section', async ({ page }) => {
@@ -44,6 +44,9 @@ test('desktop navigation opens each section', async ({ page }) => {
 	await expect(navigation.getByRole('link', { name: 'Vocabulaire' })).toHaveCount(1);
 	await expect(navigation.getByRole('link', { name: 'Trouve la définition' })).toHaveCount(0);
 	await expect(navigation.getByRole('link', { name: 'Donne la définition' })).toHaveCount(0);
+	await page.goto('/tirage');
+	await expect(page).toHaveURL(/\/$/);
+	await expect(page.getByRole('heading', { name: 'Objectif B1' })).toBeVisible();
 	await navigation.getByRole('link', { name: 'Vocabulaire' }).click();
 	await expect(page.getByRole('heading', { name: 'Trouve la définition' })).toBeVisible();
 	await expect(navigation.getByRole('link', { name: 'Vocabulaire' })).toHaveAttribute(
@@ -72,21 +75,27 @@ test('desktop navigation opens each section', async ({ page }) => {
 	await expect(page.getByRole('heading', { name: 'être' })).toBeVisible();
 	await expect(page.getByRole('region').getByText('Plus-que-parfait')).toBeVisible();
 	await page.getByRole('link', { name: 'Accueil' }).click();
-	await expect(page.getByRole('heading', { name: 'À qui le tour?' })).toBeVisible();
+	await expect(page.getByRole('heading', { name: 'Objectif B1' })).toBeVisible();
 });
 
-test('student does not see the draw link but can still open the home route', async ({ page }) => {
+test('student sees the overview but cannot open the draw route', async ({ page }) => {
 	await startAccountSession(page, 'ali');
 
 	const navigation = page.getByRole('navigation', { name: 'Navigation principale' });
 	await expect(navigation.getByRole('link', { name: 'Tirage au sort' })).toHaveCount(0);
 	await expect(navigation.getByRole('link', { name: 'Vocabulaire' })).toBeVisible();
+	await page.goto('/tirage');
+	await expect(page).toHaveURL(/\/$/);
+	await expect(page.getByRole('heading', { name: 'Objectif B1' })).toBeVisible();
 });
 
-test('admin still sees the draw link', async ({ page }) => {
+test('admin opens the draw from the menu', async ({ page }) => {
 	await startAccountSession(page, 'prof');
 
 	const navigation = page.getByRole('navigation', { name: 'Navigation principale' });
+	await navigation.getByRole('link', { name: 'Tirage au sort' }).click();
+	await expect(page).toHaveURL(/\/tirage$/);
+	await expect(page.getByRole('heading', { name: 'À qui le tour?' })).toBeVisible();
 	await expect(navigation.getByRole('link', { name: 'Tirage au sort' })).toHaveAttribute(
 		'aria-current',
 		'page'
@@ -127,14 +136,14 @@ test('guest can try exercises without exposing history or persisting a run', asy
 	}
 	await expect(navigation.getByRole('link', { name: 'Connexion' })).toBeVisible();
 
-	for (const path of ['/', '/vocabulaire', '/expressions', '/conjugaison']) {
+	for (const path of ['/', '/vocabulaire', '/expressions', '/conjugaison', '/tirage']) {
 		await page.goto(path);
 		await expect(page).toHaveURL(/\/login$/);
 	}
 
 	await page.getByRole('button', { name: 'Continuer comme invité' }).click();
-	await expect(page.getByRole('heading', { name: 'À qui le tour?' })).toBeVisible();
-	await expect(page.getByText('Invité', { exact: true })).toBeVisible();
+	await expect(page.getByRole('heading', { name: 'Objectif B1' })).toBeVisible();
+	await expect(navigation.getByText('Invité', { exact: true })).toBeVisible();
 	await expect(
 		page
 			.getByRole('navigation', { name: 'Navigation principale' })

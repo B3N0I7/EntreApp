@@ -10,7 +10,7 @@
 	let menuButton: HTMLButtonElement | undefined;
 
 	const links = [
-		{ label: 'Tirage au sort', href: '/' },
+		{ label: 'Tirage au sort', href: '/tirage' },
 		{ label: 'Vocabulaire', href: '/vocabulaire' },
 		{ label: 'Expressions françaises', href: '/expressions' },
 		{ label: 'Conjugaison', href: '/conjugaison' }
@@ -25,8 +25,8 @@
 	function shouldShowLink(href: string) {
 		const role = page.data.user?.role;
 		if (!role) return false;
-		if (href !== '/') return true;
-		return role !== 'student' && role !== 'guest';
+		if (href === '/tirage') return role === 'admin';
+		return true;
 	}
 
 	function closeMenu() {

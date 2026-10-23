@@ -1,400 +1,356 @@
 <script lang="ts">
-	import { drawPerson, PEOPLE } from '../lib/draw';
+	import { page } from '$app/state';
+	import { resolve } from '$app/paths';
 
-	let available = $state<string[]>([...PEOPLE]);
-	let selectedPerson = $state<string | null>(null);
-	let cycleNumber = $state(1);
-	let cycleCompleted = $state(false);
-
-	function draw() {
-		const result = drawPerson(available);
-		selectedPerson = result.selected;
-		available = [...result.remaining];
-		cycleCompleted = result.cycleComplete;
-
-		if (result.cycleComplete) {
-			cycleNumber += 1;
+	const activities = [
+		{
+			number: '01',
+			title: 'Vocabulaire',
+			description:
+				'Révise les mots et leurs définitions dans les deux sens, en révélation ou en QCM.',
+			href: '/vocabulaire'
+		},
+		{
+			number: '02',
+			title: 'Expressions françaises',
+			description: 'Explore les expressions et retrouve leur définition ou leur formulation.',
+			href: '/expressions'
+		},
+		{
+			number: '03',
+			title: 'Conjugaison',
+			description: 'Entraîne-toi sur 30 verbes et six temps avec une correction progressive.',
+			href: '/conjugaison'
 		}
-	}
+	] as const;
+
+	let userRole = $derived(page.data.user?.role ?? 'guest');
+	let userName = $derived(page.data.user?.name ?? 'Invité');
+	let roleLabel = $derived(
+		userRole === 'admin' ? 'Administration' : userRole === 'student' ? 'Élève' : 'Invité'
+	);
 </script>
 
 <svelte:head>
-	<title>Tirage au sort</title>
-	<meta name="description" content="Tirage au sort aléatoire parmi les personnes du groupe." />
+	<title>Objectif B1 · Pratique du français</title>
+	<meta
+		name="description"
+		content="Retrouve les activités de vocabulaire, expressions françaises et conjugaison de ton espace Objectif B1."
+	/>
 </svelte:head>
 
-<div class="app-shell">
-	<main>
-		<section class="draw-stage" aria-labelledby="page-title">
-			<div class="stage-heading">
-				<div class="stage-copy">
-					<p class="eyebrow">Le groupe · 14 personnes</p>
-					<h1 id="page-title">À qui<br />le tour<span class="title-mark">?</span></h1>
-				</div>
-				<div class="cycle-indicator" aria-live="polite">
-					<span class="cycle-dot" aria-hidden="true"></span>
-					Cycle {String(cycleNumber).padStart(2, '0')}
-				</div>
+<main class="overview-page">
+	<section class="welcome" aria-labelledby="welcome-title">
+		<div class="welcome-copy">
+			<p class="eyebrow">Espace de pratique · Français B1</p>
+			<h1 id="welcome-title">Objectif B1</h1>
+			<p>Bonjour {userName}. Choisis une activité pour poursuivre ton entraînement.</p>
+		</div>
+		<div class="session-label" aria-label="Session active">
+			<span>{roleLabel}</span>
+			<strong>{userName}</strong>
+		</div>
+	</section>
+
+	<section class="activities-section" aria-labelledby="activities-title">
+		<header class="section-heading">
+			<div>
+				<p class="eyebrow">À pratiquer</p>
+				<h2 id="activities-title">Les activités</h2>
 			</div>
+			<span class="activity-count">03 modules</span>
+		</header>
 
-			<div class="result-panel">
-				<div class="result-topline">
-					<span>PERSONNE TIRÉE</span>
-					<span class="result-index">{String(available.length).padStart(2, '0')} / 14</span>
-				</div>
-				<div class="result-name" role="status" aria-atomic="true">
-					{selectedPerson ?? '—'}
-				</div>
-				<div class="result-bottomline">
-					{#if cycleCompleted}
-						<span class="cycle-message">Cycle terminé · liste renouvelée</span>
-					{:else}
-						<span
-							>{available.length} personne{available.length === 1 ? '' : 's'} disponible{available.length ===
-							1
-								? ''
-								: 's'}</span
-						>
-					{/if}
-					<span class="result-spark" aria-hidden="true">✳</span>
-				</div>
-			</div>
+		<div class="activity-grid">
+			{#each activities as activity (activity.href)}
+				<a class="activity-link" href={resolve(activity.href)}>
+					<span class="activity-number">{activity.number}</span>
+					<div class="activity-copy">
+						<h3>{activity.title}</h3>
+						<p>{activity.description}</p>
+					</div>
+					<span class="activity-arrow" aria-hidden="true">↗</span>
+				</a>
+			{/each}
+		</div>
+	</section>
 
-			<button class="draw-button" type="button" onclick={draw}>
-				Tirer un nom
-				<span class="button-arrow" aria-hidden="true">↗</span>
-			</button>
-		</section>
-
-		<section class="roster" aria-labelledby="roster-title">
-			<div class="roster-heading">
+	{#if userRole === 'admin' || userRole === 'student'}
+		<section class="account-section" aria-labelledby="account-title">
+			<header class="section-heading">
 				<div>
-					<p class="eyebrow">Dans le tirage</p>
-					<h2 id="roster-title">Personnes disponibles</h2>
+					<p class="eyebrow">Espace personnel</p>
+					<h2 id="account-title">Autres outils</h2>
 				</div>
-				<span class="roster-count" aria-label="Personnes disponibles">{available.length}</span>
+			</header>
+			<div class="tool-links">
+				<a href={resolve('/historique')}>
+					<span>Historique</span>
+					<span>Retrouve tes parties et reprends les erreurs.</span>
+					<span class="activity-arrow" aria-hidden="true">↗</span>
+				</a>
+				{#if userRole === 'admin'}
+					<a href={resolve('/tirage')}>
+						<span>Tirage au sort</span>
+						<span>Fais participer le groupe à tour de rôle.</span>
+						<span class="activity-arrow" aria-hidden="true">↗</span>
+					</a>
+					<a href={resolve('/admin')}>
+						<span>Administration</span>
+						<span>Gère les comptes et les codes PIN.</span>
+						<span class="activity-arrow" aria-hidden="true">↗</span>
+					</a>
+				{/if}
 			</div>
-
-			<ul class="people-list" aria-label="Personnes disponibles">
-				{#each available as person, index (person)}
-					<li style={`--item-index: ${index}`}>{person}</li>
-				{/each}
-			</ul>
 		</section>
-	</main>
-
-	<footer class="page-footer">
-		<span>Tirage au sort</span>
-		<span>14 noms · 1 choix à la fois</span>
-	</footer>
-</div>
+	{:else}
+		<p class="guest-note">Les activités en mode invité ne sont pas enregistrées.</p>
+	{/if}
+</main>
 
 <style>
-	.app-shell {
-		min-height: 100vh;
-		padding: 0 clamp(1.25rem, 6vw, 6.5rem);
-		background-image: linear-gradient(115deg, rgb(255 255 255 / 0.28), transparent 45%);
-	}
-
-	.cycle-indicator {
-		display: flex;
-		align-items: center;
-		gap: 0.55rem;
-		font-size: 0.8rem;
-		font-weight: 700;
-	}
-
-	.cycle-dot {
-		width: 0.5rem;
-		aspect-ratio: 1;
-		border-radius: 50%;
-		background: #19866a;
-		box-shadow: 0 0 0 3px rgb(25 134 106 / 0.13);
-	}
-
-	main {
-		display: grid;
-		grid-template-columns: minmax(0, 1.12fr) minmax(17rem, 0.88fr);
-		gap: clamp(3rem, 8vw, 8rem);
+	.overview-page {
 		max-width: 76rem;
 		margin: 0 auto;
-		padding: clamp(3rem, 9vh, 6.75rem) 0 5rem;
-		animation: arrive 550ms ease-out both;
+		padding: clamp(2rem, 6vh, 4.5rem) clamp(1.25rem, 6vw, 6.5rem) 5rem;
 	}
 
-	.draw-stage {
+	.welcome,
+	.section-heading {
 		display: flex;
-		flex-direction: column;
-		align-items: flex-start;
-	}
-
-	.stage-heading {
-		width: 100%;
-		display: flex;
-		align-items: flex-start;
+		align-items: flex-end;
 		justify-content: space-between;
-		gap: 1rem;
+		gap: 1.5rem;
 	}
 
-	.stage-copy {
-		min-width: 0;
+	.welcome {
+		padding-bottom: 2rem;
+		border-bottom: 1px solid #ccd7ce;
+	}
+
+	.welcome-copy {
+		max-width: 42rem;
 	}
 
 	.eyebrow {
-		margin: 0 0 0.9rem;
+		margin: 0 0 0.55rem;
 		color: #60756a;
-		font-size: 0.7rem;
+		font-size: 0.72rem;
 		font-weight: 800;
 		text-transform: uppercase;
 	}
 
 	h1,
 	h2,
+	h3,
 	p {
 		margin-top: 0;
 	}
 
-	h1 {
-		margin-bottom: 2.6rem;
+	h1,
+	h2,
+	h3 {
 		font-family: 'Iowan Old Style', 'Palatino Linotype', 'Book Antiqua', Georgia, serif;
-		font-size: 6.35rem;
 		font-weight: 500;
-		line-height: 0.9;
 	}
 
-	.title-mark {
-		color: #f15d43;
-	}
-
-	.result-panel {
-		width: 100%;
-		min-height: 13rem;
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-		padding: 1.1rem 1.25rem 1rem;
-		background: #173b30;
-		color: #f3f5e9;
-		box-shadow: 0.55rem 0.55rem 0 #d3dfd2;
-	}
-
-	.result-topline,
-	.result-bottomline {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 0.75rem;
-		font-size: 0.68rem;
-		font-weight: 700;
-	}
-
-	.result-index {
-		color: #a9c3b6;
-		font-variant-numeric: tabular-nums;
-	}
-
-	.result-name {
-		overflow-wrap: anywhere;
-		padding: 1.6rem 0;
-		font-family: 'Iowan Old Style', 'Palatino Linotype', 'Book Antiqua', Georgia, serif;
+	h1 {
+		margin-bottom: 0.8rem;
 		font-size: 4rem;
 		line-height: 1;
-		animation: reveal 360ms ease-out both;
 	}
 
-	.result-bottomline {
-		color: #c2d3c7;
+	.welcome-copy > p:last-child {
+		margin-bottom: 0;
+		color: #52665b;
+		font-size: 0.95rem;
+		line-height: 1.55;
 	}
 
-	.cycle-message {
-		color: #f4ce54;
+	.session-label {
+		min-width: 11rem;
+		display: grid;
+		gap: 0.35rem;
+		padding: 0.35rem 0 0.35rem 1rem;
+		border-left: 3px solid #f15d43;
+		color: #60756a;
+		font-size: 0.72rem;
 	}
 
-	.result-spark {
-		color: #f4ce54;
-		font-size: 1.2rem;
+	.session-label strong {
+		color: #182c25;
+		font-size: 0.95rem;
 	}
 
-	.draw-button {
-		min-height: 3.5rem;
-		display: inline-flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 2rem;
-		margin-top: 1.25rem;
-		padding: 0.85rem 1.1rem 0.85rem 1.25rem;
-		border: 0;
-		background: #f15d43;
-		color: #fffaf0;
-		font-size: 0.9rem;
-		font-weight: 800;
-		cursor: pointer;
-		transition:
-			background 150ms ease,
-			transform 150ms ease;
+	.activities-section,
+	.account-section {
+		margin-top: 2.5rem;
 	}
 
-	.draw-button:hover {
-		transform: translateY(-2px);
-		background: #d84831;
+	.section-heading {
+		margin-bottom: 1rem;
 	}
 
-	.draw-button:focus-visible {
-		outline: 3px solid #182c25;
-		outline-offset: 3px;
-	}
-
-	.button-arrow {
-		font-size: 1.2rem;
-	}
-
-	.roster {
-		align-self: center;
-		width: 100%;
-		max-width: 28rem;
-	}
-
-	.roster-heading {
-		display: flex;
-		align-items: flex-end;
-		justify-content: space-between;
-		gap: 1rem;
-		padding-bottom: 1.25rem;
-		border-bottom: 1px solid #bdcbc0;
-	}
-
-	.roster-heading .eyebrow {
-		margin-bottom: 0.45rem;
+	.section-heading .eyebrow {
+		margin-bottom: 0.35rem;
 	}
 
 	h2 {
 		margin-bottom: 0;
-		font-family: 'Iowan Old Style', 'Palatino Linotype', 'Book Antiqua', Georgia, serif;
-		font-size: 1.65rem;
-		font-weight: 500;
+		font-size: 1.8rem;
 	}
 
-	.roster-count {
+	.activity-count {
+		padding-bottom: 0.2rem;
+		color: #60756a;
+		font-size: 0.75rem;
+		font-weight: 700;
+	}
+
+	.activity-grid {
 		display: grid;
-		width: 2.6rem;
-		aspect-ratio: 1;
-		place-items: center;
-		border: 1px solid #aebdb1;
-		border-radius: 50%;
-		font-size: 0.8rem;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: 1rem;
+	}
+
+	.activity-link {
+		min-width: 0;
+		min-height: 12rem;
+		display: grid;
+		grid-template-columns: auto 1fr auto;
+		align-items: start;
+		gap: 0.9rem;
+		padding: 1.1rem 0.85rem 1rem;
+		border-top: 2px solid #173b30;
+		border-bottom: 1px solid #ccd7ce;
+		color: inherit;
+		text-decoration: none;
+		transition:
+			border-color 150ms ease,
+			background 150ms ease;
+	}
+
+	.activity-link:hover {
+		border-top-color: #f15d43;
+		background: rgb(255 255 255 / 0.35);
+	}
+
+	.activity-link:focus-visible,
+	.tool-links a:focus-visible {
+		outline: 3px solid #173b30;
+		outline-offset: 3px;
+	}
+
+	.activity-number {
+		padding-top: 0.2rem;
+		color: #d84831;
+		font-size: 0.7rem;
 		font-weight: 800;
 		font-variant-numeric: tabular-nums;
 	}
 
-	.people-list {
-		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		gap: 0;
-		margin: 0;
-		padding: 0;
-		list-style: none;
-	}
-
-	.people-list li {
+	.activity-copy {
 		min-width: 0;
-		padding: 0.92rem 0.4rem 0.92rem 0;
-		border-bottom: 1px solid #d3ddd4;
-		font-size: 0.9rem;
-		animation: reveal 220ms ease-out both;
-		animation-delay: calc(var(--item-index) * 18ms);
 	}
 
-	.page-footer {
-		max-width: 76rem;
-		display: flex;
-		justify-content: space-between;
-		gap: 1rem;
-		margin: 0 auto;
-		padding: 1.1rem 0 1.5rem;
+	h3 {
+		margin-bottom: 0.55rem;
+		font-size: 1.35rem;
+		line-height: 1.2;
+	}
+
+	.activity-copy p {
+		margin-bottom: 0;
+		color: #52665b;
+		font-size: 0.84rem;
+		line-height: 1.55;
+	}
+
+	.activity-arrow {
+		color: #d84831;
+		font-size: 1rem;
+		font-weight: 700;
+	}
+
+	.account-section {
+		padding-top: 0.25rem;
+	}
+
+	.tool-links {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
 		border-top: 1px solid #ccd7ce;
-		color: #60756a;
-		font-size: 0.7rem;
 	}
 
-	@keyframes arrive {
-		from {
-			opacity: 0;
-			transform: translateY(10px);
-		}
-		to {
-			opacity: 1;
-			transform: translateY(0);
-		}
+	.tool-links a {
+		min-width: 0;
+		display: grid;
+		grid-template-columns: 1fr auto;
+		gap: 0.4rem 1rem;
+		padding: 1rem 1rem 1rem 0;
+		border-bottom: 1px solid #ccd7ce;
+		color: inherit;
+		text-decoration: none;
 	}
 
-	@keyframes reveal {
-		from {
-			opacity: 0;
-			transform: translateY(5px);
-		}
-		to {
-			opacity: 1;
-			transform: translateY(0);
-		}
+	.tool-links a > span:first-child {
+		font-family: 'Iowan Old Style', 'Palatino Linotype', 'Book Antiqua', Georgia, serif;
+		font-size: 1.2rem;
+	}
+
+	.tool-links a > span:nth-child(2) {
+		grid-column: 1;
+		color: #52665b;
+		font-size: 0.8rem;
+		line-height: 1.45;
+	}
+
+	.tool-links a > span:last-child {
+		grid-column: 2;
+		grid-row: 1 / span 2;
+		align-self: center;
+	}
+
+	.tool-links a:hover > span:first-child {
+		color: #d84831;
+	}
+
+	.guest-note {
+		margin: 2rem 0 0;
+		padding: 0.75rem 1rem;
+		border-left: 3px solid #f15d43;
+		color: #52665b;
+		font-size: 0.82rem;
 	}
 
 	@media (max-width: 760px) {
-		main {
+		.welcome {
+			align-items: flex-start;
+			flex-direction: column;
+		}
+
+		.session-label {
+			min-width: 0;
+		}
+
+		.activity-grid {
 			grid-template-columns: 1fr;
-			gap: 3.5rem;
-			padding-top: 3.25rem;
+			gap: 0.75rem;
 		}
 
-		h1 {
-			margin-bottom: 2rem;
-			font-size: 4.5rem;
-		}
-
-		.result-name {
-			font-size: 3.5rem;
-		}
-
-		.roster {
-			max-width: none;
+		.activity-link {
+			min-height: 8rem;
 		}
 	}
 
 	@media (max-width: 420px) {
-		.app-shell {
-			padding-right: 1rem;
-			padding-left: 1rem;
-		}
-
-		.result-panel {
-			min-height: 11rem;
-		}
-
-		.cycle-indicator {
-			gap: 0.4rem;
-			font-size: 0.72rem;
-		}
-
 		h1 {
-			font-size: 3.5rem;
+			font-size: 3.2rem;
 		}
 
-		.result-name {
-			font-size: 2.6rem;
-		}
-
-		.people-list li {
-			font-size: 0.82rem;
-		}
-	}
-
-	@media (prefers-reduced-motion: reduce) {
-		*,
-		*::before,
-		*::after {
-			animation-duration: 0.01ms !important;
-			animation-iteration-count: 1 !important;
-			scroll-behavior: auto !important;
-			transition-duration: 0.01ms !important;
+		.activity-link {
+			grid-template-columns: auto minmax(0, 1fr) auto;
+			gap: 0.65rem;
 		}
 	}
 </style>
