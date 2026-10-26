@@ -23,9 +23,10 @@
 	type Props = {
 		direction: VocabularyDirection;
 		fixedTheme?: string;
+		onDirectionChange?: (direction: VocabularyDirection) => void;
 	};
 
-	let { direction, fixedTheme }: Props = $props();
+	let { direction, fixedTheme, onDirectionChange }: Props = $props();
 	let selectedTheme = $state('');
 	let selectedSection = $state(ALL_SECTIONS);
 	let selectedLength = $state('5');
@@ -263,6 +264,31 @@
 	});
 </script>
 
+{#snippet answerModeToggle()}
+	<div class="mode-control" role="group" aria-label="Mode de réponse">
+		<button
+			type="button"
+			class:active={answerMode === 'self-assessment'}
+			aria-pressed={answerMode === 'self-assessment'}
+			onclick={() => setAnswerMode('self-assessment')}
+		>
+			Révélation
+		</button>
+		<button
+			type="button"
+			class:active={answerMode === 'multiple-choice'}
+			aria-pressed={answerMode === 'multiple-choice'}
+			disabled={!qcmAvailable}
+			title={qcmAvailable
+				? undefined
+				: 'Cette sélection ne permet pas trois distracteurs distincts.'}
+			onclick={() => setAnswerMode('multiple-choice')}
+		>
+			QCM
+		</button>
+	</div>
+{/snippet}
+
 <section class="study-shell" aria-labelledby="study-title">
 	<header class="study-heading">
 		<div>
@@ -278,76 +304,82 @@
 		</p>
 	</header>
 
-	<div class="study-controls">
-		{#if !fixedTheme}
-			<label class="filter-control theme-filter" for="vocabulary-theme">
-				<span>Thème</span>
-				<select id="vocabulary-theme" bind:value={selectedTheme} onchange={changeTheme}>
-					<option value={RANDOM_THEME}>Thème aléatoire</option>
-					{#each THEMES as theme (theme)}
-						<option value={theme}>{theme}</option>
-					{/each}
+	<div class="study-controls" class:has-direction-controls={onDirectionChange}>
+		{#if onDirectionChange}
+			<div class="toggle-row">
+				<div class="toggle-field">
+					<span class="toggle-label">Sens des cartes</span>
+					<div class="mode-control" role="group" aria-label="Sens des cartes">
+						<button
+							type="button"
+							class:active={direction === 'word-to-definition'}
+							aria-pressed={direction === 'word-to-definition'}
+							onclick={() => onDirectionChange('word-to-definition')}
+						>
+							{fixedTheme ? 'Expression → définition' : 'Mot → définition'}
+						</button>
+						<button
+							type="button"
+							class:active={direction === 'definition-to-word'}
+							aria-pressed={direction === 'definition-to-word'}
+							onclick={() => onDirectionChange('definition-to-word')}
+						>
+							{fixedTheme ? 'Définition → expression' : 'Définition → mot'}
+						</button>
+					</div>
+				</div>
+				{@render answerModeToggle()}
+			</div>
+		{/if}
+		<div class="filter-row">
+			{#if !fixedTheme}
+				<label class="filter-control theme-filter" for="vocabulary-theme">
+					<span>Thème</span>
+					<select id="vocabulary-theme" bind:value={selectedTheme} onchange={changeTheme}>
+						<option value={RANDOM_THEME}>Thème aléatoire</option>
+						{#each THEMES as theme (theme)}
+							<option value={theme}>{theme}</option>
+						{/each}
+					</select>
+				</label>
+				<label class="filter-control section-filter" for="vocabulary-section">
+					<span>Section</span>
+					<select id="vocabulary-section" bind:value={selectedSection} onchange={startStudy}>
+						<option value={ALL_SECTIONS}>Toutes les sections</option>
+						<option value={RANDOM_SECTION}>Section aléatoire</option>
+						{#each availableSections as section (section)}
+							<option value={section}>{section}</option>
+						{/each}
+					</select>
+				</label>
+			{/if}
+			<label class="filter-control cards-filter" for="vocabulary-length">
+				<span>Cartes par série</span>
+				<select id="vocabulary-length" bind:value={selectedLength} onchange={startStudy}>
+					<option value="5">5</option>
+					<option value="10">10</option>
+					<option value="15">15</option>
+					<option value="custom">Personnalisé</option>
 				</select>
 			</label>
-			<label class="filter-control section-filter" for="vocabulary-section">
-				<span>Section</span>
-				<select id="vocabulary-section" bind:value={selectedSection} onchange={startStudy}>
-					<option value={ALL_SECTIONS}>Toutes les sections</option>
-					<option value={RANDOM_SECTION}>Section aléatoire</option>
-					{#each availableSections as section (section)}
-						<option value={section}>{section}</option>
-					{/each}
-				</select>
-			</label>
-		{/if}
-		<label class="filter-control cards-filter" for="vocabulary-length">
-			<span>Cartes par série</span>
-			<select id="vocabulary-length" bind:value={selectedLength} onchange={startStudy}>
-				<option value="5">5</option>
-				<option value="10">10</option>
-				<option value="15">15</option>
-				<option value="custom">Personnalisé</option>
-			</select>
-		</label>
-		{#if selectedLength === 'custom'}
-			<label class="filter-control custom-length" for="vocabulary-custom-length">
-				<span>Nombre de cartes</span>
-				<input
-					id="vocabulary-custom-length"
-					aria-label="Nombre de cartes personnalisé"
-					type="number"
-					min="1"
-					step="1"
-					bind:value={customLength}
-					oninput={(event) => {
-						customLength = event.currentTarget.valueAsNumber;
-						startStudy();
-					}}
-				/>
-			</label>
-		{/if}
-
-		<div class="mode-control" role="group" aria-label="Mode de réponse">
-			<button
-				type="button"
-				class:active={answerMode === 'self-assessment'}
-				aria-pressed={answerMode === 'self-assessment'}
-				onclick={() => setAnswerMode('self-assessment')}
-			>
-				Révélation
-			</button>
-			<button
-				type="button"
-				class:active={answerMode === 'multiple-choice'}
-				aria-pressed={answerMode === 'multiple-choice'}
-				disabled={!qcmAvailable}
-				title={qcmAvailable
-					? undefined
-					: 'Cette sélection ne permet pas trois distracteurs distincts.'}
-				onclick={() => setAnswerMode('multiple-choice')}
-			>
-				QCM
-			</button>
+			{#if selectedLength === 'custom'}
+				<label class="filter-control custom-length" for="vocabulary-custom-length">
+					<span>Nombre de cartes</span>
+					<input
+						id="vocabulary-custom-length"
+						aria-label="Nombre de cartes personnalisé"
+						type="number"
+						min="1"
+						step="1"
+						bind:value={customLength}
+						oninput={(event) => {
+							customLength = event.currentTarget.valueAsNumber;
+							startStudy();
+						}}
+					/>
+				</label>
+			{/if}
+			{#if !onDirectionChange}{@render answerModeToggle()}{/if}
 		</div>
 	</div>
 	<p class="availability-note">
@@ -518,6 +550,41 @@
 		align-items: flex-end;
 		flex-wrap: wrap;
 		margin-bottom: 2rem;
+	}
+
+	.study-controls.has-direction-controls {
+		display: grid;
+		gap: 1.35rem;
+	}
+
+	.toggle-row {
+		display: flex;
+		align-items: flex-end;
+		gap: 1rem;
+		flex-wrap: wrap;
+	}
+
+	.toggle-field {
+		display: grid;
+		gap: 0.5rem;
+	}
+
+	.toggle-label {
+		color: #60756a;
+		font-size: 0.75rem;
+		font-weight: 800;
+	}
+
+	.study-controls.has-direction-controls .filter-row {
+		display: flex;
+		align-items: flex-end;
+		justify-content: space-between;
+		gap: 1rem;
+		flex-wrap: wrap;
+	}
+
+	.study-controls:not(.has-direction-controls) .filter-row {
+		display: contents;
 	}
 
 	.filter-control {
@@ -813,6 +880,12 @@
 		}
 
 		.study-controls {
+			align-items: stretch;
+			flex-direction: column;
+		}
+
+		.study-controls.has-direction-controls .toggle-row,
+		.study-controls.has-direction-controls .filter-row {
 			align-items: stretch;
 			flex-direction: column;
 		}

@@ -78,17 +78,38 @@ test('desktop navigation opens each section', async ({ page }) => {
 	await page.getByLabel('Thème').selectOption('Le tourisme et les voyages');
 	await expect(page.getByText('Carte 1 / 5')).toBeVisible();
 	await expect(page.getByText('5 cartes dans la série · 116 disponibles')).toBeVisible();
-	await page.getByLabel('Sens des cartes').selectOption('definition-to-word');
+	const directionToggle = page.getByRole('group', { name: 'Sens des cartes' });
+	await directionToggle.getByRole('button', { name: 'Définition → mot' }).click();
 	await expect(page.getByRole('heading', { name: 'Retrouve le mot' })).toBeVisible();
+	await expect(directionToggle.getByRole('button', { name: 'Définition → mot' })).toHaveAttribute(
+		'aria-pressed',
+		'true'
+	);
 	await page.goto('/vocabulaire?direction=definition-to-word');
 	await expect(page.getByRole('heading', { name: 'Retrouve le mot' })).toBeVisible();
+	await expect(
+		page.getByRole('group', { name: 'Sens des cartes' }).getByRole('button', {
+			name: 'Définition → mot'
+		})
+	).toHaveAttribute('aria-pressed', 'true');
 	await navigation.getByRole('link', { name: 'Expressions françaises' }).click();
 	await expect(page.getByRole('heading', { name: 'Expressions françaises' })).toBeVisible();
 	await expect(page.getByText('5 cartes dans la série · 101 disponibles')).toBeVisible();
-	await page.getByLabel('Sens des cartes').selectOption('definition-to-word');
+	const expressionsDirectionToggle = page.getByRole('group', { name: 'Sens des cartes' });
+	await expressionsDirectionToggle.getByRole('button', { name: 'Définition → expression' }).click();
 	await expect(
 		page.getByRole('article').getByText('Définition → expression', { exact: true })
 	).toBeVisible();
+	await expect(
+		expressionsDirectionToggle.getByRole('button', { name: 'Définition → expression' })
+	).toHaveAttribute('aria-pressed', 'true');
+	await expect(page.locator('#vocabulary-theme')).toHaveCount(0);
+	await expect(page.locator('#vocabulary-section')).toHaveCount(0);
+	const expressionsDirectionBox = await expressionsDirectionToggle.boundingBox();
+	const expressionsAnswerModeBox = await page
+		.getByRole('group', { name: 'Mode de réponse' })
+		.boundingBox();
+	expect(expressionsDirectionBox?.y).toBe(expressionsAnswerModeBox?.y);
 	await navigation.getByRole('link', { name: 'Conjugaison' }).click();
 	await expect(page.getByRole('heading', { name: 'Conjugaison' })).toBeVisible();
 	await page.getByRole('combobox', { name: 'Verbe' }).selectOption('être');
@@ -156,6 +177,8 @@ test('mobile vocabulary controls stay compact', async ({ page }) => {
 	await page.getByRole('button', { name: 'Ouvrir le menu' }).click();
 	await navigation.getByRole('link', { name: 'Vocabulaire' }).click();
 	await expect(page.getByRole('heading', { name: 'Trouve la définition' })).toBeVisible();
+	await expect(page.getByRole('group', { name: 'Sens des cartes' })).toBeVisible();
+	await expect(page.getByRole('group', { name: 'Mode de réponse' })).toBeVisible();
 	for (const id of ['vocabulary-theme', 'vocabulary-section', 'vocabulary-length']) {
 		await expectCompactFilter(page, id);
 	}
@@ -169,12 +192,29 @@ test('mobile vocabulary controls stay compact', async ({ page }) => {
 		expect(bounds.every((box) => box?.x === bounds[0]?.x && box?.width === bounds[0]?.width)).toBe(
 			true
 		);
+		for (const name of ['Sens des cartes', 'Mode de réponse']) {
+			const toggle = await page.getByRole('group', { name }).boundingBox();
+			expect(toggle).not.toBeNull();
+			expect(toggle!.x).toBeGreaterThanOrEqual(0);
+			expect(toggle!.x + toggle!.width).toBeLessThanOrEqual(width);
+		}
 	}
 	await page.setViewportSize({ width: 390, height: 844 });
 
 	await page.getByRole('button', { name: 'Ouvrir le menu' }).click();
 	await navigation.getByRole('link', { name: 'Expressions françaises' }).click();
 	await expect(page.getByRole('heading', { name: 'Expressions françaises' })).toBeVisible();
+	await expect(
+		page.getByRole('group', { name: 'Sens des cartes' }).getByRole('button', {
+			name: 'Expression → définition'
+		})
+	).toBeVisible();
+	for (const name of ['Sens des cartes', 'Mode de réponse']) {
+		const toggle = await page.getByRole('group', { name }).boundingBox();
+		expect(toggle).not.toBeNull();
+		expect(toggle!.x).toBeGreaterThanOrEqual(0);
+		expect(toggle!.x + toggle!.width).toBeLessThanOrEqual(390);
+	}
 	await expect(page.locator('#vocabulary-theme')).toHaveCount(0);
 	await expect(page.locator('#vocabulary-section')).toHaveCount(0);
 	await expectCompactFilter(page, 'vocabulary-length');
@@ -184,6 +224,14 @@ test('desktop vocabulary dropdowns fit their labels', async ({ page }) => {
 	await startGuestSession(page);
 	await page.goto('/vocabulaire');
 	await expect(page.getByRole('heading', { name: 'Trouve la définition' })).toBeVisible();
+	const directionToggle = await page.getByRole('group', { name: 'Sens des cartes' }).boundingBox();
+	const answerModeToggle = await page.getByRole('group', { name: 'Mode de réponse' }).boundingBox();
+	const filterRow = await page.locator('.filter-row').boundingBox();
+	expect(directionToggle).not.toBeNull();
+	expect(answerModeToggle).not.toBeNull();
+	expect(filterRow).not.toBeNull();
+	expect(directionToggle?.y).toBe(answerModeToggle?.y);
+	expect(filterRow!.y).toBeGreaterThan(directionToggle!.y + directionToggle!.height);
 
 	for (const width of [927, 1024, 1280]) {
 		await page.setViewportSize({ width, height: 844 });
@@ -194,6 +242,13 @@ test('desktop vocabulary dropdowns fit their labels', async ({ page }) => {
 			expect(select?.x).toBe(label?.x);
 			expect(select?.width).toBe(label?.width);
 		}
+		const directionToggleBox = await page
+			.getByRole('group', { name: 'Sens des cartes' })
+			.boundingBox();
+		const answerModeToggleBox = await page
+			.getByRole('group', { name: 'Mode de réponse' })
+			.boundingBox();
+		expect(directionToggleBox?.y).toBe(answerModeToggleBox?.y);
 	}
 });
 

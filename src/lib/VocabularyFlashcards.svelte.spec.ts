@@ -41,10 +41,25 @@ describe('VocabularyFlashcards', () => {
 		await expect.element(page.getByText('Carte 2 / 5')).toBeInTheDocument();
 	});
 
+	it('offers a direction toggle when a change handler is provided', async () => {
+		const onDirectionChange = vi.fn();
+		render(VocabularyFlashcards, { direction: 'word-to-definition', onDirectionChange });
+
+		const directionToggle = page.getByRole('group', { name: 'Sens des cartes' });
+		await expect
+			.element(directionToggle.getByRole('button', { name: 'Mot → définition' }))
+			.toHaveAttribute('aria-pressed', 'true');
+		await directionToggle.getByRole('button', { name: 'Définition → mot' }).click();
+
+		expect(onDirectionChange).toHaveBeenCalledWith('definition-to-word');
+	});
+
 	it('studies expressions in a custom-length QCM', async () => {
+		const onDirectionChange = vi.fn();
 		render(VocabularyFlashcards, {
 			direction: 'word-to-definition',
-			fixedTheme: 'Expressions françaises'
+			fixedTheme: 'Expressions françaises',
+			onDirectionChange
 		});
 
 		await expect
@@ -56,6 +71,15 @@ describe('VocabularyFlashcards', () => {
 		await expect
 			.element(page.getByText('5 cartes dans la série · 101 disponibles'))
 			.toBeInTheDocument();
+		await expect.element(page.getByRole('combobox', { name: 'Thème' })).not.toBeInTheDocument();
+		await expect.element(page.getByRole('combobox', { name: 'Section' })).not.toBeInTheDocument();
+
+		const directionToggle = page.getByRole('group', { name: 'Sens des cartes' });
+		await expect
+			.element(directionToggle.getByRole('button', { name: 'Expression → définition' }))
+			.toHaveAttribute('aria-pressed', 'true');
+		await directionToggle.getByRole('button', { name: 'Définition → expression' }).click();
+		expect(onDirectionChange).toHaveBeenCalledWith('definition-to-word');
 
 		await page.getByRole('combobox', { name: 'Cartes par série' }).selectOptions('custom');
 		await page.getByRole('spinbutton', { name: 'Nombre de cartes personnalisé' }).fill('7');
