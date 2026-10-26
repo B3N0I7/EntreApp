@@ -110,6 +110,14 @@ test('desktop navigation opens each section', async ({ page }) => {
 		.getByRole('group', { name: 'Mode de réponse' })
 		.boundingBox();
 	expect(expressionsDirectionBox?.y).toBe(expressionsAnswerModeBox?.y);
+	await navigation.getByRole('link', { name: 'Connecteurs logiques' }).click();
+	await expect(page.getByRole('heading', { name: 'Connecteurs logiques' })).toBeVisible();
+	await expect(page.getByRole('heading', { name: 'La Cause', level: 2 })).toBeVisible();
+	await expect(page.getByText('Niveau A1', { exact: true })).toHaveCount(0);
+	await expect(navigation.getByRole('link', { name: 'Connecteurs logiques' })).toHaveAttribute(
+		'aria-current',
+		'page'
+	);
 	await navigation.getByRole('link', { name: 'Conjugaison' }).click();
 	await expect(page.getByRole('heading', { name: 'Conjugaison' })).toBeVisible();
 	await page.getByRole('combobox', { name: 'Verbe' }).selectOption('être');
@@ -167,6 +175,13 @@ test('mobile navigation opens, closes with Escape, and closes after navigation',
 	await navigation.getByRole('link', { name: 'Conjugaison' }).click();
 	await expect(page.getByRole('heading', { name: 'Conjugaison' })).toBeVisible();
 	await expect(navigation).toBeHidden();
+
+	await page.getByRole('button', { name: 'Ouvrir le menu' }).click();
+	await navigation.getByRole('link', { name: 'Connecteurs logiques' }).click();
+	await expect(page.getByRole('heading', { name: 'Connecteurs logiques' })).toBeVisible();
+	await expect(navigation).toBeHidden();
+	await page.setViewportSize({ width: 320, height: 844 });
+	expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(320);
 });
 
 test('mobile vocabulary controls stay compact', async ({ page }) => {

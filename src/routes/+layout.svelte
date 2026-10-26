@@ -13,6 +13,7 @@
 		{ label: 'Tirage au sort', href: '/tirage' },
 		{ label: 'Vocabulaire', href: '/vocabulaire' },
 		{ label: 'Expressions françaises', href: '/expressions' },
+		{ label: 'Connecteurs logiques', href: '/connecteurs-logiques' },
 		{ label: 'Conjugaison', href: '/conjugaison' }
 	] as const;
 

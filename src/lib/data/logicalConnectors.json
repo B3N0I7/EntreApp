@@ -1,0 +1,714 @@
+[
+	{
+		"id": "cause",
+		"title": "La Cause",
+		"connectors": [
+			{
+				"name": "Parce que",
+				"usage": "Réponse directe à la question « pourquoi ? »",
+				"examples": [
+					"Je ne viens pas demain parce que je suis malade.",
+					"Il apprend le français **parce qu’**il adore la culture française."
+				]
+			},
+			{
+				"name": "Car",
+				"usage": "Coordination, plus formel à l’écrit que « parce que »",
+				"examples": [
+					"Nous restons chez nous, car il pleut dehors.",
+					"Elle ne mange pas de viande, car elle est végétarienne."
+				]
+			},
+			{
+				"name": "À cause de",
+				"usage": "S’emploie avec un nom ou un pronom ; cause généralement négative ou neutre",
+				"examples": [
+					"Le train est en retard à cause de la neige.",
+					"Nous avons annulé la sortie à cause du mauvais temps."
+				]
+			},
+			{
+				"name": "Grâce à",
+				"usage": "S’emploie avec un nom ou un pronom ; cause positive",
+				"examples": [
+					"J’ai réussi mon examen grâce à ton aide.",
+					"Grâce à ses efforts, il a trouvé un nouveau travail."
+				]
+			},
+			{
+				"name": "Comme",
+				"usage": "Se place obligatoirement en tête de phrase pour insister sur la cause",
+				"examples": [
+					"Comme il était tard, nous avons pris un taxi.",
+					"Comme tu es en vacances, profitons-en pour voyager."
+				]
+			},
+			{
+				"name": "Puisque",
+				"usage": "Cause connue ou évidente pour l’interlocuteur",
+				"examples": [
+					"Puisque tu vas à la cuisine, apporte-moi un verre d’eau.",
+					"Nous pouvons partir maintenant, puisque tout le monde est prêt."
+				]
+			},
+			{
+				"name": "En raison de",
+				"usage": "S’emploie avec un nom ; registre soutenu, souvent administratif ou journalistique",
+				"examples": [
+					"Le vol est reporté **en raison d’**un incident technique.",
+					"Le magasin ferme plus tôt en raison des jours fériés."
+				]
+			},
+			{
+				"name": "Étant donné que",
+				"usage": "S’emploie avec l’indicatif ; constate un fait avéré",
+				"examples": [
+					"Étant donné que la météo est incertaine, prévoyons une solution de repli.",
+					"Le projet avance bien, étant donné que toute l’équipe est mobilisée."
+				]
+			},
+			{
+				"name": "Vu que",
+				"usage": "S’emploie avec l’indicatif ; registre courant ou semi-formel",
+				"examples": [
+					"**Vu qu’**il n’y a plus de place, nous irons au cinéma demain.",
+					"On va commencer la réunion, vu que le directeur est arrivé."
+				]
+			},
+			{
+				"name": "D’autant plus que",
+				"usage": "Ajoute un argument qui renforce la cause",
+				"examples": [
+					"Cette hausse de prix est contestée, d’autant plus que les salaires n’ont pas augmenté.",
+					"Je refuse cette offre, **d’autant plus qu’**elle implique un déménagement immédiat."
+				]
+			},
+			{
+				"name": "Faute de",
+				"usage": "S’emploie avec un nom ou un infinitif ; absence ou manque de quelque chose",
+				"examples": [
+					"Faute de budget suffisant, le projet a été suspendu pour six mois.",
+					"Le suspect a été libéré faute de preuves tangibles."
+				]
+			},
+			{
+				"name": "Sous prétexte que",
+				"usage": "S’emploie avec l’indicatif ; introduit une fausse cause ou une excuse contestée",
+				"examples": [
+					"Il est parti plus tôt **sous prétexte qu’**il avait un rendez-vous urgent.",
+					"On ne peut pas négliger la sécurité sous prétexte que les délais sont serrés."
+				]
+			}
+		]
+	},
+	{
+		"id": "consequence",
+		"title": "La Conséquence",
+		"connectors": [
+			{
+				"name": "Donc",
+				"usage": "Conséquence directe et courante",
+				"examples": [
+					"Je n'ai pas de clé, donc je ne peux pas entrer.",
+					"Tu es fatigué, donc va te coucher."
+				]
+			},
+			{
+				"name": "Alors",
+				"usage": "Conséquence souvent temporelle ou déductive à l’oral",
+				"examples": [
+					"Le magasin était fermé, alors je suis rentré à la maison.",
+					"Il faisait très chaud, alors nous sommes allés à la piscine."
+				]
+			},
+			{
+				"name": "C’est pour cela / C’est pour ça que",
+				"usage": "Explication du résultat",
+				"examples": [
+					"J'ai oublié mon portefeuille, c'est pour ça que je ne peux pas payer.",
+					"Il adore la cuisine italienne, **c’est pour cela qu’**il voyage souvent en Italie."
+				]
+			},
+			{
+				"name": "C’est pourquoi",
+				"usage": "Registre écrit et formel",
+				"examples": [
+					"Les résultats sont excellents, c'est pourquoi nous poursuivons cette stratégie.",
+					"La date limite approche, c'est pourquoi nous vous relançons aujourd'hui."
+				]
+			},
+			{
+				"name": "Par conséquent",
+				"usage": "Logique formelle",
+				"examples": [
+					"Vous n'avez pas validé votre dossier ; par conséquent, votre inscription est en attente.",
+					"La demande a fortement augmenté, par conséquent la production a doublé."
+				]
+			},
+			{
+				"name": "Ainsi",
+				"usage": "En début de phrase pour introduire un résultat",
+				"examples": [
+					"Le groupe a réduit ses dépenses, ainsi il a pu éviter les licenciements.",
+					"Ainsi, nous avons réussi à clore le projet à temps."
+				]
+			},
+			{
+				"name": "De sorte que",
+				"usage": "S’emploie avec l’indicatif pour la conséquence constatée",
+				"examples": [
+					"Il a réorganisé son emploi du temps, **de sorte qu’**il dispose désormais de ses vendredis.",
+					"La circulation a été déviée, de sorte que le centre-ville est resté calme."
+				]
+			},
+			{
+				"name": "Si bien que",
+				"usage": "Conséquence inévitable ou frappante",
+				"examples": [
+					"La pluie a duré des heures, si bien que la rivière a fini par déborder.",
+					"Il a travaillé sans interruption, **si bien qu’**il a fini deux jours en avance."
+				]
+			},
+			{
+				"name": "D’où",
+				"usage": "S’emploie avec un nom ; conclusion concise",
+				"examples": [
+					"Les chiffres ont été mal calculés, d'où l’erreur constatée au bilan.",
+					"Il y a eu un malentendu sur l'horaire, d'où son retard inattendu."
+				]
+			},
+			{
+				"name": "En conséquence",
+				"usage": "Effet direct, très fréquent en contexte juridique ou managérial",
+				"examples": [
+					"Le contrat est rompu ; en conséquence, toute prestation cesse immédiatement.",
+					"Les ressources ont diminué, en conséquence nos objectifs ont été révisés."
+				]
+			},
+			{
+				"name": "Au point de / Au point que",
+				"usage": "Exprime un degré extrême entraînant une conséquence",
+				"examples": [
+					"Elle était épuisée au point de s'endormir assise dans le salon.",
+					"Le débat s'est envenimé au point que la séance a dû être levée."
+				]
+			},
+			{
+				"name": "Dès lors",
+				"usage": "Conséquence logique immédiate d’un constat",
+				"examples": [
+					"L'accord est caduc ; dès lors, de nouvelles négociations s'imposent.",
+					"Le marché est saturé, dès lors toute expansion devient risquée."
+				]
+			}
+		]
+	},
+	{
+		"id": "opposition-concession",
+		"title": "L’Opposition et la Concession",
+		"connectors": [
+			{
+				"name": "Mais",
+				"usage": "Opposition simple",
+				"examples": [
+					"Je veux bien venir, mais je n’ai pas le temps.",
+					"Cette veste est jolie, mais elle coûte trop cher."
+				]
+			},
+			{
+				"name": "Par contre",
+				"usage": "Registre courant pour opposer deux situations",
+				"examples": [
+					"Je ne bois pas de café ; par contre, j'aime beaucoup le thé.",
+					"Pierre n’est pas venu, par contre sa sœur était présente."
+				]
+			},
+			{
+				"name": "Ou / Ou bien",
+				"usage": "Alternative ou choix opposé",
+				"examples": [
+					"Tu préfères rester ici ou aller faire une promenade ?",
+					"Nous pouvons réserver ce soir, ou bien attendre demain matin."
+				]
+			},
+			{
+				"name": "Pourtant",
+				"usage": "Concession : opposition inattendue",
+				"examples": [
+					"Il a révisé toute la semaine, pourtant il a raté son test.",
+					"Il fait soleil, pourtant l’air est très froid."
+				]
+			},
+			{
+				"name": "Cependant",
+				"usage": "Opposition nuancée, registre soigné",
+				"examples": [
+					"Le projet est ambitieux ; cependant, il nécessite des fonds supplémentaires.",
+					"Nous comprenons votre démarche, cependant nous ne pouvons y donner suite."
+				]
+			},
+			{
+				"name": "Même si",
+				"usage": "S’emploie avec l’indicatif ; concession hypothétique ou réelle",
+				"examples": [
+					"Nous irons marcher **même s’**il pleut.",
+					"Même si c'est difficile, je continuerai d'essayer."
+				]
+			},
+			{
+				"name": "Bien que",
+				"usage": "S’emploie avec le subjonctif ; concession formelle",
+				"examples": [
+					"**Bien qu’**il soit fatigué, il participe activement à la réunion.",
+					"Elle a accepté l’invitation, **bien qu’**elle ait beaucoup de travail."
+				]
+			},
+			{
+				"name": "Malgré",
+				"usage": "S’emploie avec un nom ou un pronom ; concession sans verbe",
+				"examples": [
+					"Malgré la pluie battante, ils sont partis faire du vélo.",
+					"Il garde le sourire malgré les difficultés quotidiennes."
+				]
+			},
+			{
+				"name": "Alors que",
+				"usage": "S’emploie avec l’indicatif ; opposition temporelle ou de contraste",
+				"examples": [
+					"Il refuse tout compromis, alors que son associé cherche un terrain d'entente.",
+					"Les ventes progressent en Europe, **alors qu’**elles stagnent en Asie."
+				]
+			},
+			{
+				"name": "Néanmoins",
+				"usage": "Forte nuance de concession, registre soutenu",
+				"examples": [
+					"Les obstacles sont nombreux ; néanmoins, nous restons optimistes.",
+					"L’échéance est très courte, néanmoins nous relèverons le défi."
+				]
+			},
+			{
+				"name": "Toutefois",
+				"usage": "Restriction délicate, très fréquent dans le discours professionnel",
+				"examples": [
+					"Votre candidature est solide, toutefois nous recherchons un profil plus technique.",
+					"Le rapport est complet ; il convient toutefois de vérifier certaines données."
+				]
+			},
+			{
+				"name": "En dépit de",
+				"usage": "S’emploie avec un nom ; synonyme élégant de « malgré »",
+				"examples": [
+					"L’événement a eu lieu en dépit des nombreuses contestations.",
+					"**En dépit d’**un contexte économique tendu, l’entreprise reste rentable."
+				]
+			}
+		]
+	},
+	{
+		"id": "addition-succession",
+		"title": "L’Addition et la Succession d’idées",
+		"connectors": [
+			{
+				"name": "Et",
+				"usage": "Liaison basique",
+				"examples": ["J'achète du pain et du fromage.", "Il prend son manteau et il sort."]
+			},
+			{
+				"name": "Aussi",
+				"usage": "En milieu de phrase pour signifier l’addition",
+				"examples": [
+					"J'aime le jazz, et mon frère aime aussi cette musique.",
+					"Marie vient à la fête, et Thomas vient aussi."
+				]
+			},
+			{
+				"name": "Et puis",
+				"usage": "Continuité chronologique ou ajout familier/courant",
+				"examples": [
+					"Nous avons mangé, et puis nous sommes allés au cinéma.",
+					"Je n’ai pas envie de sortir, et puis il fait trop froid."
+				]
+			},
+			{
+				"name": "De plus",
+				"usage": "Ajout d’une information",
+				"examples": [
+					"Cette maison est spacieuse ; de plus, elle dispose d’un grand jardin.",
+					"Il parle anglais couramment, et de plus, il maîtrise l’espagnol."
+				]
+			},
+			{
+				"name": "Également",
+				"usage": "Synonyme soigné de « aussi »",
+				"examples": [
+					"Nous proposons également des formations en ligne.",
+					"Le document a également été transmis à la direction."
+				]
+			},
+			{
+				"name": "D’abord… ensuite",
+				"usage": "Chronologie ou énumération simple",
+				"examples": [
+					"D’abord, préchauffez le four, ensuite, préparez la pâte.",
+					"Nous allons d'abord analyser le problème, ensuite proposer des solutions."
+				]
+			},
+			{
+				"name": "En outre",
+				"usage": "Addition d’un argument valorisant, registre écrit",
+				"examples": [
+					"Cette méthode réduit les coûts et, en outre, elle améliore la productivité.",
+					"L’appartement est bien situé ; en outre, les charges sont faibles."
+				]
+			},
+			{
+				"name": "Par ailleurs",
+				"usage": "Introduit un autre aspect ou un point complémentaire",
+				"examples": [
+					"Le calendrier a été validé ; par ailleurs, le budget reste sous contrôle.",
+					"Il gère l’équipe technique et s’occupe, par ailleurs, des relations clients."
+				]
+			},
+			{
+				"name": "Non seulement… mais aussi",
+				"usage": "Structure corrélative pour accentuer l’addition",
+				"examples": [
+					"Non seulement il est ponctuel, mais aussi particulièrement efficace.",
+					"Cette mesure est non seulement coûteuse, mais aussi difficile à mettre en œuvre."
+				]
+			},
+			{
+				"name": "D’une part… d’autre part",
+				"usage": "Structure argumentative en deux volets",
+				"examples": [
+					"D’une part, la demande augmente, d’autre part, l’offre se raréfie.",
+					"Il faut considérer d’une part les risques juridiques, d’autre part l’impact financier."
+				]
+			},
+			{
+				"name": "De surcroît",
+				"usage": "Renforce un ajout en insistant sur son importance",
+				"examples": [
+					"Il a commis une faute grave et refuse, de surcroît, de présenter des excuses.",
+					"Le matériel livré était incomplet et, de surcroît, en mauvais état."
+				]
+			},
+			{
+				"name": "Qui plus est",
+				"usage": "Ajoute un fait qui appuie ou aggrave le constat précédent",
+				"examples": [
+					"Le délai imposé est irréaliste et, qui plus est, les effectifs sont réduits.",
+					"La solution proposée est complexe et, qui plus est, très onéreuse."
+				]
+			}
+		]
+	},
+	{
+		"id": "but",
+		"title": "Le But (L’objectif visé)",
+		"connectors": [
+			{
+				"name": "Pour",
+				"usage": "S’emploie avec un infinitif ou un nom ; but simple et universel",
+				"examples": [
+					"J'étudie pour réussir mes examens.",
+					"Il prend le train pour aller à Paris.",
+					"Ce cadeau est pour l'anniversaire de Sophie."
+				]
+			},
+			{
+				"name": "Pour que",
+				"usage": "S’emploie avec le subjonctif lorsque le sujet change entre les deux propositions",
+				"examples": [
+					"Je t’explique la règle pour que tu comprennes mieux.",
+					"Parle plus fort pour que tout le monde puisse t’entendre."
+				]
+			},
+			{
+				"name": "Vers",
+				"usage": "S’emploie avec un nom de lieu ou métaphorique ; oriente une action vers une cible",
+				"examples": [
+					"Tous nos efforts convergent vers un objectif commun.",
+					"Nous marchons vers la sortie du parc."
+				]
+			},
+			{
+				"name": "Afin de",
+				"usage": "S’emploie avec un infinitif ; équivalent soigné de « pour » avec un même sujet",
+				"examples": [
+					"Merci de compléter le formulaire afin de confirmer votre inscription.",
+					"Nous partons tôt **afin d’**éviter les embouteillages."
+				]
+			},
+			{
+				"name": "Afin que",
+				"usage": "S’emploie avec le subjonctif ; équivalent soigné de « pour que »",
+				"examples": [
+					"Je vous envoie le compte rendu afin que vous soyez informé des décisions.",
+					"Nous partageons l’agenda afin que chacun puisse s’organiser."
+				]
+			},
+			{
+				"name": "Dans le but de",
+				"usage": "S’emploie avec un infinitif ; insiste explicitement sur l’intention",
+				"examples": [
+					"L’entreprise recrute dans le but de développer son pôle digital.",
+					"Il s’entraîne quotidiennement **dans le but d’**obtenir un meilleur classement."
+				]
+			},
+			{
+				"name": "En vue de",
+				"usage": "S’emploie avec un nom ou un infinitif ; projection vers un projet ou une démarche à moyen terme",
+				"examples": [
+					"Des ateliers sont organisés **en vue d’**améliorer les compétences des salariés.",
+					"Il rassemble les pièces justificatives en vue de sa demande de visa."
+				]
+			},
+			{
+				"name": "De manière à / De façon à",
+				"usage": "S’emploie avec un infinitif ; intention vue sous l’angle du procédé",
+				"examples": [
+					"Organisez vos dossiers de manière à retrouver facilement les factures.",
+					"La réunion a été écourtée de façon à laisser du temps aux questions."
+				]
+			},
+			{
+				"name": "De peur de / De crainte de",
+				"usage": "S’emploie avec un infinitif ; but négatif, action menée pour éviter un danger",
+				"examples": [
+					"Il a mis deux alarmes de peur de rater son réveil.",
+					"Elle a préféré ne rien dire de crainte de créer une dispute."
+				]
+			},
+			{
+				"name": "De peur que / De crainte que",
+				"usage": "S’emploie avec le subjonctif, souvent avec le « ne » explétif ; but préventif",
+				"examples": [
+					"Nous avons vérifié les calculs **de peur qu’**une erreur ne se glisse dans le rapport.",
+					"Elle a baissé la voix **de crainte qu’**on ne l’entende."
+				]
+			},
+			{
+				"name": "À dessein de",
+				"usage": "S’emploie avec un infinitif ; registre très soutenu ou formel, intention délibérée",
+				"examples": [
+					"Ces mesures ont été adoptées à dessein de stabiliser les marchés financiers.",
+					"Le porte-parole est intervenu à dessein de clarifier la position du gouvernement."
+				]
+			},
+			{
+				"name": "Dans l’optique de",
+				"usage": "S’emploie avec un infinitif ou un nom ; vision stratégique à long terme",
+				"examples": [
+					"La société investit dans la R&D dans l’optique de conquérir de nouveaux marchés.",
+					"Des mesures écologiques ont été prises **dans l’optique d’**une transition durable."
+				]
+			}
+		]
+	},
+	{
+		"id": "condition-hypothese",
+		"title": "La Condition et l’Hypothèse",
+		"connectors": [
+			{
+				"name": "Si",
+				"usage": "S’emploie avec le présent ou l’imparfait ; condition simple du quotidien",
+				"examples": [
+					"Si tu as faim, il y a des fruits dans la cuisine.",
+					"**S’**il fait beau demain, nous irons à la plage."
+				]
+			},
+			{
+				"name": "Quand",
+				"usage": "S’emploie avec l’indicatif ; condition temporelle ou certitude liée à un événement",
+				"examples": [
+					"Quand tu arriveras à la gare, appelle-moi.",
+					"Quand on veut réussir, il faut travailler régulièrement."
+				]
+			},
+			{
+				"name": "Sinon",
+				"usage": "Exprime la conséquence négative si la condition n’est pas remplie",
+				"examples": [
+					"Dépêche-toi, sinon nous allons rater le bus !",
+					"Mets un pull, sinon tu vas avoir froid."
+				]
+			},
+			{
+				"name": "Avec",
+				"usage": "S’emploie avec un nom ; condition sous forme de moyen ou de circonstance favorable",
+				"examples": [
+					"Avec un peu de patience, vous y arriverez sans problème.",
+					"Avec un budget supplémentaire, nous pourrions moderniser l’équipement."
+				]
+			},
+			{
+				"name": "Sans",
+				"usage": "S’emploie avec un nom ou un infinitif ; condition d’absence ou « sans quoi »",
+				"examples": [
+					"Sans ton aide, je n’aurais jamais terminé ce travail à temps.",
+					"On ne peut pas voyager à l’étranger sans passeport valide."
+				]
+			},
+			{
+				"name": "En cas de",
+				"usage": "S’emploie avec un nom ; formule standard pour une éventualité",
+				"examples": [
+					"**En cas d’**urgence, composez immédiatement le 112.",
+					"Les cours seront assurés à distance en cas de fortes intempéries."
+				]
+			},
+			{
+				"name": "À condition de / À condition que",
+				"usage": "S’emploie avec un infinitif ou le subjonctif ; exigence préalable",
+				"examples": [
+					"Vous pouvez emprunter ce livre à condition de me le rendre vendredi.",
+					"Le projet sera validé à condition que le budget ne dépasse pas le plafond."
+				]
+			},
+			{
+				"name": "Au cas où",
+				"usage": "S’emploie avec le conditionnel ; éventualité prudente",
+				"examples": [
+					"Prends un parapluie au cas où il pleuvrait cet après-midi.",
+					"Je vous laisse mes coordonnées au cas où vous auriez des questions."
+				]
+			},
+			{
+				"name": "Pourvu que",
+				"usage": "S’emploie avec le subjonctif ; condition fortement souhaitée",
+				"examples": [
+					"La fête en plein air sera magnifique, pourvu que le soleil soit au rendez-vous.",
+					"Tout se passera bien, **pourvu qu’**on garde notre calme."
+				]
+			},
+			{
+				"name": "À supposer que / En admettant que",
+				"usage": "S’emploie avec le subjonctif ; pure hypothèse de travail ou concession hypothétique",
+				"examples": [
+					"À supposer que nous obtenions ce contrat, aurons-nous les équipes nécessaires ?",
+					"En admettant que cette théorie soit juste, elle ne suffit pas à tout expliquer."
+				]
+			},
+			{
+				"name": "À moins que",
+				"usage": "S’emploie avec le subjonctif, avec « ne » possible ; restriction équivalente à « sauf si »",
+				"examples": [
+					"La réunion aura lieu à 14 h, à moins que le client ne demande un report.",
+					"Nous signerons demain, **à moins qu’**un imprévu majeur ne survienne."
+				]
+			},
+			{
+				"name": "Sous réserve de / Sous réserve que",
+				"usage": "S’emploie avec un nom ou le subjonctif ; clause restrictive juridique ou professionnelle",
+				"examples": [
+					"Le prêt bancaire est accordé, sous réserve de la validation des garanties.",
+					"L’accord entrera en vigueur sous réserve que les deux parties le ratifient."
+				]
+			}
+		]
+	},
+	{
+		"id": "illustration-exemple",
+		"title": "L’Illustration et l’Exemple",
+		"connectors": [
+			{
+				"name": "Comme",
+				"usage": "Pour citer des exemples directs ou faire une comparaison simple",
+				"examples": [
+					"J'aime les sports d'équipe comme le football et le basket.",
+					"Dans ce magasin, on trouve des fruits frais comme des pommes et des oranges."
+				]
+			},
+			{
+				"name": "Par exemple",
+				"usage": "Formule d’illustration par excellence",
+				"examples": [
+					"Nous pouvons visiter plusieurs villes, par exemple Lyon ou Bordeaux.",
+					"Tu peux faire du sport le matin, par exemple courir 20 minutes."
+				]
+			},
+			{
+				"name": "C’est-à-dire",
+				"usage": "Pour préciser ou donner un exemple explicatif simple",
+				"examples": [
+					"Le musée est ouvert en semaine, c'est-à-dire du lundi au vendredi.",
+					"Il est polyglotte, c’est-à-dire qu'il parle plusieurs langues."
+				]
+			},
+			{
+				"name": "Notamment",
+				"usage": "Isole un ou plusieurs exemples particulièrement représentatifs",
+				"examples": [
+					"Beaucoup de pays européens, notamment l’Espagne et l’Italie, attirent les touristes.",
+					"Elle pratique plusieurs instruments, notamment le piano et la guitare."
+				]
+			},
+			{
+				"name": "Entre autres",
+				"usage": "Indique que la liste n’est pas exhaustive",
+				"examples": [
+					"Le rapport aborde entre autres la question des coûts de transport.",
+					"Nous avons recruté plusieurs profils, entre autres deux développeurs web."
+				]
+			},
+			{
+				"name": "Tel que / Tels que / Telle que / Telles que",
+				"usage": "S’accorde avec le nom illustré",
+				"examples": [
+					"Les énergies renouvelables telles que le solaire et l’éolien se développent rapidement.",
+					"Il évite les aliments transformés tels que les plats préparés et les sodas."
+				]
+			},
+			{
+				"name": "À titre d’exemple",
+				"usage": "Variante formelle de « par exemple », idéale en début de phrase",
+				"examples": [
+					"À titre d’exemple, les ventes ont progressé de 15 % au dernier trimestre.",
+					"Cette méthode a fait ses preuves ; à titre d'exemple, citons les résultats de l'usine pilote."
+				]
+			},
+			{
+				"name": "En l’occurrence",
+				"usage": "Renvoie précisément au cas particulier dont on parle",
+				"examples": [
+					"Le règlement prévoit des sanctions ; en l’occurrence, une amende forfaitaire.",
+					"Ce poste exige une expertise rare, en l’occurrence une parfaite maîtrise de l'analyse actuarielle."
+				]
+			},
+			{
+				"name": "C’est le cas de",
+				"usage": "Sert à appuyer une affirmation par un exemple concret",
+				"examples": [
+					"Certaines start-ups connaissent une croissance fulgurante ; c'est le cas de cette fintech.",
+					"Plusieurs services ont réorganisé leurs horaires, c'est le cas de l'équipe support."
+				]
+			},
+			{
+				"name": "Pour illustrer ce propos / Pour illustrer cette idée",
+				"usage": "Transition argumentative soignée",
+				"examples": [
+					"Pour illustrer ce propos, observons l’évolution des comportements d’achat des jeunes générations.",
+					"Les coûts fixes ont dérivé ; pour illustrer cette idée, examinons les dépenses informatiques de 2025."
+				]
+			},
+			{
+				"name": "À l’instar de",
+				"usage": "S’emploie avec un nom ; synonyme soutenu de « à l’exemple de » ou « comme »",
+				"examples": [
+					"À l’instar de ses concurrents européens, l’entreprise investit massivement dans l’automatisation.",
+					"Le secteur automobile traverse une mutation profonde, à l’instar du secteur aéronautique."
+				]
+			},
+			{
+				"name": "Qu’on en juge par",
+				"usage": "Invite l’auditoire ou le lecteur à constater une preuve frappante",
+				"examples": [
+					"L’engouement du public a dépassé les prévisions : qu’on en juge par la rupture de stock en moins de deux heures.",
+					"La législation s’est considérablement durcie sur ce sujet ; qu’on en juge par les récentes décisions des tribunaux."
+				]
+			}
+		]
+	}
+]
