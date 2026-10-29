@@ -31,3 +31,10 @@ fichierstxt/*
 !fichierstxt/liste de 30 verbes.txt
 !fichierstxt/conjugaison de 30 verbes.txt
 !fichierstxt/100 expressions francaises.txt
+!fichierstxt/connecteurs logiques.txt
+
+# GitHub Copilot
+.github
+
+# Analyste Architecture Agent
+docs/

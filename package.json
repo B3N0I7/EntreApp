@@ -8,6 +8,7 @@
 		"build": "vite build",
 		"import:conjugation": "node scripts/import-conjugation.mjs && prettier --write src/lib/data/conjugation.json",
 		"import:vocabulary": "node scripts/import-vocabulary.mjs && prettier --write src/lib/data/vocabulary.json",
+		"import:expression": "node scripts/import-expression.mjs && prettier --write src/lib/data/expression.json",
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",

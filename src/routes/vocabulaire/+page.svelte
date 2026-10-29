@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state';
+	import vocabularyData from '../../lib/data/vocabulary.json';
 	import VocabularyFlashcards from '../../lib/VocabularyFlashcards.svelte';
 	import type { VocabularyDirection } from '../../lib/vocabulary';
 
@@ -24,7 +25,11 @@
 
 <main class="vocabulary-page">
 	{#key direction}
-		<VocabularyFlashcards {direction} onDirectionChange={changeDirection} />
+		<VocabularyFlashcards
+			{direction}
+			catalogue={vocabularyData}
+			onDirectionChange={changeDirection}
+		/>
 	{/key}
 </main>
 

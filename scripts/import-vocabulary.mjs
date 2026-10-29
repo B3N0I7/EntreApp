@@ -25,13 +25,6 @@ const sources = [
 		idPrefix: 'voyage',
 		bulletEntries: false,
 		numberedSections: true
-	},
-	{
-		file: 'fichierstxt/100 expressions francaises.txt',
-		theme: 'Expressions françaises',
-		idPrefix: 'expression',
-		pairedDefinitions: true,
-		section: 'Expressions courantes'
 	}
 ];
 
@@ -45,31 +38,6 @@ function importEntries(source) {
 	for (const rawLine of content.split(/\r\n?|\n/)) {
 		let line = rawLine.trim();
 		if (!line || /^_+$/.test(line)) continue;
-
-		if (source.pairedDefinitions) {
-			const definitionMatch = line.match(/^signifie\s*:\s*(.+)$/iu);
-			if (definitionMatch) {
-				if (!currentEntry) {
-					throw new Error(`Definition without an expression in ${source.file}: ${line}`);
-				}
-				currentEntry.definition = definitionMatch[1].trim();
-				currentEntry = undefined;
-				continue;
-			}
-
-			if (currentEntry) {
-				throw new Error(`Missing definition in ${source.file}: ${currentEntry.word}`);
-			}
-			currentEntry = {
-				id: `${source.idPrefix}-${String(entries.length + 1).padStart(3, '0')}`,
-				theme: source.theme,
-				section: source.section,
-				word: line,
-				definition: ''
-			};
-			entries.push(currentEntry);
-			continue;
-		}
 
 		if (source.sectionTitles?.includes(line)) {
 			currentSection = line;

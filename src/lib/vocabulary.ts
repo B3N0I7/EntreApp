@@ -1,5 +1,3 @@
-import vocabularyData from './data/vocabulary.json';
-
 export type VocabularyEntry = {
 	id: string;
 	theme: string;
@@ -27,19 +25,27 @@ export type AnswerOption = {
 	correct: boolean;
 };
 
-export const VOCABULARY: readonly VocabularyEntry[] = vocabularyData;
-export const THEMES = [...new Set(VOCABULARY.map((entry) => entry.theme))];
-
-export function vocabularyForTheme(theme: string): VocabularyEntry[] {
-	return VOCABULARY.filter((entry) => entry.theme === theme);
+export function themesForVocabulary(entries: readonly VocabularyEntry[]): string[] {
+	return [...new Set(entries.map((entry) => entry.theme))];
 }
 
-export function sectionsForTheme(theme: string): string[] {
-	return [...new Set(vocabularyForTheme(theme).map((entry) => entry.section))];
+export function vocabularyForTheme(
+	entries: readonly VocabularyEntry[],
+	theme: string
+): VocabularyEntry[] {
+	return entries.filter((entry) => entry.theme === theme);
 }
 
-export function vocabularyForSection(theme: string, section: string): VocabularyEntry[] {
-	return VOCABULARY.filter((entry) => entry.theme === theme && entry.section === section);
+export function sectionsForTheme(entries: readonly VocabularyEntry[], theme: string): string[] {
+	return [...new Set(vocabularyForTheme(entries, theme).map((entry) => entry.section))];
+}
+
+export function vocabularyForSection(
+	entries: readonly VocabularyEntry[],
+	theme: string,
+	section: string
+): VocabularyEntry[] {
+	return entries.filter((entry) => entry.theme === theme && entry.section === section);
 }
 
 export function getCardContent(
@@ -75,39 +81,46 @@ function randomIndex(length: number, random: () => number): number {
 }
 
 function scopesForSelection(
+	entries: readonly VocabularyEntry[],
 	themeChoice: string,
 	sectionChoice: string,
 	direction: VocabularyDirection
 ): Array<Omit<VocabularyScope, 'entries'>> {
-	const themes = themeChoice === RANDOM_THEME ? THEMES : [themeChoice];
+	const themes = themeChoice === RANDOM_THEME ? themesForVocabulary(entries) : [themeChoice];
 	return themes.flatMap((theme) => {
 		const sections =
 			sectionChoice === ALL_SECTIONS
 				? [null]
 				: sectionChoice === RANDOM_SECTION
-					? sectionsForTheme(theme)
+					? sectionsForTheme(entries, theme)
 					: [sectionChoice];
 
 		return sections.map((section) => {
-			const entries = section ? vocabularyForSection(theme, section) : vocabularyForTheme(theme);
-			const pool = uniqueVocabularyForDirection(entries, direction);
+			const scopedEntries = section
+				? vocabularyForSection(entries, theme, section)
+				: vocabularyForTheme(entries, theme);
+			const pool = uniqueVocabularyForDirection(scopedEntries, direction);
 			return { theme, section, pool };
 		});
 	});
 }
 
 export function maxVocabularySessionSize(
+	entries: readonly VocabularyEntry[],
 	themeChoice: string,
 	sectionChoice: string,
 	direction: VocabularyDirection
 ): number {
 	return Math.max(
 		0,
-		...scopesForSelection(themeChoice, sectionChoice, direction).map((scope) => scope.pool.length)
+		...scopesForSelection(entries, themeChoice, sectionChoice, direction).map(
+			(scope) => scope.pool.length
+		)
 	);
 }
 
 export function createVocabularySession(
+	entries: readonly VocabularyEntry[],
 	themeChoice: string,
 	sectionChoice: string,
 	direction: VocabularyDirection,
@@ -118,7 +131,7 @@ export function createVocabularySession(
 		throw new Error('La taille doit être un entier supérieur ou égal à 1.');
 	}
 
-	const scopes = scopesForSelection(themeChoice, sectionChoice, direction);
+	const scopes = scopesForSelection(entries, themeChoice, sectionChoice, direction);
 	const maximum = Math.max(0, ...scopes.map((scope) => scope.pool.length));
 	const eligibleScopes = scopes.filter((scope) => scope.pool.length >= quantity);
 	if (eligibleScopes.length === 0) {

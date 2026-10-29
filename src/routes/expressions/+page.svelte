@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state';
+	import expressionData from '../../lib/data/expression.json';
 	import VocabularyFlashcards from '../../lib/VocabularyFlashcards.svelte';
 	import type { VocabularyDirection } from '../../lib/vocabulary';
 
@@ -26,6 +27,7 @@
 	{#key direction}
 		<VocabularyFlashcards
 			{direction}
+			catalogue={expressionData}
 			fixedTheme="Expressions françaises"
 			onDirectionChange={changeDirection}
 		/>

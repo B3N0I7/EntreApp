@@ -12,8 +12,7 @@
 		RANDOM_SECTION,
 		RANDOM_THEME,
 		sectionsForTheme,
-		THEMES,
-		VOCABULARY,
+		themesForVocabulary,
 		type AnswerMode,
 		type AnswerOption,
 		type VocabularyEntry,
@@ -22,11 +21,12 @@
 
 	type Props = {
 		direction: VocabularyDirection;
+		catalogue: readonly VocabularyEntry[];
 		fixedTheme?: string;
 		onDirectionChange?: (direction: VocabularyDirection) => void;
 	};
 
-	let { direction, fixedTheme, onDirectionChange }: Props = $props();
+	let { direction, catalogue, fixedTheme, onDirectionChange }: Props = $props();
 	let selectedTheme = $state('');
 	let selectedSection = $state(ALL_SECTIONS);
 	let selectedLength = $state('5');
@@ -51,11 +51,12 @@
 	let persistenceError = $state('');
 
 	let entries = $derived(sessionEntries);
+	let themes = $derived(themesForVocabulary(catalogue));
 	let availableSections = $derived(
-		selectedTheme === RANDOM_THEME ? [] : sectionsForTheme(selectedTheme)
+		selectedTheme === RANDOM_THEME ? [] : sectionsForTheme(catalogue, selectedTheme)
 	);
 	let maximumAvailable = $derived(
-		maxVocabularySessionSize(selectedTheme, selectedSection, direction)
+		maxVocabularySessionSize(catalogue, selectedTheme, selectedSection, direction)
 	);
 	let qcmAvailable = $derived(canUseMultipleChoice(activePool, direction));
 	let currentEntry = $derived(sessionEntries[currentIndex]);
@@ -127,7 +128,7 @@
 
 		try {
 			applySession(
-				createVocabularySession(selectedTheme, selectedSection, direction, quantity),
+				createVocabularySession(catalogue, selectedTheme, selectedSection, direction, quantity),
 				quantity
 			);
 		} catch (error) {
@@ -218,7 +219,7 @@
 			(error): error is ErreurVocabulaire => 'entryId' in error && error.direction === direction
 		);
 		const replayEntries = matchingErrors
-			.map((error) => VOCABULARY.find((entry) => entry.id === error.entryId))
+			.map((error) => catalogue.find((entry) => entry.id === error.entryId))
 			.filter((entry): entry is VocabularyEntry => entry !== undefined);
 		if (replayEntries.length === 0) {
 			sessionError = 'Les cartes de cette partie ne sont plus disponibles.';
@@ -228,8 +229,8 @@
 		resetStudy();
 		sessionEntries = replayEntries;
 		activePool = fixedTheme
-			? VOCABULARY.filter((entry) => entry.theme === fixedTheme)
-			: [...VOCABULARY];
+			? catalogue.filter((entry) => entry.theme === fixedTheme)
+			: [...catalogue];
 		sessionTheme = 'Erreurs à revoir';
 		sessionSection = null;
 		sessionSize = replayEntries.length;
@@ -245,7 +246,7 @@
 		const sectionChoice = sessionSection ?? ALL_SECTIONS;
 		try {
 			applySession(
-				createVocabularySession(sessionTheme, sectionChoice, direction, sessionSize),
+				createVocabularySession(catalogue, sessionTheme, sectionChoice, direction, sessionSize),
 				sessionSize
 			);
 		} catch {
@@ -254,7 +255,7 @@
 	}
 
 	onMount(() => {
-		selectedTheme = fixedTheme ?? THEMES[0] ?? '';
+		selectedTheme = fixedTheme ?? themes[0] ?? '';
 		const replay = takeReplay(moduleForDirection());
 		if (replay) {
 			startReplay(replay);
@@ -337,7 +338,7 @@
 					<span>Thème</span>
 					<select id="vocabulary-theme" bind:value={selectedTheme} onchange={changeTheme}>
 						<option value={RANDOM_THEME}>Thème aléatoire</option>
-						{#each THEMES as theme (theme)}
+						{#each themes as theme (theme)}
 							<option value={theme}>{theme}</option>
 						{/each}
 					</select>

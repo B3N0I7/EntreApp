@@ -1,4 +1,6 @@
 import { describe, expect, it } from 'vitest';
+import expressionData from './data/expression.json';
+import vocabularyData from './data/vocabulary.json';
 import {
 	canUseMultipleChoice,
 	createAnswerOptions,
@@ -8,8 +10,7 @@ import {
 	RANDOM_SECTION,
 	RANDOM_THEME,
 	sectionsForTheme,
-	THEMES,
-	VOCABULARY,
+	themesForVocabulary,
 	uniqueVocabularyForDirection,
 	vocabularyForSection,
 	vocabularyForTheme
@@ -20,53 +21,69 @@ const travelTheme = 'Le tourisme et les voyages';
 const expressionsTheme = 'Expressions françaises';
 
 describe('vocabulary data', () => {
-	it('contains both complete themes and keeps compound family definitions together', () => {
-		expect(THEMES).toEqual([familyTheme, travelTheme, expressionsTheme]);
-		expect(vocabularyForTheme(familyTheme)).toHaveLength(58);
-		expect(vocabularyForTheme(travelTheme)).toHaveLength(116);
-		expect(vocabularyForTheme(expressionsTheme)).toHaveLength(101);
+	it('keeps vocabulary and expression data in separate catalogs', () => {
+		expect(themesForVocabulary(vocabularyData)).toEqual([familyTheme, travelTheme]);
+		expect(vocabularyForTheme(vocabularyData, familyTheme)).toHaveLength(58);
+		expect(vocabularyForTheme(vocabularyData, travelTheme)).toHaveLength(116);
+		expect(themesForVocabulary(vocabularyData)).not.toContain(expressionsTheme);
+		expect(themesForVocabulary(expressionData)).toEqual([expressionsTheme]);
+		expect(vocabularyForTheme(expressionData, expressionsTheme)).toHaveLength(101);
 		expect(
-			VOCABULARY.every((entry) => entry.id && entry.section && entry.word && entry.definition)
+			[...vocabularyData, ...expressionData].every(
+				(entry) => entry.id && entry.section && entry.word && entry.definition
+			)
 		).toBe(true);
 
-		const stepParent = vocabularyForTheme(familyTheme).find(
+		const stepParent = vocabularyForTheme(vocabularyData, familyTheme).find(
 			(entry) => entry.word === 'le beau-père'
 		);
 		expect(stepParent?.definition).toContain('soit le père de son mari');
 		expect(stepParent?.definition).toContain('soit le nouveau mari de sa mère');
-		expect(vocabularyForTheme(expressionsTheme)[0]).toMatchObject({
+		expect(vocabularyForTheme(expressionData, expressionsTheme)[0]).toMatchObject({
 			word: 'Avoir le cafard',
 			definition: 'être triste, mélancolique ou déprimé.'
 		});
 	});
 
 	it('preserves source sections and the sports subsection', () => {
-		expect(sectionsForTheme(travelTheme)).toContain('Les activités');
-		expect(vocabularyForSection(travelTheme, 'Les saisons / partir')).toHaveLength(4);
-		expect(VOCABULARY.filter((entry) => entry.subsection === 'Détails des sports')).toHaveLength(8);
+		expect(sectionsForTheme(vocabularyData, travelTheme)).toContain('Les activités');
+		expect(vocabularyForSection(vocabularyData, travelTheme, 'Les saisons / partir')).toHaveLength(
+			4
+		);
+		expect(
+			vocabularyData.filter((entry) => entry.subsection === 'Détails des sports')
+		).toHaveLength(8);
 	});
 
 	it('samples unique prompts from a manual section in either direction', () => {
 		const section = 'Les saisons / partir';
-		const sourceEntries = vocabularyForSection(travelTheme, section);
+		const sourceEntries = vocabularyForSection(vocabularyData, travelTheme, section);
 
 		for (const direction of ['word-to-definition', 'definition-to-word'] as const) {
-			const session = createVocabularySession(travelTheme, section, direction, 4, () => 0);
+			const session = createVocabularySession(
+				vocabularyData,
+				travelTheme,
+				section,
+				direction,
+				4,
+				() => 0
+			);
 			const prompts = session.entries.map((entry) => getCardContent(entry, direction).prompt);
 
 			expect(session.entries).toHaveLength(4);
 			expect(new Set(prompts).size).toBe(4);
 			expect(session.pool).toEqual(uniqueVocabularyForDirection(sourceEntries, direction));
 			expect(canUseMultipleChoice(session.pool, direction)).toBe(true);
-			expect(maxVocabularySessionSize(travelTheme, section, direction)).toBe(4);
-			expect(() => createVocabularySession(travelTheme, section, direction, 5)).toThrow(
-				'Cette sélection contient au maximum 4 cartes distinctes.'
-			);
+			expect(maxVocabularySessionSize(vocabularyData, travelTheme, section, direction)).toBe(4);
+			expect(() =>
+				createVocabularySession(vocabularyData, travelTheme, section, direction, 5)
+			).toThrow('Cette sélection contient au maximum 4 cartes distinctes.');
 		}
 	});
 
 	it('chooses a theme and section uniformly from eligible random scopes', () => {
 		const session = createVocabularySession(
+			vocabularyData,
 			RANDOM_THEME,
 			RANDOM_SECTION,
 			'word-to-definition',
@@ -81,9 +98,9 @@ describe('vocabulary data', () => {
 	});
 
 	it('creates four unique options with exactly one correct answer in either direction', () => {
-		const familyEntries = vocabularyForTheme(familyTheme);
+		const familyEntries = vocabularyForTheme(vocabularyData, familyTheme);
 		const familyCard = familyEntries.find((entry) => entry.word === 'le beau-père')!;
-		const travelEntries = vocabularyForTheme(travelTheme);
+		const travelEntries = vocabularyForTheme(vocabularyData, travelTheme);
 		const travelCard = travelEntries[0];
 
 		for (const [entries, entry, direction] of [
@@ -102,7 +119,7 @@ describe('vocabulary data', () => {
 	});
 
 	it('rejects a QCM theme without three distinct distractors', () => {
-		const [entry] = vocabularyForTheme(familyTheme);
+		const [entry] = vocabularyForTheme(vocabularyData, familyTheme);
 		expect(() => createAnswerOptions([entry], entry, 'word-to-definition')).toThrow(
 			'Ce thème ne contient pas assez de réponses distinctes pour un QCM.'
 		);

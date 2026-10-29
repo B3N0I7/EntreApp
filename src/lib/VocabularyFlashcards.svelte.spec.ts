@@ -1,13 +1,15 @@
 import { page } from 'vitest/browser';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
+import expressionData from './data/expression.json';
+import vocabularyData from './data/vocabulary.json';
 import {
 	ALL_SECTIONS,
 	createAnswerOptions,
 	createVocabularySession,
 	RANDOM_SECTION,
 	RANDOM_THEME,
-	THEMES
+	themesForVocabulary
 } from './vocabulary';
 import VocabularyFlashcards from './VocabularyFlashcards.svelte';
 
@@ -21,7 +23,7 @@ describe('VocabularyFlashcards', () => {
 	});
 
 	it('reveals a definition and records a self-assessment', async () => {
-		render(VocabularyFlashcards, { direction: 'word-to-definition' });
+		render(VocabularyFlashcards, { direction: 'word-to-definition', catalogue: vocabularyData });
 
 		await expect
 			.element(page.getByRole('heading', { name: 'Trouve la définition' }))
@@ -43,7 +45,11 @@ describe('VocabularyFlashcards', () => {
 
 	it('offers a direction toggle when a change handler is provided', async () => {
 		const onDirectionChange = vi.fn();
-		render(VocabularyFlashcards, { direction: 'word-to-definition', onDirectionChange });
+		render(VocabularyFlashcards, {
+			direction: 'word-to-definition',
+			catalogue: vocabularyData,
+			onDirectionChange
+		});
 
 		const directionToggle = page.getByRole('group', { name: 'Sens des cartes' });
 		await expect
@@ -58,6 +64,7 @@ describe('VocabularyFlashcards', () => {
 		const onDirectionChange = vi.fn();
 		render(VocabularyFlashcards, {
 			direction: 'word-to-definition',
+			catalogue: expressionData,
 			fixedTheme: 'Expressions françaises',
 			onDirectionChange
 		});
@@ -96,7 +103,7 @@ describe('VocabularyFlashcards', () => {
 	});
 
 	it('offers a QCM from a definition to its word', async () => {
-		render(VocabularyFlashcards, { direction: 'definition-to-word' });
+		render(VocabularyFlashcards, { direction: 'definition-to-word', catalogue: vocabularyData });
 
 		await expect
 			.element(page.getByRole('heading', { name: 'Retrouve le mot' }))
@@ -119,7 +126,7 @@ describe('VocabularyFlashcards', () => {
 	});
 
 	it('filters a section and validates a custom session length', async () => {
-		render(VocabularyFlashcards, { direction: 'word-to-definition' });
+		render(VocabularyFlashcards, { direction: 'word-to-definition', catalogue: vocabularyData });
 
 		await page.getByRole('combobox', { name: 'Thème' }).selectOptions('Le tourisme et les voyages');
 		await page.getByRole('combobox', { name: 'Section' }).selectOptions('Les saisons / partir');
@@ -136,7 +143,7 @@ describe('VocabularyFlashcards', () => {
 	});
 
 	it('selects a random theme and then a random section', async () => {
-		render(VocabularyFlashcards, { direction: 'word-to-definition' });
+		render(VocabularyFlashcards, { direction: 'word-to-definition', catalogue: vocabularyData });
 
 		await page.getByRole('combobox', { name: 'Thème' }).selectOptions(RANDOM_THEME);
 		await page.getByRole('combobox', { name: 'Section' }).selectOptions(RANDOM_SECTION);
@@ -153,7 +160,7 @@ describe('VocabularyFlashcards', () => {
 				headers: { 'content-type': 'application/json' }
 			})
 		);
-		render(VocabularyFlashcards, { direction: 'word-to-definition' });
+		render(VocabularyFlashcards, { direction: 'word-to-definition', catalogue: vocabularyData });
 
 		for (let index = 0; index < 5; index += 1) {
 			await page.getByRole('button', { name: 'Révéler la réponse' }).click();
@@ -182,12 +189,13 @@ describe('VocabularyFlashcards', () => {
 				headers: { 'content-type': 'application/json' }
 			})
 		);
-		render(VocabularyFlashcards, { direction: 'word-to-definition' });
+		render(VocabularyFlashcards, { direction: 'word-to-definition', catalogue: vocabularyData });
 		await page.getByRole('button', { name: 'QCM' }).click();
 
 		const answers = page.getByRole('group', { name: 'Réponses proposées' });
 		const session = createVocabularySession(
-			THEMES[0] ?? '',
+			vocabularyData,
+			themesForVocabulary(vocabularyData)[0] ?? '',
 			ALL_SECTIONS,
 			'word-to-definition',
 			5,

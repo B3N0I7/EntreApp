@@ -1,4 +1,5 @@
 <script lang="ts">
+	import vocabularyData from '../../../lib/data/vocabulary.json';
 	import VocabularyFlashcards from '../../../lib/VocabularyFlashcards.svelte';
 </script>
 
@@ -10,4 +11,4 @@
 	/>
 </svelte:head>
 
-<VocabularyFlashcards direction="word-to-definition" />
+<VocabularyFlashcards direction="word-to-definition" catalogue={vocabularyData} />
