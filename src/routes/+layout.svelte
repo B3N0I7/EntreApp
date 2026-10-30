@@ -2,18 +2,35 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import { resolve } from '$app/paths';
+	import { onMount } from 'svelte';
 	import favicon from '#lib/assets/favicon.svg';
+	import { flushPendingHistory } from '#lib/sheetService';
 	import type { LayoutProps } from './$types';
 
 	let { children }: LayoutProps = $props();
 	let menuOpen = $state(false);
 	let menuButton: HTMLButtonElement | undefined;
 
+	$effect(() => {
+		const user = page.data.user;
+		if (user && user.role !== 'guest') void flushPendingHistory(user.userId).catch(() => {});
+	});
+
+	onMount(() => {
+		const retryPending = () => {
+			const user = page.data.user;
+			if (user && user.role !== 'guest') void flushPendingHistory(user.userId).catch(() => {});
+		};
+		window.addEventListener('online', retryPending);
+		return () => window.removeEventListener('online', retryPending);
+	});
+
 	const links = [
 		{ label: 'Tirage au sort', href: '/tirage' },
 		{ label: 'Vocabulaire', href: '/vocabulaire' },
 		{ label: 'Expressions françaises', href: '/expressions' },
 		{ label: 'Connecteurs logiques', href: '/connecteurs-logiques' },
+		{ label: 'Ressources', href: '/ressources' },
 		{ label: 'Conjugaison', href: '/conjugaison' }
 	] as const;
 
@@ -96,6 +113,7 @@
 					aria-current={page.url.pathname.startsWith('/historique') ? 'page' : undefined}
 					onclick={closeMenu}>Historique</a
 				>
+				<a href={resolve('/compte/mot-de-passe')} onclick={closeMenu}>Mot de passe</a>
 				{#if page.data.user.role === 'admin'}
 					<a
 						href={resolve('/admin')}

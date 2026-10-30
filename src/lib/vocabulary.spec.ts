@@ -18,13 +18,19 @@ import {
 
 const familyTheme = 'Les relations familiales et l’amour';
 const travelTheme = 'Le tourisme et les voyages';
+const environmentTheme = 'Les enjeux environnementaux';
 const expressionsTheme = 'Expressions françaises';
 
 describe('vocabulary data', () => {
 	it('keeps vocabulary and expression data in separate catalogs', () => {
-		expect(themesForVocabulary(vocabularyData)).toEqual([familyTheme, travelTheme]);
+		expect(themesForVocabulary(vocabularyData)).toEqual([
+			familyTheme,
+			travelTheme,
+			environmentTheme
+		]);
 		expect(vocabularyForTheme(vocabularyData, familyTheme)).toHaveLength(58);
 		expect(vocabularyForTheme(vocabularyData, travelTheme)).toHaveLength(116);
+		expect(vocabularyForTheme(vocabularyData, environmentTheme)).toHaveLength(11);
 		expect(themesForVocabulary(vocabularyData)).not.toContain(expressionsTheme);
 		expect(themesForVocabulary(expressionData)).toEqual([expressionsTheme]);
 		expect(vocabularyForTheme(expressionData, expressionsTheme)).toHaveLength(101);

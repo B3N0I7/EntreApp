@@ -5,6 +5,7 @@ import ConjugationQuiz from './ConjugationQuiz.svelte';
 
 afterEach(() => {
 	vi.restoreAllMocks();
+	window.localStorage.clear();
 });
 
 describe('ConjugationQuiz', () => {
@@ -69,6 +70,35 @@ describe('ConjugationQuiz', () => {
 		await expect.element(page.getByRole('status')).toHaveTextContent('Correct');
 	});
 
+	it('restores and saves the selected verb and tense', async () => {
+		const fetchSpy = vi.spyOn(globalThis, 'fetch').mockImplementation(async (input) => {
+			if (input === '/api/preferences?activity=conjugation') {
+				return new Response(JSON.stringify({ verbChoice: 'etre', tenseChoice: 'present' }), {
+					headers: { 'content-type': 'application/json' }
+				});
+			}
+			return new Response(JSON.stringify({ saved: true }), {
+				headers: { 'content-type': 'application/json' }
+			});
+		});
+		render(ConjugationQuiz);
+
+		await expect.element(page.getByRole('combobox', { name: 'Verbe' })).toHaveValue('etre');
+		await expect.element(page.getByRole('combobox', { name: 'Temps' })).toHaveValue('present');
+		await page.getByRole('combobox', { name: 'Verbe' }).selectOptions('falloir');
+		await page.getByRole('combobox', { name: 'Temps' }).selectOptions('passeCompose');
+
+		const preferenceSaves = () =>
+			fetchSpy.mock.calls.filter(
+				([input, options]) => input === '/api/preferences' && options?.method === 'PUT'
+			);
+		await expect.poll(preferenceSaves).toHaveLength(2);
+		expect(preferenceSaves().map(([, options]) => JSON.parse(String(options?.body)))).toEqual([
+			{ activity: 'conjugation', settings: { verbChoice: 'falloir', tenseChoice: 'present' } },
+			{ activity: 'conjugation', settings: { verbChoice: 'falloir', tenseChoice: 'passeCompose' } }
+		]);
+	});
+
 	it('persists one completed run with the failed conjugation', async () => {
 		const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue(
 			new Response(JSON.stringify({ saved: true }), {
@@ -83,13 +113,19 @@ describe('ConjugationQuiz', () => {
 		await page.getByRole('button', { name: 'Vérifier' }).click();
 		await page.getByRole('button', { name: 'Voir le résultat' }).click();
 
-		await expect.poll(() => fetchSpy).toHaveBeenCalledTimes(1);
-		const payload = JSON.parse(String(fetchSpy.mock.calls[0]?.[1]?.body)) as {
+		const historyCalls = () =>
+			fetchSpy.mock.calls.filter(
+				([input, options]) => input === '/api/history' && options?.method === 'POST'
+			);
+		await expect.poll(historyCalls).toHaveLength(1);
+		const historyCall = historyCalls()[0];
+		const payload = JSON.parse(String(historyCall?.[1]?.body)) as {
 			module: string;
 			score: string;
 			erreurs: Array<{ verbeId: string; tempsId: string; pronom: string; reponseEleve: string }>;
+			tentatives: Array<{ itemId: string; isCorrect: boolean }>;
 		};
-		expect(fetchSpy.mock.calls[0]?.[0]).toBe('/api/history');
+		expect(historyCall?.[0]).toBe('/api/history');
 		expect(payload).toMatchObject({ module: 'conjugaison', score: '0/1' });
 		expect(payload.erreurs).toEqual([
 			expect.objectContaining({
@@ -98,6 +134,9 @@ describe('ConjugationQuiz', () => {
 				pronom: 'il',
 				reponseEleve: 'il est fallu'
 			})
+		]);
+		expect(payload.tentatives).toEqual([
+			expect.objectContaining({ itemId: 'falloir:passeCompose:il', isCorrect: false })
 		]);
 	});
 });

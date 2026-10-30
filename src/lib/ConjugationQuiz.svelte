@@ -3,7 +3,8 @@
 	import { page } from '$app/state';
 	import { tick } from 'svelte';
 	import { takeReplay } from './replay';
-	import { enregistrerPartie, type ErreurConjugaison } from './sheetService';
+	import { loadStudyPreferences, saveStudyPreferences } from './studyPreferences';
+	import { enregistrerPartie, type ErreurConjugaison, type TentativeReponse } from './sheetService';
 	import {
 		chooseConjugationPair,
 		getAcceptedAnswers,
@@ -28,7 +29,9 @@
 	let sessionComplete = $state(false);
 	let answerInput = $state<HTMLInputElement>();
 	let replayPersons = $state<Person[] | null>(null);
+	let excludedItemIds = $state<string[]>([]);
 	let sessionErrors = $state<ErreurConjugaison[]>([]);
+	let sessionAttempts = $state<TentativeReponse[]>([]);
 	let completionRecorded = $state(false);
 	let persistenceError = $state('');
 	let sessionError = $state('');
@@ -37,7 +40,12 @@
 	let tenseId = $derived(session?.tenseId);
 	let tense = $derived(tenseId ? TENSES.find((candidate) => candidate.id === tenseId) : undefined);
 	let pronouns = $derived(verb && tenseId ? getPronouns(verb, tenseId) : []);
-	let questionPersons = $derived(replayPersons ?? pronouns);
+	let questionPersons = $derived(
+		replayPersons ??
+			pronouns.filter(
+				(person) => !excludedItemIds.includes(`${session?.verbId}:${session?.tenseId}:${person}`)
+			)
+	);
 	let questionCount = $derived(questionPersons.length);
 	let person = $derived(questionPersons[personIndex]);
 	let acceptedAnswers = $derived(
@@ -51,7 +59,17 @@
 		usedPairs = [];
 	}
 
-	function startSession() {
+	function updateVerbChoice() {
+		resetFilters();
+		void saveStudyPreferences('conjugation', { verbChoice });
+	}
+
+	function updateTenseChoice() {
+		resetFilters();
+		void saveStudyPreferences('conjugation', { tenseChoice });
+	}
+
+	async function startSession() {
 		if (
 			(verbChoice === 'random' || tenseChoice === 'random') &&
 			usedPairs.length >= candidatePairCount
@@ -59,11 +77,34 @@
 			usedPairs = [];
 		}
 
-		const selection = chooseConjugationPair(
-			verbChoice === 'random' ? null : verbChoice,
-			tenseChoice === 'random' ? null : tenseChoice,
-			new Set(usedPairs)
-		);
+		try {
+			const response = await fetch('/api/reviews?module=conjugaison');
+			if (response.ok) {
+				const result = (await response.json()) as { excludedItemIds?: unknown };
+				excludedItemIds = Array.isArray(result.excludedItemIds)
+					? result.excludedItemIds.filter((id): id is string => typeof id === 'string')
+					: [];
+			} else excludedItemIds = [];
+		} catch {
+			excludedItemIds = [];
+		}
+
+		let selection: PairSelection;
+		try {
+			selection = chooseConjugationPair(
+				verbChoice === 'random' ? null : verbChoice,
+				(tenseChoice === 'random' ? null : tenseChoice) as TenseId | null,
+				new Set(usedPairs),
+				Math.random,
+				new Set(excludedItemIds)
+			);
+		} catch {
+			session = null;
+			sessionError = excludedItemIds.length
+				? 'Aucune conjugaison n’est à réviser pour le moment.'
+				: 'Aucun couple verbe/temps disponible.';
+			return;
+		}
 		session = selection;
 		if (verbChoice === 'random' || tenseChoice === 'random') {
 			usedPairs = [...usedPairs, `${selection.verbId}:${selection.tenseId}`];
@@ -75,6 +116,7 @@
 		sessionComplete = false;
 		replayPersons = null;
 		sessionErrors = [];
+		sessionAttempts = [];
 		completionRecorded = false;
 		persistenceError = '';
 		sessionError = '';
@@ -91,17 +133,30 @@
 		const correct = isCorrectConjugation(answer, acceptedAnswers);
 		feedback = { correct, answers: acceptedAnswers };
 		if (correct) correctCount += 1;
-		else if (verb && tense && person) {
-			sessionErrors = [
-				...sessionErrors,
+		let details: ErreurConjugaison | null = null;
+		if (!correct && verb && tense && person) {
+			details = {
+				verbeId: verb.id,
+				tempsId: tense.id,
+				verbe: verb.infinitive,
+				temps: tense.label,
+				pronom: person,
+				reponseEleve: answer.trim(),
+				correction: acceptedAnswers
+			};
+			sessionErrors = [...sessionErrors, details];
+		}
+		if (verb && tense && person) {
+			sessionAttempts = [
+				...sessionAttempts,
 				{
-					verbeId: verb.id,
-					tempsId: tense.id,
-					verbe: verb.infinitive,
-					temps: tense.label,
-					pronom: person,
-					reponseEleve: answer.trim(),
-					correction: acceptedAnswers
+					itemId: `${verb.id}:${tense.id}:${person}`,
+					direction: null,
+					mode: null,
+					response: answer.trim(),
+					correction: acceptedAnswers,
+					isCorrect: correct,
+					details
 				}
 			];
 		}
@@ -132,7 +187,17 @@
 		}
 		completionRecorded = true;
 		try {
-			await enregistrerPartie('conjugaison', `${correctCount}/${questionCount}`, sessionErrors);
+			const saveStatus = await enregistrerPartie(
+				'conjugaison',
+				`${correctCount}/${questionCount}`,
+				sessionErrors,
+				sessionAttempts,
+				page.data.user?.role === 'guest' ? undefined : page.data.user?.userId
+			);
+			if (saveStatus === 'pending') {
+				persistenceError =
+					'Enregistrement en attente. Il sera réessayé dès que la connexion revient.';
+			}
 		} catch (error) {
 			console.error('Échec de l’enregistrement de la partie de conjugaison.', error);
 			persistenceError = 'La série est terminée, mais son enregistrement a échoué.';
@@ -175,6 +240,7 @@
 		feedback = null;
 		correctCount = 0;
 		sessionErrors = [];
+		sessionAttempts = [];
 		sessionComplete = false;
 		completionRecorded = false;
 		persistenceError = '';
@@ -189,6 +255,22 @@
 				return;
 			}
 		}
+		void loadStudyPreferences('conjugation').then((preferences) => {
+			if (
+				typeof preferences.verbChoice === 'string' &&
+				(preferences.verbChoice === 'random' ||
+					VERBS.some((verb) => verb.id === preferences.verbChoice))
+			) {
+				verbChoice = preferences.verbChoice;
+			}
+			if (
+				typeof preferences.tenseChoice === 'string' &&
+				(preferences.tenseChoice === 'random' ||
+					TENSES.some((tense) => tense.id === preferences.tenseChoice))
+			) {
+				tenseChoice = preferences.tenseChoice as 'random' | TenseId;
+			}
+		});
 	});
 </script>
 
@@ -209,7 +291,7 @@
 	<form class="selection-panel" onsubmit={submitStart}>
 		<label for="verb-choice">
 			<span>Verbe</span>
-			<select id="verb-choice" bind:value={verbChoice} onchange={resetFilters}>
+			<select id="verb-choice" bind:value={verbChoice} onchange={updateVerbChoice}>
 				<option value="random">Au hasard</option>
 				{#each VERBS as item (item.id)}
 					<option value={item.id}>{item.infinitive}</option>
@@ -219,7 +301,7 @@
 
 		<label for="tense-choice">
 			<span>Temps</span>
-			<select id="tense-choice" bind:value={tenseChoice} onchange={resetFilters}>
+			<select id="tense-choice" bind:value={tenseChoice} onchange={updateTenseChoice}>
 				<option value="random">Au hasard</option>
 				{#each TENSES as item (item.id)}
 					<option value={item.id}>{item.label}</option>

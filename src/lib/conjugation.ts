@@ -72,7 +72,8 @@ export function chooseConjugationPair(
 	verbId: string | null,
 	tenseId: TenseId | null,
 	usedPairs: ReadonlySet<string> = new Set(),
-	random: () => number = Math.random
+	random: () => number = Math.random,
+	excludedItemIds?: ReadonlySet<string>
 ): PairSelection {
 	const candidatePairs: PairSelection[] = [];
 	const candidateVerbs = verbId ? VERBS.filter((verb) => verb.id === verbId) : VERBS;
@@ -86,12 +87,20 @@ export function chooseConjugationPair(
 		}
 	}
 
-	if (candidatePairs.length === 0) throw new Error('Aucun couple verbe/temps disponible.');
+	const reviewablePairs = excludedItemIds
+		? candidatePairs.filter(({ verbId: candidateVerb, tenseId: candidateTense }) =>
+				getPronouns(getVerb(candidateVerb)!, candidateTense).some(
+					(person) => !excludedItemIds.has(`${candidateVerb}:${candidateTense}:${person}`)
+				)
+			)
+		: candidatePairs;
+	if (reviewablePairs.length === 0) throw new Error('Aucune question arrivée à échéance.');
 
-	const unusedPairs = candidatePairs.filter(({ verbId: candidateVerb, tenseId: candidateTense }) =>
-		verbId && tenseId ? true : !usedPairs.has(`${candidateVerb}:${candidateTense}`)
+	const unusedPairs = reviewablePairs.filter(
+		({ verbId: candidateVerb, tenseId: candidateTense }) =>
+			verbId && tenseId ? true : !usedPairs.has(`${candidateVerb}:${candidateTense}`)
 	);
-	const pool = unusedPairs.length > 0 ? unusedPairs : candidatePairs;
+	const pool = unusedPairs.length > 0 ? unusedPairs : reviewablePairs;
 	const randomIndex = Math.min(Math.floor(random() * pool.length), pool.length - 1);
 	return pool[randomIndex];
 }

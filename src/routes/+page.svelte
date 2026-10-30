@@ -97,7 +97,7 @@
 					</a>
 					<a href={resolve('/admin')}>
 						<span>Administration</span>
-						<span>Gère les comptes et les codes PIN.</span>
+						<span>Invite et gère les comptes élèves.</span>
 						<span class="activity-arrow" aria-hidden="true">↗</span>
 					</a>
 				{/if}

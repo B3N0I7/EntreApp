@@ -74,4 +74,20 @@ describe('conjugation answers and selection', () => {
 		expect(fixedVerb.verbId).toBe('aller');
 		expect(fixedTense.tenseId).toBe('futurSimple');
 	});
+
+	it('only chooses a verb-tense pair with at least one due pronoun', () => {
+		const verb = getVerb('aller')!;
+		const excluded = new Set(
+			TENSES.flatMap((tense) =>
+				getPronouns(verb, tense.id)
+					.filter((person) => tense.id !== 'present' || person !== 'je')
+					.map((person) => `${verb.id}:${tense.id}:${person}`)
+			)
+		);
+
+		expect(chooseConjugationPair('aller', null, new Set(), () => 0, excluded)).toEqual({
+			verbId: 'aller',
+			tenseId: 'present'
+		});
+	});
 });

@@ -25,6 +25,13 @@ const sources = [
 		idPrefix: 'voyage',
 		bulletEntries: false,
 		numberedSections: true
+	},
+	{
+		file: 'fichierstxt/les enjeux environnementaux.txt',
+		theme: 'Les enjeux environnementaux',
+		idPrefix: 'environnement',
+		bulletEntries: false,
+		numberedSections: true
 	}
 ];
 

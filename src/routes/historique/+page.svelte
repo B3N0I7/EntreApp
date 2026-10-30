@@ -1,17 +1,26 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { page } from '$app/state';
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
 	import { storeReplay } from '#lib/replay';
-	import { chargerHistorique, type Erreur, type Partie } from '#lib/sheetService';
+	import { chargerHistorique, type Erreur, type ModuleType, type Partie } from '#lib/sheetService';
 
 	let parties = $state<Partie[]>([]);
 	let loading = $state(true);
 	let loadError = $state('');
+	let historyFromCache = $state(false);
+	let recentModule = $state<ModuleType>('vocabulaire-mot');
+	let recentCount = $state(10);
+	let replayingRecent = $state(false);
+	let recentReplayMessage = $state('');
+	let recentReplayError = $state(false);
 
 	onMount(async () => {
 		try {
-			parties = await chargerHistorique();
+			const result = await chargerHistorique(undefined, page.data.user?.userId);
+			parties = result.parties;
+			historyFromCache = result.fromCache;
 		} catch {
 			loadError = 'Impossible de charger votre historique.';
 		} finally {
@@ -43,31 +52,63 @@
 		return `${error.mot} : ${error.reponseEleve || 'à revoir'} → ${error.correction}`;
 	}
 
-	async function replay(partie: Partie) {
-		if (!partie.erreurs.length) return;
-		storeReplay({ module: partie.module, erreurs: partie.erreurs });
+	async function navigateToReplay(module: ModuleType) {
 		if (
-			partie.module === 'expressions-word-to-definition' ||
-			partie.module === 'expressions-definition-to-word'
+			module === 'expressions-word-to-definition' ||
+			module === 'expressions-definition-to-word'
 		) {
 			const direction =
-				partie.module === 'expressions-word-to-definition'
-					? 'word-to-definition'
-					: 'definition-to-word';
+				module === 'expressions-word-to-definition' ? 'word-to-definition' : 'definition-to-word';
 			// The route is resolved before appending the replay direction query.
 			// eslint-disable-next-line svelte/no-navigation-without-resolve
 			await goto(`${resolve('/expressions')}?direction=${direction}`);
 			return;
 		}
-		if (partie.module === 'vocabulaire-mot' || partie.module === 'vocabulaire-definition') {
-			const direction =
-				partie.module === 'vocabulaire-mot' ? 'word-to-definition' : 'definition-to-word';
+		if (module === 'vocabulaire-mot' || module === 'vocabulaire-definition') {
+			const direction = module === 'vocabulaire-mot' ? 'word-to-definition' : 'definition-to-word';
 			// The route is resolved before appending the replay direction query.
 			// eslint-disable-next-line svelte/no-navigation-without-resolve
 			await goto(`${resolve('/vocabulaire')}?direction=${direction}`);
 			return;
 		}
-		await goto(resolve('/conjugaison'));
+		// The route is resolved before appending the replay query.
+		// eslint-disable-next-line svelte/no-navigation-without-resolve
+		await goto(`${resolve('/conjugaison')}?replay=1`);
+	}
+
+	async function replay(partie: Partie) {
+		if (!partie.erreurs.length) return;
+		storeReplay({ module: partie.module, erreurs: partie.erreurs });
+		await navigateToReplay(partie.module);
+	}
+
+	async function replayRecentErrors() {
+		if (replayingRecent) return;
+		replayingRecent = true;
+		recentReplayMessage = '';
+		recentReplayError = false;
+		try {
+			const query = new URLSearchParams({ module: recentModule, limit: String(recentCount) });
+			const response = await fetch(`/api/history/errors?${query}`);
+			const result = (await response.json().catch(() => null)) as {
+				erreurs?: Erreur[];
+				error?: string;
+			} | null;
+			if (!response.ok)
+				throw new Error(result?.error ?? 'Impossible de charger les erreurs récentes.');
+			if (!result?.erreurs?.length) {
+				recentReplayMessage = 'Aucune erreur récente pour cette activité.';
+				return;
+			}
+			storeReplay({ module: recentModule, erreurs: result.erreurs });
+			await navigateToReplay(recentModule);
+		} catch (error) {
+			recentReplayMessage =
+				error instanceof Error ? error.message : 'Impossible de lancer le rejeu.';
+			recentReplayError = true;
+		} finally {
+			replayingRecent = false;
+		}
 	}
 </script>
 
@@ -84,6 +125,37 @@
 		</div>
 		<span class="entry-count">{parties.length} partie{parties.length === 1 ? '' : 's'}</span>
 	</header>
+	<section class="recent-replay" aria-label="Rejouer les erreurs récentes">
+		<label for="recent-module">Activité</label>
+		<select id="recent-module" bind:value={recentModule}>
+			<option value="vocabulaire-mot">Vocabulaire · mot → définition</option>
+			<option value="vocabulaire-definition">Vocabulaire · définition → mot</option>
+			<option value="expressions-word-to-definition">Expressions · expression → définition</option>
+			<option value="expressions-definition-to-word">Expressions · définition → expression</option>
+			<option value="conjugaison">Conjugaison</option>
+		</select>
+		<label for="recent-count">Dernières erreurs</label>
+		<input id="recent-count" type="number" min="1" max="100" bind:value={recentCount} />
+		<button
+			type="button"
+			onclick={replayRecentErrors}
+			disabled={replayingRecent || recentCount < 1 || recentCount > 100}
+		>
+			{replayingRecent ? 'Chargement…' : 'Rejouer'}
+		</button>
+		{#if recentReplayMessage}
+			<p
+				class:notice-error={recentReplayError}
+				class="recent-replay-status"
+				role={recentReplayError ? 'alert' : 'status'}
+			>
+				{recentReplayMessage}
+			</p>
+		{/if}
+	</section>
+	{#if historyFromCache}
+		<p class="notice" role="status">Historique en cache; les données peuvent être anciennes.</p>
+	{/if}
 
 	{#if loading}
 		<p role="status">Chargement…</p>
@@ -144,6 +216,57 @@
 		margin-bottom: 2rem;
 		padding-bottom: 1.25rem;
 		border-bottom: 1px solid #ccd7ce;
+	}
+
+	.recent-replay {
+		display: grid;
+		grid-template-columns: auto minmax(12rem, 1fr) auto 7rem auto;
+		align-items: end;
+		gap: 0.75rem;
+		padding-bottom: 1.25rem;
+		border-bottom: 1px solid #ccd7ce;
+	}
+
+	.recent-replay label {
+		color: #60756a;
+		font-size: 0.74rem;
+		font-weight: 800;
+	}
+
+	.recent-replay select,
+	.recent-replay input {
+		min-height: 2.8rem;
+		padding: 0 0.7rem;
+		border: 1px solid #bdcbc0;
+		background: #fff;
+		color: #182c25;
+		font: inherit;
+	}
+
+	.recent-replay button {
+		min-height: 2.8rem;
+		padding: 0 1rem;
+		border: 0;
+		background: #173b30;
+		color: #fffaf0;
+		font-weight: 800;
+		cursor: pointer;
+	}
+
+	.recent-replay button:disabled {
+		cursor: wait;
+		opacity: 0.6;
+	}
+
+	.recent-replay-status {
+		grid-column: 1 / -1;
+		margin: 0;
+		color: #60756a;
+		font-size: 0.86rem;
+	}
+
+	.recent-replay-status.notice-error {
+		color: #b23e2d;
 	}
 
 	.eyebrow {
@@ -238,6 +361,10 @@
 	}
 
 	@media (max-width: 560px) {
+		.recent-replay {
+			grid-template-columns: 1fr;
+		}
+
 		.entry-heading {
 			align-items: flex-start;
 			flex-direction: column;

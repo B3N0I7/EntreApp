@@ -1,7 +1,13 @@
 <script lang="ts">
+	import { page } from '$app/state';
 	import { onMount } from 'svelte';
 	import { takeReplay } from './replay';
-	import { enregistrerPartie, type ErreurVocabulaire } from './sheetService';
+	import {
+		loadStudyPreferences,
+		saveStudyPreferences,
+		type StudyActivity
+	} from './studyPreferences';
+	import { enregistrerPartie, type ErreurVocabulaire, type TentativeReponse } from './sheetService';
 	import {
 		ALL_SECTIONS,
 		canUseMultipleChoice,
@@ -32,6 +38,7 @@
 	let selectedLength = $state('5');
 	let customLength = $state<number | undefined>(5);
 	let answerMode = $state<AnswerMode>('self-assessment');
+	let excludedItemIds = $state<string[]>([]);
 	let sessionEntries = $state<VocabularyEntry[]>([]);
 	let activePool = $state<VocabularyEntry[]>([]);
 	let sessionTheme = $state('');
@@ -47,16 +54,18 @@
 	let correctCount = $state(0);
 	let incorrectCount = $state(0);
 	let errors = $state<ErreurVocabulaire[]>([]);
+	let attempts = $state<TentativeReponse[]>([]);
 	let completionRecorded = $state(false);
 	let persistenceError = $state('');
 
 	let entries = $derived(sessionEntries);
-	let themes = $derived(themesForVocabulary(catalogue));
+	let studyCatalogue = $derived(catalogue.filter((entry) => !excludedItemIds.includes(entry.id)));
+	let themes = $derived(themesForVocabulary(studyCatalogue));
 	let availableSections = $derived(
-		selectedTheme === RANDOM_THEME ? [] : sectionsForTheme(catalogue, selectedTheme)
+		selectedTheme === RANDOM_THEME ? [] : sectionsForTheme(studyCatalogue, selectedTheme)
 	);
 	let maximumAvailable = $derived(
-		maxVocabularySessionSize(catalogue, selectedTheme, selectedSection, direction)
+		maxVocabularySessionSize(studyCatalogue, selectedTheme, selectedSection, direction)
 	);
 	let qcmAvailable = $derived(canUseMultipleChoice(activePool, direction));
 	let currentEntry = $derived(sessionEntries[currentIndex]);
@@ -91,6 +100,10 @@
 		return direction === 'word-to-definition' ? 'vocabulaire-mot' : 'vocabulaire-definition';
 	}
 
+	function preferenceActivity(): StudyActivity {
+		return fixedTheme ? 'expressions' : 'vocabulary';
+	}
+
 	function resetStudy() {
 		currentIndex = 0;
 		answerRevealed = false;
@@ -101,6 +114,7 @@
 		correctCount = 0;
 		incorrectCount = 0;
 		errors = [];
+		attempts = [];
 		completionRecorded = false;
 		persistenceError = '';
 	}
@@ -116,7 +130,7 @@
 		if (!canUseMultipleChoice(session.pool, direction)) answerMode = 'self-assessment';
 	}
 
-	function startStudy() {
+	async function startStudy() {
 		const quantity = selectedLength === 'custom' ? customLength : Number(selectedLength);
 		if (!Number.isInteger(quantity) || quantity === undefined || quantity < 1) {
 			resetStudy();
@@ -127,8 +141,43 @@
 		}
 
 		try {
+			const response = await fetch(
+				`/api/reviews?module=${encodeURIComponent(moduleForDirection())}`
+			);
+			if (response.ok) {
+				const result = (await response.json()) as { excludedItemIds?: unknown };
+				excludedItemIds = Array.isArray(result.excludedItemIds)
+					? result.excludedItemIds.filter((id): id is string => typeof id === 'string')
+					: [];
+			} else excludedItemIds = [];
+		} catch {
+			excludedItemIds = [];
+		}
+		const availableCatalogue = catalogue.filter((entry) => !excludedItemIds.includes(entry.id));
+		if (availableCatalogue.length === 0) {
+			resetStudy();
+			sessionEntries = [];
+			activePool = [];
+			sessionError = 'Aucune carte n’est à réviser pour le moment.';
+			return;
+		}
+		if (
+			selectedTheme !== RANDOM_THEME &&
+			!themesForVocabulary(availableCatalogue).includes(selectedTheme)
+		) {
+			selectedTheme = fixedTheme ?? themesForVocabulary(availableCatalogue)[0] ?? '';
+			selectedSection = ALL_SECTIONS;
+		}
+
+		try {
 			applySession(
-				createVocabularySession(catalogue, selectedTheme, selectedSection, direction, quantity),
+				createVocabularySession(
+					availableCatalogue,
+					selectedTheme,
+					selectedSection,
+					direction,
+					quantity
+				),
 				quantity
 			);
 		} catch (error) {
@@ -147,7 +196,14 @@
 	function setAnswerMode(mode: AnswerMode) {
 		if (answerMode === mode || (mode === 'multiple-choice' && !qcmAvailable)) return;
 		answerMode = mode;
+		void saveStudyPreferences(preferenceActivity(), { answerMode: mode });
 		resetStudy();
+	}
+
+	function changeDirection(nextDirection: VocabularyDirection) {
+		if (nextDirection === direction) return;
+		void saveStudyPreferences(preferenceActivity(), { direction: nextDirection });
+		onDirectionChange?.(nextDirection);
 	}
 
 	function advance() {
@@ -165,18 +221,30 @@
 		if (known) knownCount += 1;
 		else {
 			reviewCount += 1;
-			errors = [
-				...errors,
-				{
+		}
+		const details: ErreurVocabulaire | null = known
+			? null
+			: {
 					entryId: currentEntry.id,
 					direction,
 					mode: answerMode,
 					mot: currentEntry.word,
 					reponseEleve: '',
 					correction: card.answer
-				}
-			];
-		}
+				};
+		if (details) errors = [...errors, details];
+		attempts = [
+			...attempts,
+			{
+				itemId: currentEntry.id,
+				direction,
+				mode: answerMode,
+				response: '',
+				correction: card.answer,
+				isCorrect: known,
+				details
+			}
+		];
 		advance();
 	}
 
@@ -184,20 +252,31 @@
 		if (selectedAnswer !== null || !currentEntry || !card) return;
 		selectedAnswer = option.value;
 		if (option.correct) correctCount += 1;
-		else {
+		let details: ErreurVocabulaire | null = null;
+		if (!option.correct) {
 			incorrectCount += 1;
-			errors = [
-				...errors,
-				{
-					entryId: currentEntry.id,
-					direction,
-					mode: 'multiple-choice',
-					mot: currentEntry.word,
-					reponseEleve: option.value,
-					correction: card.answer
-				}
-			];
+			details = {
+				entryId: currentEntry.id,
+				direction,
+				mode: 'multiple-choice',
+				mot: currentEntry.word,
+				reponseEleve: option.value,
+				correction: card.answer
+			};
+			errors = [...errors, details];
 		}
+		attempts = [
+			...attempts,
+			{
+				itemId: currentEntry.id,
+				direction,
+				mode: 'multiple-choice',
+				response: option.value,
+				correction: card.answer,
+				isCorrect: option.correct,
+				details
+			}
+		];
 	}
 
 	async function completeSeries() {
@@ -207,7 +286,17 @@
 		const successfulCount = answerMode === 'self-assessment' ? knownCount : correctCount;
 		const module = moduleForDirection();
 		try {
-			await enregistrerPartie(module, `${successfulCount}/${sessionEntries.length}`, errors);
+			const saveStatus = await enregistrerPartie(
+				module,
+				`${successfulCount}/${sessionEntries.length}`,
+				errors,
+				attempts,
+				page.data.user?.role === 'guest' ? undefined : page.data.user?.userId
+			);
+			if (saveStatus === 'pending') {
+				persistenceError =
+					'Enregistrement en attente. Il sera réessayé dès que la connexion revient.';
+			}
 		} catch (error) {
 			console.error('Échec de l’enregistrement de la partie de vocabulaire.', error);
 			persistenceError = 'La partie est terminée, mais son enregistrement a échoué.';
@@ -246,7 +335,13 @@
 		const sectionChoice = sessionSection ?? ALL_SECTIONS;
 		try {
 			applySession(
-				createVocabularySession(catalogue, sessionTheme, sectionChoice, direction, sessionSize),
+				createVocabularySession(
+					studyCatalogue,
+					sessionTheme,
+					sectionChoice,
+					direction,
+					sessionSize
+				),
 				sessionSize
 			);
 		} catch {
@@ -254,8 +349,19 @@
 		}
 	}
 
-	onMount(() => {
+	onMount(async () => {
 		selectedTheme = fixedTheme ?? themes[0] ?? '';
+		const preferences = await loadStudyPreferences(preferenceActivity());
+		if (preferences.answerMode) answerMode = preferences.answerMode;
+		if (
+			preferences.direction &&
+			preferences.direction !== direction &&
+			onDirectionChange &&
+			!page.url.searchParams.has('direction')
+		) {
+			onDirectionChange(preferences.direction);
+			return;
+		}
 		const replay = takeReplay(moduleForDirection());
 		if (replay) {
 			startReplay(replay);
@@ -315,7 +421,7 @@
 							type="button"
 							class:active={direction === 'word-to-definition'}
 							aria-pressed={direction === 'word-to-definition'}
-							onclick={() => onDirectionChange('word-to-definition')}
+							onclick={() => changeDirection('word-to-definition')}
 						>
 							{fixedTheme ? 'Expression → définition' : 'Mot → définition'}
 						</button>
@@ -323,7 +429,7 @@
 							type="button"
 							class:active={direction === 'definition-to-word'}
 							aria-pressed={direction === 'definition-to-word'}
-							onclick={() => onDirectionChange('definition-to-word')}
+							onclick={() => changeDirection('definition-to-word')}
 						>
 							{fixedTheme ? 'Définition → expression' : 'Définition → mot'}
 						</button>

@@ -1224,5 +1224,82 @@
 		"section": "Qualifier des vacances, un lieu, un hébergement, une activité",
 		"word": "Passionnant(e)",
 		"definition": "très intéressant, captivant."
+	},
+	{
+		"id": "environnement-001",
+		"theme": "Les enjeux environnementaux",
+		"section": "Comprendre les changements",
+		"word": "le réchauffement climatique",
+		"definition": "augmentation durable de la température moyenne de la planète."
+	},
+	{
+		"id": "environnement-002",
+		"theme": "Les enjeux environnementaux",
+		"section": "Comprendre les changements",
+		"word": "la biodiversité",
+		"definition": "diversité des espèces animales et végétales dans un milieu."
+	},
+	{
+		"id": "environnement-003",
+		"theme": "Les enjeux environnementaux",
+		"section": "Comprendre les changements",
+		"word": "une espèce menacée",
+		"definition": "espèce dont la population risque de disparaître."
+	},
+	{
+		"id": "environnement-004",
+		"theme": "Les enjeux environnementaux",
+		"section": "Comprendre les changements",
+		"word": "la pollution de l’air",
+		"definition": "présence de substances nocives dans l’atmosphère."
+	},
+	{
+		"id": "environnement-005",
+		"theme": "Les enjeux environnementaux",
+		"section": "Agir au quotidien",
+		"word": "le tri sélectif",
+		"definition": "séparation des déchets selon leur matière pour faciliter leur recyclage."
+	},
+	{
+		"id": "environnement-006",
+		"theme": "Les enjeux environnementaux",
+		"section": "Agir au quotidien",
+		"word": "réduire ses déchets",
+		"definition": "produire moins de déchets en évitant les objets jetables et les emballages inutiles."
+	},
+	{
+		"id": "environnement-007",
+		"theme": "Les enjeux environnementaux",
+		"section": "Agir au quotidien",
+		"word": "économiser l’eau",
+		"definition": "utiliser moins d’eau sans gaspillage."
+	},
+	{
+		"id": "environnement-008",
+		"theme": "Les enjeux environnementaux",
+		"section": "Agir au quotidien",
+		"word": "les transports en commun",
+		"definition": "moyens de transport collectifs comme le bus, le tramway ou le métro."
+	},
+	{
+		"id": "environnement-009",
+		"theme": "Les enjeux environnementaux",
+		"section": "Choisir des solutions durables",
+		"word": "une énergie renouvelable",
+		"definition": "énergie provenant d’une source qui se reconstitue naturellement, comme le soleil ou le vent."
+	},
+	{
+		"id": "environnement-010",
+		"theme": "Les enjeux environnementaux",
+		"section": "Choisir des solutions durables",
+		"word": "le développement durable",
+		"definition": "manière de répondre aux besoins actuels sans empêcher les générations futures de répondre aux leurs."
+	},
+	{
+		"id": "environnement-011",
+		"theme": "Les enjeux environnementaux",
+		"section": "Choisir des solutions durables",
+		"word": "la consommation responsable",
+		"definition": "choix de produits qui tiennent compte de leurs effets sociaux et environnementaux."
 	}
 ]

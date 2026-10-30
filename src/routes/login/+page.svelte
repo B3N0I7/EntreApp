@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { resolve } from '$app/paths';
-	import { ACCOUNTS } from '#lib/accounts';
 
-	let userId = $state(ACCOUNTS[0]?.id ?? '');
-	let pin = $state('');
+	let email = $state('');
+	let password = $state('');
 	let error = $state('');
+	let recoveryMessage = $state('');
 	let busy = $state(false);
 
 	async function login(event: SubmitEvent) {
@@ -18,7 +18,7 @@
 			const response = await fetch('/api/auth/login', {
 				method: 'POST',
 				headers: { 'content-type': 'application/json' },
-				body: JSON.stringify({ userId, pin })
+				body: JSON.stringify({ email, password })
 			});
 			if (!response.ok) {
 				const result = (await response.json().catch(() => null)) as { error?: string } | null;
@@ -46,6 +46,28 @@
 			busy = false;
 		}
 	}
+
+	async function recoverPassword() {
+		if (busy || !email.trim()) return;
+		busy = true;
+		error = '';
+		recoveryMessage = '';
+		try {
+			const response = await fetch('/api/auth/recovery', {
+				method: 'POST',
+				headers: { 'content-type': 'application/json' },
+				body: JSON.stringify({ email })
+			});
+			const result = (await response.json().catch(() => null)) as { error?: string } | null;
+			if (!response.ok) throw new Error(result?.error ?? 'Envoi impossible.');
+			recoveryMessage =
+				'Si cette adresse est associée à un compte, un lien de réinitialisation va être envoyé.';
+		} catch (cause) {
+			error = cause instanceof Error ? cause.message : 'Envoi impossible.';
+		} finally {
+			busy = false;
+		}
+	}
 </script>
 
 <svelte:head>
@@ -58,27 +80,28 @@
 		<p class="eyebrow">Objectif B1 · Espace de travail</p>
 		<h1 id="login-title">Connexion</h1>
 		<form onsubmit={login}>
-			<label for="account">Nom</label>
-			<select id="account" bind:value={userId} required>
-				{#each ACCOUNTS as account (account.id)}
-					<option value={account.id}>{account.name}</option>
-				{/each}
-			</select>
+			<label for="email">Adresse e-mail</label>
+			<input id="email" bind:value={email} type="email" autocomplete="email" required />
 
-			<label for="pin">Code PIN</label>
+			<label for="password">Mot de passe</label>
 			<input
-				id="pin"
-				bind:value={pin}
+				id="password"
+				bind:value={password}
 				type="password"
-				inputmode="numeric"
-				pattern={'[0-9]{6,12}'}
-				minlength="6"
-				maxlength="12"
 				autocomplete="current-password"
 				required
 			/>
+			<button
+				class="recovery-action"
+				type="button"
+				onclick={recoverPassword}
+				disabled={busy || !email.trim()}
+			>
+				Mot de passe oublié ?
+			</button>
 
 			{#if error}<p class="form-error" role="alert">{error}</p>{/if}
+			{#if recoveryMessage}<p class="form-message" role="status">{recoveryMessage}</p>{/if}
 			<button class="primary-action" type="submit" disabled={busy}>
 				{busy ? 'Connexion…' : 'Se connecter'}
 			</button>
@@ -135,7 +158,6 @@
 		font-weight: 800;
 	}
 
-	select,
 	input {
 		width: 100%;
 		min-height: 3rem;
@@ -156,16 +178,35 @@
 		cursor: pointer;
 	}
 
+	.recovery-action {
+		justify-self: start;
+		padding: 0.35rem 0;
+		border: 0;
+		background: transparent;
+		color: #173b30;
+		text-decoration: underline;
+		text-underline-offset: 0.2rem;
+		cursor: pointer;
+	}
+
 	.primary-action:disabled,
 	.guest-action button:disabled {
 		cursor: wait;
 		opacity: 0.65;
 	}
 
-	.form-error {
+	.form-error,
+	.form-message {
 		margin: 0.4rem 0 0;
-		color: #b23e2d;
 		font-size: 0.86rem;
+	}
+
+	.form-error {
+		color: #b23e2d;
+	}
+
+	.form-message {
+		color: #365d4d;
 	}
 
 	.guest-action {

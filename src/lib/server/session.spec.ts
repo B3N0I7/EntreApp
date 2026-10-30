@@ -3,9 +3,9 @@ import { createSessionToken, verifySessionToken, type UserSession } from './sess
 
 const secret = 'test-session-secret-that-is-at-least-32-bytes';
 const session: UserSession = {
-	userId: 'prof',
-	name: 'Prof',
-	role: 'admin',
+	userId: 'guest',
+	name: 'Invité',
+	role: 'guest',
 	expiresAt: 10_000
 };
 
@@ -24,7 +24,7 @@ describe('session tokens', () => {
 		expect(verifySessionToken(token, secret, 10_000)).toBeNull();
 	});
 
-	it('rejects claims that do not match the fixed account roster', () => {
+	it('rejects claims that do not represent a guest session', () => {
 		const forged = createSessionToken({ ...session, role: 'student' }, secret);
 
 		expect(verifySessionToken(forged, secret, 1)).toBeNull();

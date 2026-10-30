@@ -1,72 +1,80 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { AppsScriptError, callAppsScript } from '#lib/server/appsScript';
-import { verifySessionToken, SESSION_COOKIE } from '#lib/server/session';
 import { POST } from './+server';
 
-vi.mock('#lib/server/appsScript', async (importOriginal) => {
-	const actual = await importOriginal<typeof import('#lib/server/appsScript')>();
-	return { ...actual, callAppsScript: vi.fn() };
-});
-
-const scriptCall = vi.mocked(callAppsScript);
-const secret = 'session-secret-for-login-tests-with-32-bytes';
 type LoginEvent = Parameters<typeof POST>[0];
 
-function makeEvent(body: unknown, secure = true) {
-	const setCookie = vi.fn();
+function makeEvent(body: unknown, profile?: { id: string; display_name: string; role: string }) {
+	const maybeSingle = vi.fn().mockResolvedValue({ data: profile ?? null, error: null });
+	const eq = vi.fn().mockReturnValue({ maybeSingle });
+	const select = vi.fn().mockReturnValue({ eq });
+	const signInWithPassword = vi.fn().mockResolvedValue({
+		data: { user: { id: 'user-123' } },
+		error: null
+	});
+	const signOut = vi.fn();
+	const supabase = {
+		auth: { signInWithPassword, signOut },
+		from: vi.fn().mockReturnValue({ select })
+	};
 	const event = {
 		request: new Request('https://example.test/api/auth/login', {
 			method: 'POST',
 			headers: { 'content-type': 'application/json' },
 			body: JSON.stringify(body)
 		}),
-		cookies: { set: setCookie },
-		url: new URL(`${secure ? 'https' : 'http'}://example.test/api/auth/login`)
+		locals: { supabase }
 	} as unknown as LoginEvent;
-	return { event, setCookie };
+	return { event, supabase };
 }
 
 describe('/api/auth/login', () => {
-	beforeEach(() => {
-		scriptCall.mockReset();
-		vi.stubEnv('SESSION_SECRET', secret);
-	});
+	beforeEach(() => {});
 
-	it('creates a signed, HttpOnly session from the fixed account roster', async () => {
-		scriptCall.mockResolvedValue({ authenticated: true });
-		const { event, setCookie } = makeEvent({ userId: 'prof', pin: '123456' });
+	it('signs in with Supabase and returns the account profile', async () => {
+		const { event, supabase } = makeEvent(
+			{ email: 'prof@example.test', password: 'strong-password' },
+			{ id: 'user-123', display_name: 'Prof', role: 'admin' }
+		);
 
 		const response = await POST(event);
 		expect(response.status).toBe(200);
 		expect(await response.json()).toEqual({
-			user: { userId: 'prof', name: 'Prof', role: 'admin' }
+			user: { userId: 'user-123', name: 'Prof', role: 'admin' }
 		});
-		const [cookieName, token, options] = setCookie.mock.calls[0] ?? [];
-		expect(cookieName).toBe(SESSION_COOKIE);
-		expect(options).toMatchObject({ httpOnly: true, secure: false, sameSite: 'lax' });
-		expect(verifySessionToken(String(token), secret)).toMatchObject({
-			userId: 'prof',
-			role: 'admin'
+		expect(supabase.auth.signInWithPassword).toHaveBeenCalledWith({
+			email: 'prof@example.test',
+			password: 'strong-password'
 		});
-		expect(scriptCall).toHaveBeenCalledWith({ action: 'login', userId: 'prof', pin: '123456' });
 	});
 
-	it('does not create a session for an invalid PIN', async () => {
-		scriptCall.mockRejectedValue(
-			new AppsScriptError('INVALID_CREDENTIALS', 'Invalid credentials.')
-		);
-		const { event, setCookie } = makeEvent({ userId: 'ali', pin: '123456' });
+	it('does not return a session for an invalid password', async () => {
+		const { event, supabase } = makeEvent({
+			email: 'ali@example.test',
+			password: 'wrong-password'
+		});
+		vi.mocked(supabase.auth.signInWithPassword).mockResolvedValue({
+			data: { user: null },
+			error: { name: 'AuthError', message: 'invalid' } as never
+		});
 
 		const response = await POST(event);
 		expect(response.status).toBe(401);
-		expect(setCookie).not.toHaveBeenCalled();
+		expect(supabase.from).not.toHaveBeenCalled();
 	});
 
-	it('rejects malformed PINs before calling Apps Script', async () => {
-		const { event } = makeEvent({ userId: 'ali', pin: '123' });
+	it('rejects malformed emails before signing in', async () => {
+		const { event, supabase } = makeEvent({ email: 'not-an-email', password: 'anything' });
 
 		const response = await POST(event);
 		expect(response.status).toBe(400);
-		expect(scriptCall).not.toHaveBeenCalled();
+		expect(supabase.auth.signInWithPassword).not.toHaveBeenCalled();
+	});
+
+	it('rejects an account without a profile and clears its Supabase session', async () => {
+		const { event, supabase } = makeEvent({ email: 'new@example.test', password: 'password' });
+
+		const response = await POST(event);
+		expect(response.status).toBe(403);
+		expect(supabase.auth.signOut).toHaveBeenCalledOnce();
 	});
 });

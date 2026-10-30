@@ -167,13 +167,19 @@ describe('VocabularyFlashcards', () => {
 			await page.getByRole('button', { name: index === 0 ? 'À revoir' : 'Acquis' }).click();
 		}
 
-		await expect.poll(() => fetchSpy).toHaveBeenCalledTimes(1);
-		const payload = JSON.parse(String(fetchSpy.mock.calls[0]?.[1]?.body)) as {
+		const historyCalls = () =>
+			fetchSpy.mock.calls.filter(
+				([input, options]) => input === '/api/history' && options?.method === 'POST'
+			);
+		await expect.poll(historyCalls).toHaveLength(1);
+		const historyCall = historyCalls()[0];
+		const payload = JSON.parse(String(historyCall?.[1]?.body)) as {
 			module: string;
 			score: string;
 			erreurs: Array<{ entryId: string; mode: string; reponseEleve: string; correction: string }>;
+			tentatives: Array<{ itemId: string; isCorrect: boolean }>;
 		};
-		expect(fetchSpy.mock.calls[0]?.[0]).toBe('/api/history');
+		expect(historyCall?.[0]).toBe('/api/history');
 		expect(payload).toMatchObject({ module: 'vocabulaire-mot', score: '4/5' });
 		expect(payload.erreurs).toHaveLength(1);
 		expect(payload.erreurs[0]?.entryId).toBeTruthy();
@@ -181,6 +187,8 @@ describe('VocabularyFlashcards', () => {
 			mode: 'self-assessment',
 			reponseEleve: ''
 		});
+		expect(payload.tentatives).toHaveLength(5);
+		expect(payload.tentatives.filter((attempt) => attempt.isCorrect)).toHaveLength(4);
 	});
 
 	it('persists wrong QCM choices with the correction', async () => {
@@ -219,10 +227,16 @@ describe('VocabularyFlashcards', () => {
 			await page.getByRole('button', { name: 'Carte suivante' }).click();
 		}
 
-		await expect.poll(() => fetchSpy).toHaveBeenCalledTimes(1);
-		const payload = JSON.parse(String(fetchSpy.mock.calls[0]?.[1]?.body)) as {
+		const historyCalls = () =>
+			fetchSpy.mock.calls.filter(
+				([input, options]) => input === '/api/history' && options?.method === 'POST'
+			);
+		await expect.poll(historyCalls).toHaveLength(1);
+		const historyCall = historyCalls()[0];
+		const payload = JSON.parse(String(historyCall?.[1]?.body)) as {
 			module: string;
 			erreurs: Array<{ mode: string; reponseEleve: string; correction: string }>;
+			tentatives: Array<{ itemId: string; isCorrect: boolean }>;
 		};
 		expect(payload.module).toBe('vocabulaire-mot');
 		expect(payload.erreurs).toContainEqual(
@@ -232,5 +246,7 @@ describe('VocabularyFlashcards', () => {
 				correction: correctAnswer
 			})
 		);
+		expect(payload.tentatives).toHaveLength(5);
+		expect(payload.tentatives[0]?.isCorrect).toBe(false);
 	});
 });

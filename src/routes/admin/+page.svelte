@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { invalidateAll } from '$app/navigation';
+	import { page } from '$app/state';
 	import type { PageProps } from './$types';
 	import { chargerHistorique, type Partie } from '#lib/sheetService';
 
@@ -7,9 +9,11 @@
 	let selectedUser = $state('all');
 	let selectedModule = $state('all');
 	let parties = $state<Partie[]>([]);
-	let pin = $state('');
+	let inviteName = $state('');
+	let inviteEmail = $state('');
 	let loading = $state(true);
-	let savingPin = $state(false);
+	let historyFromCache = $state(false);
+	let inviting = $state(false);
 	let notice = $state('');
 	let noticeIsError = $state(false);
 
@@ -23,7 +27,12 @@
 		loading = true;
 		notice = '';
 		try {
-			parties = await chargerHistorique(selectedUser === 'all' ? undefined : selectedUser);
+			const result = await chargerHistorique(
+				selectedUser === 'all' ? undefined : selectedUser,
+				page.data.user?.userId
+			);
+			parties = result.parties;
+			historyFromCache = result.fromCache;
 		} catch {
 			notice = 'Impossible de charger cet historique.';
 			noticeIsError = true;
@@ -34,34 +43,31 @@
 
 	onMount(loadHistory);
 
-	async function resetPin(event: SubmitEvent) {
+	async function inviteAccount(event: SubmitEvent) {
 		event.preventDefault();
-		if (savingPin || !/^\d{6,12}$/.test(pin)) return;
-		savingPin = true;
+		if (inviting || !inviteName.trim() || !inviteEmail.trim()) return;
+		inviting = true;
 		notice = '';
 		try {
-			const response = await fetch(
-				`/api/admin/accounts/${encodeURIComponent(selectedUserForPin)}/pin`,
-				{
-					method: 'PUT',
-					headers: { 'content-type': 'application/json' },
-					body: JSON.stringify({ pin })
-				}
-			);
+			const response = await fetch('/api/admin/accounts', {
+				method: 'POST',
+				headers: { 'content-type': 'application/json' },
+				body: JSON.stringify({ name: inviteName, email: inviteEmail })
+			});
 			const result = (await response.json().catch(() => null)) as { error?: string } | null;
-			if (!response.ok) throw new Error(result?.error ?? 'Réinitialisation impossible.');
-			pin = '';
-			notice = `PIN réinitialisé pour ${data.accounts.find((account) => account.id === selectedUserForPin)?.name}.`;
+			if (!response.ok) throw new Error(result?.error ?? 'Invitation impossible.');
+			inviteName = '';
+			inviteEmail = '';
+			notice = 'Invitation envoyée.';
 			noticeIsError = false;
+			await invalidateAll();
 		} catch (cause) {
-			notice = cause instanceof Error ? cause.message : 'Réinitialisation impossible.';
+			notice = cause instanceof Error ? cause.message : 'Invitation impossible.';
 			noticeIsError = true;
 		} finally {
-			savingPin = false;
+			inviting = false;
 		}
 	}
-
-	let selectedUserForPin = $state('prof');
 </script>
 
 <svelte:head>
@@ -77,32 +83,24 @@
 		</div>
 	</header>
 
-	<section class="pin-section" aria-labelledby="pin-title">
+	<section class="account-section" aria-labelledby="account-title">
 		<div>
-			<p class="eyebrow">Comptes fixes · sans inscription</p>
-			<h2 id="pin-title">Réinitialiser un PIN</h2>
+			<p class="eyebrow">Comptes élèves</p>
+			<h2 id="account-title">Inviter un élève</h2>
 		</div>
-		<form class="pin-form" onsubmit={resetPin}>
-			<label for="pin-account">Personne</label>
-			<select id="pin-account" bind:value={selectedUserForPin}>
-				{#each data.accounts as account (account.id)}
-					<option value={account.id}>{account.name}</option>
-				{/each}
-			</select>
-			<label for="new-pin">Nouveau PIN</label>
+		<form class="invite-form" onsubmit={inviteAccount}>
+			<label for="invite-name">Nom</label>
+			<input id="invite-name" bind:value={inviteName} maxlength="100" required />
+			<label for="invite-email">Adresse e-mail</label>
 			<input
-				id="new-pin"
-				bind:value={pin}
-				type="password"
-				inputmode="numeric"
-				pattern={'[0-9]{6,12}'}
-				minlength="6"
-				maxlength="12"
-				autocomplete="new-password"
+				id="invite-email"
+				bind:value={inviteEmail}
+				type="email"
+				autocomplete="email"
 				required
 			/>
-			<button type="submit" disabled={savingPin || !/^\d{6,12}$/.test(pin)}>
-				{savingPin ? 'Enregistrement…' : 'Enregistrer le PIN'}
+			<button type="submit" disabled={inviting || !inviteName.trim() || !inviteEmail.trim()}>
+				{inviting ? 'Envoi…' : 'Envoyer une invitation'}
 			</button>
 		</form>
 	</section>
@@ -136,6 +134,9 @@
 				</select>
 			</div>
 		</header>
+		{#if historyFromCache}
+			<p class="notice" role="status">Historique en cache; les données peuvent être anciennes.</p>
+		{/if}
 
 		{#if loading}
 			<p role="status">Chargement…</p>
@@ -199,13 +200,13 @@
 		margin-bottom: 2rem;
 	}
 
-	.pin-section,
+	.account-section,
 	.history-section {
 		padding: 1.4rem 0;
 		border-top: 1px solid #ccd7ce;
 	}
 
-	.pin-section {
+	.account-section {
 		display: grid;
 		grid-template-columns: minmax(12rem, 0.7fr) minmax(0, 1.3fr);
 		gap: 2rem;
@@ -238,7 +239,7 @@
 		font-size: 1.7rem;
 	}
 
-	.pin-form,
+	.invite-form,
 	.filters {
 		display: grid;
 		grid-template-columns: auto minmax(8rem, 1fr) auto minmax(8rem, 1fr) auto;
@@ -263,7 +264,7 @@
 		font: inherit;
 	}
 
-	.pin-form button {
+	.invite-form button {
 		min-height: 2.8rem;
 		padding: 0 0.9rem;
 		border: 0;
@@ -274,7 +275,7 @@
 		cursor: pointer;
 	}
 
-	.pin-form button:disabled {
+	.invite-form button:disabled {
 		cursor: not-allowed;
 		opacity: 0.5;
 	}
@@ -333,7 +334,7 @@
 	}
 
 	@media (max-width: 900px) {
-		.pin-section {
+		.account-section {
 			grid-template-columns: 1fr;
 			gap: 1rem;
 		}
@@ -345,7 +346,7 @@
 	}
 
 	@media (max-width: 600px) {
-		.pin-form,
+		.invite-form,
 		.filters {
 			grid-template-columns: 1fr;
 		}

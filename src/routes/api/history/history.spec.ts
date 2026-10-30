@@ -1,40 +1,57 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { callAppsScript } from '#lib/server/appsScript';
 import { GET, POST } from './+server';
 import type { UserSession } from '#lib/server/session';
 
-vi.mock('#lib/server/appsScript', () => ({ callAppsScript: vi.fn() }));
-
-const scriptCall = vi.mocked(callAppsScript);
 const student: UserSession = {
 	userId: 'ali',
 	name: 'Ali',
-	role: 'student',
-	expiresAt: Date.now() + 60_000
+	role: 'student'
 };
 const guest: UserSession = {
 	userId: 'guest',
 	name: 'Invité',
-	role: 'guest',
-	expiresAt: Date.now() + 60_000
+	role: 'guest'
 };
 const admin: UserSession = {
 	userId: 'prof',
 	name: 'Prof',
-	role: 'admin',
-	expiresAt: Date.now() + 60_000
+	role: 'admin'
 };
 
 type HistoryEvent = Parameters<typeof GET>[0];
+
+function makeSupabase(rows: unknown[] = []) {
+	const historyQuery = {
+		select: vi.fn(() => historyQuery),
+		order: vi.fn(() => historyQuery),
+		limit: vi.fn(() => historyQuery),
+		eq: vi.fn(() => historyQuery),
+		then: (resolve: (value: { data: unknown[]; error: null }) => unknown) =>
+			Promise.resolve({ data: rows, error: null }).then(resolve)
+	};
+	const rpcCalls: { name: string; args: unknown }[] = [];
+	const supabase = {
+		from: vi.fn(() => ({
+			select: () => historyQuery,
+			upsert: vi.fn()
+		})),
+		rpc: async (name: string, args: unknown) => {
+			rpcCalls.push({ name, args });
+			return { error: null };
+		}
+	};
+	return { supabase, historyQuery, rpcCalls };
+}
 
 function makeEvent(
 	user: UserSession | null,
 	path = '/api/history',
 	method = 'GET',
-	body?: unknown
+	body?: unknown,
+	supabase: ReturnType<typeof makeSupabase>['supabase'] | null = makeSupabase().supabase
 ): HistoryEvent {
 	return {
-		locals: { user },
+		locals: { user, supabase },
 		url: new URL(path, 'https://example.test'),
 		request: new Request(`https://example.test${path}`, {
 			method,
@@ -45,9 +62,7 @@ function makeEvent(
 }
 
 describe('/api/history authorization', () => {
-	beforeEach(() => {
-		scriptCall.mockReset();
-	});
+	beforeEach(() => vi.restoreAllMocks());
 
 	it('does not persist guest sessions', async () => {
 		const response = await POST(
@@ -60,62 +75,130 @@ describe('/api/history authorization', () => {
 
 		expect(response.status).toBe(200);
 		expect(await response.json()).toEqual({ saved: false });
-		expect(scriptCall).not.toHaveBeenCalled();
 	});
 
 	it('prevents students from requesting another account history', async () => {
 		const response = await GET(makeEvent(student, '/api/history?userId=olga'));
 
 		expect(response.status).toBe(403);
-		expect(scriptCall).not.toHaveBeenCalled();
 	});
 
 	it('derives the saved userId from the signed session, not the request body', async () => {
-		scriptCall.mockResolvedValue({ saved: true });
+		const { supabase, rpcCalls } = makeSupabase();
 		const response = await POST(
-			makeEvent(student, '/api/history', 'POST', {
-				userId: 'olga',
-				module: 'conjugaison',
-				score: '0/1',
-				erreurs: []
-			})
+			makeEvent(
+				student,
+				'/api/history',
+				'POST',
+				{
+					sessionId: '00000000-0000-4000-8000-000000000001',
+					userId: 'olga',
+					module: 'conjugaison',
+					score: '0/1',
+					erreurs: [],
+					tentatives: []
+				},
+				supabase
+			)
 		);
 
 		expect(response.status).toBe(200);
-		expect(scriptCall).toHaveBeenCalledWith({
-			action: 'savePartie',
-			actorUserId: 'ali',
-			partie: { userId: 'olga', module: 'conjugaison', score: '0/1', erreurs: [] }
-		});
+		expect(rpcCalls).toEqual([
+			{
+				name: 'record_activity_session',
+				args: {
+					p_session_id: '00000000-0000-4000-8000-000000000001',
+					p_module: 'conjugaison',
+					p_score: '0/1',
+					p_attempts: []
+				}
+			}
+		]);
 	});
 
 	it('accepts expression activity modules', async () => {
-		scriptCall.mockResolvedValue({ saved: true });
+		const { supabase, rpcCalls } = makeSupabase();
 		const response = await POST(
-			makeEvent(student, '/api/history', 'POST', {
-				module: 'expressions-word-to-definition',
-				score: '4/5',
-				erreurs: []
-			})
+			makeEvent(
+				student,
+				'/api/history',
+				'POST',
+				{
+					sessionId: '00000000-0000-4000-8000-000000000002',
+					module: 'expressions-word-to-definition',
+					score: '4/5',
+					erreurs: [],
+					tentatives: []
+				},
+				supabase
+			)
 		);
 
 		expect(response.status).toBe(200);
-		expect(scriptCall).toHaveBeenCalledWith({
-			action: 'savePartie',
-			actorUserId: 'ali',
-			partie: { module: 'expressions-word-to-definition', score: '4/5', erreurs: [] }
-		});
+		expect(rpcCalls[0]?.args).toMatchObject({ p_module: 'expressions-word-to-definition' });
+	});
+
+	it('rejects malformed attempts before calling the database', async () => {
+		const { supabase, rpcCalls } = makeSupabase();
+		const response = await POST(
+			makeEvent(
+				student,
+				'/api/history',
+				'POST',
+				{
+					sessionId: '00000000-0000-4000-8000-000000000004',
+					module: 'conjugaison',
+					score: '0/1',
+					erreurs: [],
+					tentatives: [{}]
+				},
+				supabase
+			)
+		);
+
+		expect(response.status).toBe(400);
+		expect(rpcCalls).toEqual([]);
 	});
 
 	it('allows Prof to request the complete history', async () => {
-		scriptCall.mockResolvedValue([]);
-		const response = await GET(makeEvent(admin));
+		const { supabase, historyQuery } = makeSupabase();
+		const response = await GET(makeEvent(admin, '/api/history', 'GET', undefined, supabase));
 
 		expect(response.status).toBe(200);
-		expect(scriptCall).toHaveBeenCalledWith({
-			action: 'history',
-			actorUserId: 'prof',
-			targetUserId: null
-		});
+		expect(historyQuery.eq).not.toHaveBeenCalled();
+	});
+
+	it('maps recent incorrect attempts from Supabase into history errors', async () => {
+		const error = {
+			entryId: 'family-1',
+			direction: 'word-to-definition',
+			mode: 'multiple-choice',
+			mot: 'la soeur',
+			reponseEleve: 'the brother',
+			correction: 'the sister'
+		};
+		const { supabase } = makeSupabase([
+			{
+				id: '00000000-0000-4000-8000-000000000003',
+				user_id: 'ali',
+				module: 'vocabulaire-mot',
+				score: '0/1',
+				created_at: '2026-10-30T12:00:00.000Z',
+				answer_attempts: [{ details: error, is_correct: false }]
+			}
+		]);
+		const response = await GET(makeEvent(student, '/api/history', 'GET', undefined, supabase));
+
+		expect(response.status).toBe(200);
+		expect(await response.json()).toEqual([
+			{
+				id: '00000000-0000-4000-8000-000000000003',
+				date: '2026-10-30T12:00:00.000Z',
+				userId: 'ali',
+				module: 'vocabulaire-mot',
+				score: '0/1',
+				erreurs: [error]
+			}
+		]);
 	});
 });

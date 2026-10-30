@@ -1,14 +1,13 @@
 import { createHmac, timingSafeEqual } from 'node:crypto';
-import { getAccount, type AccountId, type AccountRole } from '../accounts';
 
 export const SESSION_COOKIE = 'entre_session';
 export const SESSION_DURATION_SECONDS = 60 * 60 * 8;
 
 export type UserSession = {
-	userId: AccountId | 'guest';
+	userId: string;
 	name: string;
-	role: AccountRole | 'guest';
-	expiresAt: number;
+	role: 'student' | 'admin' | 'guest';
+	expiresAt?: number;
 };
 
 type SessionClaims = UserSession;
@@ -52,13 +51,9 @@ export function verifySessionToken(
 			return null;
 		}
 
-		if (claims.userId === 'guest') {
-			return claims.role === 'guest' && claims.name === 'Invité' ? claims : null;
-		}
-
-		const account = getAccount(claims.userId);
-		if (!account || account.role !== claims.role || account.name !== claims.name) return null;
-		return claims;
+		return claims.userId === 'guest' && claims.role === 'guest' && claims.name === 'Invité'
+			? claims
+			: null;
 	} catch {
 		return null;
 	}

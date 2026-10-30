@@ -1,0 +1,34 @@
+{
+	"tips": [
+		{
+			"title": "Rappeler avant de relire",
+			"text": "Cache la réponse, essaie de la retrouver, puis vérifie. Le rappel actif aide à repérer ce qui est déjà mémorisé et ce qui reste à travailler."
+		},
+		{
+			"title": "Réutiliser les mots",
+			"text": "Après une nouvelle expression, écris une phrase personnelle. Le contexte rend le sens et les constructions plus faciles à retrouver."
+		},
+		{
+			"title": "Alterner les deux sens",
+			"text": "Passe du mot à la définition, puis de la définition au mot. Reconnaître une réponse et la produire ne demandent pas le même effort."
+		},
+		{
+			"title": "Revoir les erreurs bientôt",
+			"text": "Reprends une erreur pendant que tu te souviens encore de la question, puis laisse plusieurs jours avant de retester une réponse maîtrisée."
+		}
+	],
+	"resources": [
+		{
+			"title": "Apprendre le français avec TV5MONDE",
+			"description": "Exercices interactifs à partir de vidéos et de reportages, du niveau débutant à avancé.",
+			"level": "A1 à B2",
+			"url": "https://apprendre.tv5monde.com/fr"
+		},
+		{
+			"title": "Français facile avec RFI",
+			"description": "Podcasts, actualités et exercices de compréhension, avec des contenus pour le niveau B1.",
+			"level": "A1 à C1/C2",
+			"url": "https://francaisfacile.rfi.fr/fr/"
+		}
+	]
+}
